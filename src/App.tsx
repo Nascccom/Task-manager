@@ -1,29 +1,28 @@
 import React, {useState} from 'react';
 import './App.css';
+import {TasksType, TodoList} from "./components/TodoList";
 
+export function App() {
+  const todoListTitle: string = "What to learn";
 
-function App() {
-    return (
-        <div className="App">
-            <div>
-                <h3>What to learn</h3>
-                <div>
-                    <input/>
-                    <button>+</button>
-                </div>
-                <ul>
-                    <li><input type="checkbox" checked={true}/> <span>HTML&CSS</span></li>
-                    <li><input type="checkbox" checked={true}/> <span>JS</span></li>
-                    <li><input type="checkbox" checked={false}/> <span>React</span></li>
-                </ul>
-                <div>
-                    <button>All</button>
-                    <button>Active</button>
-                    <button>Completed</button>
-                </div>
-            </div>
-        </div>
-    );
+  const [tasks, setTasks] = useState <Array<TasksType>>([
+    {id: 1, title: 'HTML&CSS', isDone: true},
+    {id: 2, title: 'JS', isDone: true},
+    {id: 3, title: 'ReactJS', isDone: false},
+    {id: 4, title: 'ReactJS1', isDone: false},
+    {id: 5, title: 'ReactJS2', isDone: false}
+  ])
+
+  const removeTask = (taskId: number) => {
+    const updatedTasks = tasks.filter(task => task.id !== taskId)
+    setTasks(updatedTasks)
+    console.log(tasks)
+  }
+  return (
+    <div className="App">
+      <TodoList title={todoListTitle} tasks={tasks} removeTask={removeTask}/>
+    </div>
+  );
 }
 
 export default App;
