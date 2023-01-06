@@ -1,25 +1,35 @@
 import React from 'react';
-import styles from '../../Todolist.module.css'
+import {Button} from '@mui/material';
+
 
 type ButtonType = {
     buttonName: string
     callBack: () => void
     activeFilter?: string
+    color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
+    size?:  "small" | "medium" | "large"
+    variant?:  "text" | "outlined" | "contained"
+    startIcon?: React.ReactNode
+    style?: object
 }
 
-export const Button = (props: ButtonType) => {
-
+export const ButtonUniversal = (props: ButtonType) => {
     const onclickButtonHandler = () => {
         props.callBack()
     }
 
     return (
-      <button className={props.buttonName == props.activeFilter ? styles.activeFilter : ''}
-              onClick={onclickButtonHandler}>{props.buttonName}</button>
+      <Button onClick={onclickButtonHandler}
+              color={props.color}
+              size={props.size}
+              variant={props.variant}
+              style={props.style}
+              startIcon={props.startIcon}
+      >
+          {props.buttonName}
+      </Button>
     );
 };
-
-export default Button;
 
 
 
