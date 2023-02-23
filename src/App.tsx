@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react';
+import React, {Reducer, useReducer} from 'react';
 import './App.css';
 import {TaskType, Todolist} from './ToDoList';
 import {v1} from 'uuid';
@@ -12,8 +12,17 @@ import {
     changeFilterAC,
     changeTitleTodolistAC,
     removeTodolistAC,
-    todolistsReducer
+    todolistsReducer,
+    TodolistsReducerActionType
 } from "./state/todolists-reducer";
+import {
+    addTaskAC,
+    changeToggleTaskAC,
+    removeTaskAC,
+    tasksReducer,
+    TasksReducerActionType,
+    updateTaskAC
+} from "./state/task-reducer";
 
 export type FilterValuesType = 'All' | 'all' | 'Active' | 'Completed';
 export type TodolistType = {
@@ -30,12 +39,12 @@ export function App() {
     let todolistID1 = v1();
     let todolistID2 = v1();
 
-    let [todolist, dispatchTodolist] = useReducer(todolistsReducer, [
+    let [todolist, dispatchTodolist] = useReducer<Reducer<TodolistType[], TodolistsReducerActionType>>(todolistsReducer, [
         {id: todolistID1, title: 'What to learn', filter: 'all'},
         {id: todolistID2, title: 'What to buy', filter: 'all'}
     ])
 
-    let [tasks, setTasks] = useState<TasksStateType>({
+    let [tasks, dispatchTasks] = useReducer<Reducer<TasksStateType, TasksReducerActionType>>(tasksReducer, {
         [todolistID1]: [
             {id: v1(), title: 'HTML&CSS', isDone: true},
             {id: v1(), title: 'JS', isDone: true},
@@ -53,59 +62,39 @@ export function App() {
     });
 
     const addTodolist = (title: string) => {
-        const newId = v1()
-        const newTodo: TodolistType = {id: newId, title: title, filter: 'all'}
-        dispatchTodolist(addTodolistAC(title))
-        // setTodolist([...todolist, newTodo])
-        setTasks({
-            [newId]: [],
-            ...tasks
-        })
+        const action = addTodolistAC(title)
+        dispatchTodolist(action)
+        dispatchTasks(action)
     }
+
     const updateTodolist = (todolistId: string, newTitleTodo: string) => {
         dispatchTodolist(changeTitleTodolistAC(todolistId, newTitleTodo))
-        // setTodolist(todolist.map(el => el.id === todolistId
-        //   ? {...el, title: newTitleTodo}
-        //   : el))
     }
+
     const removeTodolist = (todolistID: string) => {
-        dispatchTodolist(removeTodolistAC(todolistID))
-        // setTodolist(deleteTodolist)
-        delete tasks[todolistID]
+        const action = removeTodolistAC(todolistID)
+        dispatchTodolist(action )
+        dispatchTasks(action )
     }
 
     function changeFilter(todolistID: string, value: FilterValuesType) {
         dispatchTodolist(changeFilterAC(todolistID, value))
-
-        // setTodolist(todolist.map(el => {
-        //     let changeFilterInTask;
-        //     el.id === todolistID
-        //       ? changeFilterInTask = {...el, filter: value}
-        //       : changeFilterInTask = el
-        //     return changeFilterInTask
-        // }))
     }
 
     const addTask = (todolistID: string, valueTitle: string) => {
-        let newTask = {id: v1(), title: valueTitle, isDone: false}
-        setTasks({...tasks, [todolistID]: [newTask, ...tasks[todolistID]]})
+        dispatchTasks(addTaskAC(todolistID, valueTitle))
     }
+
     const updateTask = (todolistId: string, taskId: string, newTitle: string) => {
-        setTasks({
-            ...tasks, [todolistId]: tasks[todolistId].map(el => el.id === taskId
-              ? {...el, title: newTitle}
-              : el)
-        })
+        dispatchTasks(updateTaskAC(todolistId, taskId, newTitle))
     }
+
     function removeTask(todolistId: string, taskId: string) {
-        let filteredTasks = tasks[todolistId].filter(t => t.id !== taskId)
-        setTasks({...tasks, [todolistId]: filteredTasks})
+        dispatchTasks(removeTaskAC(todolistId, taskId))
     }
+
     const toggleCheckBox = (todolistID: string, taskID: string, checked: boolean) => {
-        let toggle = tasks[todolistID].map(el => taskID === el.id
-          ? {...el, isDone: checked}
-          : el)
-        setTasks({...tasks, [todolistID]: toggle})
+        dispatchTasks(changeToggleTaskAC(todolistID, taskID, checked))
     }
 
 

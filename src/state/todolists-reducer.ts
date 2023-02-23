@@ -1,7 +1,7 @@
 import {FilterValuesType, TodolistType} from '../App';
 import {v1} from 'uuid';
 
-type TodolistsReducerActionType = RemoveTodolistACType
+export type TodolistsReducerActionType = RemoveTodolistACType
   | AddTodolistACType
   | changeTitleTodolistACType
   | changeFilterACType
