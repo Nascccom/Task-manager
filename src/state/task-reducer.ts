@@ -1,6 +1,6 @@
-import {TasksStateType} from '../App';
 import {v1} from "uuid";
 import {AddTodolistACType, RemoveTodolistACType} from "./todolists-reducer";
+import {TaskType} from "../ToDoList";
 
 export type TasksReducerActionType = RemoveTaskACType
   | AddTaskACType
@@ -9,7 +9,11 @@ export type TasksReducerActionType = RemoveTaskACType
   | AddTodolistACType
   | RemoveTodolistACType
 
-export const tasksReducer = (state: TasksStateType, action: TasksReducerActionType): TasksStateType => {
+
+const initialState: TasksStateType = {}
+
+
+export const tasksReducer = (state:TasksStateType = initialState, action: TasksReducerActionType): TasksStateType => {
     switch (action.type) {
         case "REMOVE-TASK":
             let filteredTasks = state[action.payload.todolistId].filter(t => t.id !== action.payload.taskId)
@@ -37,7 +41,7 @@ export const tasksReducer = (state: TasksStateType, action: TasksReducerActionTy
                 ...state,
                 [action.payload.todolistID]: state[action.payload.todolistID]
                   .map(el => el.id === action.payload.taskID
-                    ? {...el, isDone: true}
+                    ? {...el, isDone: action.payload.checked}
                     : el)
             }
         case "ADD-TODOLIST":
@@ -100,3 +104,11 @@ export const changeToggleTaskAC = (todolistID: string, taskID: string, checked: 
         }
     } as const;
 };
+
+
+
+//types
+
+export type TasksStateType = {
+    [key: string]: TaskType[]
+}

@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {FilterValuesType} from './App';
 import {ButtonUniversal} from './components/Button/Button';
 import styles from './Todolist.module.css'
 import {Input} from './components/Input/Input';
@@ -7,6 +6,7 @@ import {EditableSpan} from './components/EditableSpan';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import {SuperCheckBox} from "./components/SuperCheckBox/SuperCheckBox";
+import {FilterValuesType} from "./state/todolists-reducer";
 
 export type TaskType = {
     id: string
@@ -57,7 +57,8 @@ export function Todolist(props: PropsType) {
             props.updateTask(props.todolistId, t.id, newTitle)
         }
         return (
-          <li key={t.id} className={t.isDone ? styles.isDone : ''}>
+          <li key={t.id}
+              className={t.isDone ? styles.isDone : ''}>
               <SuperCheckBox callBack={(checked) => onChangeCheckboxHandler(t.id, checked)}
                              checked={t.isDone}/>
 
