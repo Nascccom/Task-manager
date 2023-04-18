@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import './App.css';
 import {Todolist} from './ToDoList';
-import {Input} from './components/Input/Input';
+import {InputLine} from './components/Input/Input';
 import {ButtonAppBar} from './components/ButtonAppBar/ButtonAppBar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -23,8 +23,8 @@ export function AppWithRedux() {
           <ButtonAppBar/>
 
           <Container fixed>
-              <Grid container style={{padding: '20px'}}>
-                  <Input callBack={addTodolist}/>
+              <Grid container style={{margin: '20px auto', justifyContent: 'center',}}>
+                  <InputLine callBack={addTodolist}/>
               </Grid>
               <Grid container spacing={4}>
                   {

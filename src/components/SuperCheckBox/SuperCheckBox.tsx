@@ -12,11 +12,10 @@ export const SuperCheckBox = memo((props: SuperCheckBoxType) => {
     }
 
     return (
-      <div>
-          <input type="checkbox"
-                 onChange={onChangeHandler}
-                 checked={props.checked}
-          />
-      </div>
+      <input type="checkbox"
+             onChange={onChangeHandler}
+             checked={props.checked}
+      />
+
     );
 });

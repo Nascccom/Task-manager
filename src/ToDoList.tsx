@@ -1,6 +1,6 @@
 import React, {memo, useCallback, useState} from 'react';
 import {ButtonUniversal} from './components/Button/Button';
-import {Input} from './components/Input/Input';
+
 import {EditableSpan} from './components/EditableSpan';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
@@ -9,6 +9,7 @@ import {addTaskAC} from "./state/task-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store/store";
 import {Task} from "./Task";
+import {InputLine} from "./components/Input/Input";
 
 export type TaskType = {
     id: string
@@ -33,7 +34,7 @@ export const Todolist = memo((props: PropsType) => {
     }, [dispatch])
     const deleteAllTodolistHandler = useCallback(() => {
         dispatch(removeTodolistAC(props.todolistId))
-    }, [ dispatch, props.todolistId])
+    }, [dispatch, props.todolistId])
     const addTaskForTodolistHandler = useCallback((valueTitle: string) => {
         dispatch(addTaskAC(props.todolistId, valueTitle))
     }, [dispatch, props.todolistId])
@@ -54,8 +55,8 @@ export const Todolist = memo((props: PropsType) => {
     }
 
     const mappedTasks = filteredTasks().map(t => <Task key={t.id}
-                                                     task={t}
-                                                     todolistId={props.todolistId}/>)
+                                                       task={t}
+                                                       todolistId={props.todolistId}/>)
 
     return (
       <div>
@@ -68,7 +69,7 @@ export const Todolist = memo((props: PropsType) => {
                   <DeleteIcon/>
               </IconButton>
           </h3>
-          <Input callBack={addTaskForTodolistHandler}/>
+          <InputLine callBack={addTaskForTodolistHandler}/>
 
           <ul>
               {mappedTasks}
@@ -76,15 +77,15 @@ export const Todolist = memo((props: PropsType) => {
 
           <div>
               <ButtonUniversal buttonName={'All'}
-                               variant={activeButton === 'All' ? 'outlined' : "text" }
+                               variant={activeButton === 'All' ? 'outlined' : "text"}
                                color="secondary"
                                callBack={() => changeFilterButtonHandler(props.todolistId, 'All')}/>
               <ButtonUniversal buttonName={'Active'}
-                               variant={activeButton === 'Active' ? 'outlined' : "text" }
+                               variant={activeButton === 'Active' ? 'outlined' : "text"}
                                color="success"
                                callBack={() => changeFilterButtonHandler(props.todolistId, 'Active')}/>
               <ButtonUniversal buttonName={'Completed'}
-                               variant={activeButton === 'Completed' ? 'outlined' : "text" }
+                               variant={activeButton === 'Completed' ? 'outlined' : "text"}
                                color="error"
                                callBack={() => changeFilterButtonHandler(props.todolistId, 'Completed')}/>
           </div>
