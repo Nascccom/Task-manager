@@ -1,11 +1,12 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, memo} from 'react';
 
 type SuperCheckBoxType = {
     callBack: (checked: boolean) => void
     checked: boolean
 }
 
-export const SuperCheckBox = (props: SuperCheckBoxType) => {
+export const SuperCheckBox = memo((props: SuperCheckBoxType) => {
+
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         props.callBack(e.currentTarget.checked)
     }
@@ -18,4 +19,4 @@ export const SuperCheckBox = (props: SuperCheckBoxType) => {
           />
       </div>
     );
-};
+});

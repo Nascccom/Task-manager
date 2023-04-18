@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 import {ButtonUniversal} from '../Button/Button';
 import TextField from '@mui/material/TextField';
 
@@ -6,9 +6,10 @@ type PropsType = {
     callBack: (valueTitle: string) => void
 }
 
-export const Input = (props: PropsType) => {
+export const Input = memo((props: PropsType) => {
     let [title, setTitle] = useState<string>('')
     let [error, setError] = useState<null | string>(null)
+
     const onChangeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setError(null)
         setTitle(event.currentTarget.value)
@@ -38,18 +39,13 @@ export const Input = (props: PropsType) => {
                      onChange={onChangeInputHandler}
                      onKeyDown={onKeydownHandler}
           />
-          <ButtonUniversal variant="contained"
-                           size="medium"
-                           style={{
-                               maxWidth: '38px',
-                               maxHeight: '38px',
-                               minWidth: '38px',
-                               minHeight: '38px',
-                           }}
+          <ButtonUniversal size="medium"
+                           variant="outlined"
+                           style={{maxWidth: '38px', maxHeight: '38px', minWidth: '38px', minHeight: '38px'}}
                            buttonName={'+'}
                            callBack={addTaskHandler}
           />
       </div>
     );
-};
+});
 
