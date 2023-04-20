@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import './App.css';
 import {Todolist} from './ToDoList';
-import {InputLine} from './components/Input/Input';
+import {InputLine} from './components/InputLine/InputLine';
 import {ButtonAppBar} from './components/ButtonAppBar/ButtonAppBar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';

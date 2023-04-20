@@ -4,6 +4,9 @@ import Input from '@mui/joy/Input';
 
 
 type PropsType = {
+    /**
+     * Optional click handler
+     */
     callBack: (valueTitle: string) => void
 }
 
@@ -46,6 +49,7 @@ export const InputLine = memo((props: PropsType) => {
                      "--Input-minHeight": "40px",
                      "--Input-paddingInline": "11px",
                      "--Input-decoratorChildHeight": "35px",
+                     width: '300px'
 
                  }}
                  endDecorator={<ButtonUniversal size="medium"

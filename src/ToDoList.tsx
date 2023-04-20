@@ -9,7 +9,7 @@ import {addTaskAC} from "./state/task-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store/store";
 import {Task} from "./Task";
-import {InputLine} from "./components/Input/Input";
+import {InputLine} from "./components/InputLine/InputLine";
 
 export type TaskType = {
     id: string
