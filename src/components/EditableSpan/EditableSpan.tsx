@@ -1,6 +1,6 @@
 import React, {ChangeEvent, memo, useState} from 'react';
 
-type PropsTypeEditableSpan = {
+export type PropsTypeEditableSpan = {
     title: string
     callBack: (newTitle: string) => void
 }

@@ -1,12 +1,12 @@
 import React, {useCallback} from 'react';
 import './App.css';
-import {Todolist} from './ToDoList';
+import {Todolist} from './components/Todolist/ToDoList';
 import {InputLine} from './components/InputLine/InputLine';
 import {ButtonAppBar} from './components/ButtonAppBar/ButtonAppBar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import {addTodolistAC, TodolistType} from "./state/todolists-reducer";
+import {addTodolistAC, TodolistType} from "./state/reducers/todolists-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store/store";
 

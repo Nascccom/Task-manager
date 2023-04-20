@@ -1,15 +1,20 @@
 import React, {memo, useCallback, useState} from 'react';
-import {ButtonUniversal} from './components/Button/Button';
+import {ButtonUniversal} from '../Button/Button';
 
-import {EditableSpan} from './components/EditableSpan';
+import {EditableSpan} from '../EditableSpan/EditableSpan';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
-import {changeFilterAC, changeTitleTodolistAC, FilterValuesType, removeTodolistAC} from "./state/todolists-reducer";
-import {addTaskAC} from "./state/task-reducer";
+import {
+    changeFilterAC,
+    changeTitleTodolistAC,
+    FilterValuesType,
+    removeTodolistAC
+} from "../../state/reducers/todolists-reducer";
+import {addTaskAC} from "../../state/reducers/task-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./state/store/store";
-import {Task} from "./Task";
-import {InputLine} from "./components/InputLine/InputLine";
+import {AppRootStateType} from "../../state/store/store";
+import {Task} from "../Task/Task";
+import {InputLine} from "../InputLine/InputLine";
 
 export type TaskType = {
     id: string
@@ -24,6 +29,7 @@ type PropsType = {
 }
 
 export const Todolist = memo((props: PropsType) => {
+
     const tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[props.todolistId])
     const dispatch = useDispatch()
     const [activeButton, setActiveButton] = useState<FilterValuesType>('All')
@@ -32,12 +38,15 @@ export const Todolist = memo((props: PropsType) => {
         dispatch(changeFilterAC(todolistID, filterValue))
         setActiveButton(filterValue)
     }, [dispatch])
+
     const deleteAllTodolistHandler = useCallback(() => {
         dispatch(removeTodolistAC(props.todolistId))
     }, [dispatch, props.todolistId])
+
     const addTaskForTodolistHandler = useCallback((valueTitle: string) => {
         dispatch(addTaskAC(props.todolistId, valueTitle))
     }, [dispatch, props.todolistId])
+
     const updateTodolistHandler = useCallback((newTitleTodo: string) => {
         dispatch(changeTitleTodolistAC(props.todolistId, newTitleTodo))
     }, [dispatch, props.todolistId])

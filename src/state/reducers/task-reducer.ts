@@ -1,6 +1,6 @@
 import {v1} from "uuid";
-import {AddTodolistACType, RemoveTodolistACType} from "./todolists-reducer";
-import {TaskType} from "../ToDoList";
+import {AddTodolistACType, RemoveTodolistACType, todoId} from "./todolists-reducer";
+import {TaskType} from "../../components/Todolist/ToDoList";
 
 export type TasksReducerActionType = RemoveTaskACType
   | AddTaskACType
@@ -10,10 +10,12 @@ export type TasksReducerActionType = RemoveTaskACType
   | RemoveTodolistACType
 
 
-const initialState: TasksStateType = {}
+const initialState: TasksStateType = {
+    [todoId]: [{id: 'fdf', title: 'Js', isDone: true}],
+}
 
 
-export const tasksReducer = (state:TasksStateType = initialState, action: TasksReducerActionType): TasksStateType => {
+export const tasksReducer = (state: TasksStateType = initialState, action: TasksReducerActionType): TasksStateType => {
     switch (action.type) {
         case "REMOVE-TASK":
             let filteredTasks = state[action.payload.todolistId].filter(t => t.id !== action.payload.taskId)
@@ -104,7 +106,6 @@ export const changeToggleTaskAC = (todolistID: string, taskID: string, checked: 
         }
     } as const;
 };
-
 
 
 //types

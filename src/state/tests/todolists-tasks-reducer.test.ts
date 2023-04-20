@@ -1,5 +1,5 @@
-import {addTodolistAC, removeTodolistAC, todolistsReducer, TodolistType} from "../todolists-reducer";
-import {tasksReducer, TasksStateType} from "../task-reducer";
+import {addTodolistAC, removeTodolistAC, todolistsReducer, TodolistType} from "../reducers/todolists-reducer";
+import {tasksReducer, TasksStateType} from "../reducers/task-reducer";
 
 test('id should be equals', () => {
     let startTodolistState: TodolistType[] = []
