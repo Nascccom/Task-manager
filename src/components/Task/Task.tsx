@@ -9,7 +9,6 @@ import {useDispatch} from "react-redux";
 import {changeToggleTaskAC, removeTaskAC, updateTaskAC} from "../../state/reducers/task-reducer";
 
 
-
 export type TaskPropsType = {
     task: TaskType
     todolistId: string
