@@ -1,6 +1,5 @@
 import React, {memo, useCallback, useState} from 'react';
 import {ButtonUniversal} from '../Button/Button';
-
 import {EditableSpan} from '../EditableSpan/EditableSpan';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
@@ -53,14 +52,13 @@ export const Todolist = memo((props: PropsType) => {
     }, [dispatch, props.todolistId])
 
     const filteredTasks = () => {
-        let tasksForTodolist;
         switch (props.activeFilter) {
             case 'Active':
-                return tasksForTodolist = tasks.filter(t => !t.isDone);
+                return tasks.filter(t => !t.isDone);
             case 'Completed':
-                return tasksForTodolist = tasks.filter(t => t.isDone);
+                return tasks.filter(t => t.isDone);
             default:
-                return tasksForTodolist = tasks;
+                return tasks;
         }
     }
 
