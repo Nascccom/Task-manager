@@ -15,6 +15,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../state/store/store";
 import {Task} from "../Task/Task";
 import {InputLine} from "../InputLine/InputLine";
+import ButtonGroup from "@mui/material/ButtonGroup";
 
 export type TaskType = {
     id: string
@@ -84,20 +85,23 @@ export const Todolist = memo((props: PropsType) => {
               {mappedTasks}
           </ul>
 
-          <div>
+          <ButtonGroup size="large" variant="text" aria-label="large outlined button group" sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              ".MuiButtonGroup-grouped:not(:last-of-type)": {
+                  border: 'none',
+              }
+          }}>
               <ButtonUniversal buttonName={'All'}
-                               variant={activeButton === 'All' ? 'outlined' : "text"}
-                               color="secondary"
+                               color={activeButton === 'All' ? 'success' : "secondary"}
                                callBack={() => changeFilterButtonHandler(props.todolistId, 'All')}/>
               <ButtonUniversal buttonName={'Active'}
-                               variant={activeButton === 'Active' ? 'outlined' : "text"}
-                               color="success"
+                               color={activeButton === 'Active' ? 'success' : "secondary"}
                                callBack={() => changeFilterButtonHandler(props.todolistId, 'Active')}/>
               <ButtonUniversal buttonName={'Completed'}
-                               variant={activeButton === 'Completed' ? 'outlined' : "text"}
-                               color="error"
+                               color={activeButton === 'Completed' ? 'success' : "secondary"}
                                callBack={() => changeFilterButtonHandler(props.todolistId, 'Completed')}/>
-          </div>
+          </ButtonGroup>
       </div>
     )
 })

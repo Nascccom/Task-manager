@@ -23,10 +23,10 @@ export function AppWithRedux() {
           <ButtonAppBar/>
 
           <Container fixed>
-              <Grid container style={{margin: '20px auto', justifyContent: 'center',}}>
+              <Grid container style={{marginTop: "30px", justifyContent: 'center',}}>
                   <InputLine callBack={addTodolist}/>
               </Grid>
-              <Grid container spacing={4}>
+              <Grid container spacing={4} sx={{justifyContent: 'center', marginTop: "20px"}}>
                   {
                       todolist.map(t => {
                           return (

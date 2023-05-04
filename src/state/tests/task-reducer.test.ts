@@ -64,7 +64,7 @@ test('correct task should be changed tittle', () => {
 
 test('correct should be changed status of the task ', () => {
 
-    const action = changeToggleTaskAC(todolistID1, '3', false)
+    const action = changeToggleTaskAC(todolistID1, '3', true)
     const endState: TasksStateType = tasksReducer(startState, action);
 
     expect(endState[todolistID1].length).toBe(5)
