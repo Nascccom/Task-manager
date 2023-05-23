@@ -1,77 +1,85 @@
-import {v1} from 'uuid';
-import {addTaskAC, changeToggleTaskAC, removeTaskAC, tasksReducer, TasksStateType, updateTaskAC} from "../reducers/task-reducer";
+import {
+    addTaskAC,
+    changeToggleTaskAC,
+    removeTaskAC,
+    tasksReducer,
+    TasksStateType,
+    updateTaskAC
+} from "../reducers/task-reducer";
 import {addTodolistAC, removeTodolistAC} from "../reducers/todolists-reducer";
 
-let todolistID1: string
-let todolistID2: string
 let startState: TasksStateType
 
-beforeEach(()=> {
-    todolistID1 = v1();
-    todolistID2 = v1();
+beforeEach(() => {
     startState = {
-        [todolistID1]: [
-            {id: '1', title: 'HTML&CSS', isDone: true},
-            {id: '2', title: 'JS', isDone: true},
-            {id: '3', title: 'ReactJS', isDone: false},
-            {id: '4', title: 'Rest API', isDone: false},
-            {id: '5', title: 'GraphQL', isDone: false},
+        ['todolistID1']: [
+            {
+                id: '1', title: 'HTML&CSS', completed: true, description: '', status: 0, priority: 0,
+                startDate: '', deadline: '', todoListId: '', order: 0, addedDate: ''
+            },
+            {
+                id: '2', title: 'JS', completed: true, description: '', status: 0, priority: 0,
+                startDate: '', deadline: '', todoListId: '', order: 0, addedDate: ''
+            },
         ],
-        [todolistID2]: [
-            {id: '6', title: 'HTML&CSS', isDone: true},
-            {id: '7', title: 'JS', isDone: true},
-            {id: '8', title: 'ReactJS', isDone: false},
-            {id: '9', title: 'Rest API', isDone: false},
-            {id: '10', title: 'GraphQL', isDone: false},
+        ['todolistID2']: [
+            {
+                id: '3', title: 'HTML&CSS', completed: true, description: '', status: 0, priority: 0,
+                startDate: '', deadline: '', todoListId: '', order: 0, addedDate: ''
+            },
+            {
+                id: '4', title: 'JS', completed: true, description: '', status: 0, priority: 0,
+                startDate: '', deadline: '', todoListId: '', order: 0, addedDate: ''
+            },
         ]
     }
 })
 
 test('correct task should be removed', () => {
-    const action = removeTaskAC(todolistID1, '3')
+    const action = removeTaskAC('todolistID1', '2')
     const endState: TasksStateType = tasksReducer(startState, action);
 
-    expect(endState[todolistID1].length).toBe(4)
-    expect(endState[todolistID1][2].title).toBe('Rest API')
+    expect(endState['todolistID1'].length).toBe(1)
+    expect(endState['todolistID2'].length).toBe(2)
 
 })
 
 test('correct task should be added to correct array', () => {
     let newTitle = 'SQL'
 
-    const action = addTaskAC(todolistID2, newTitle)
+    const action = addTaskAC('todolistID2', newTitle)
     const endState: TasksStateType = tasksReducer(startState, action);
 
-    expect(endState[todolistID1].length).toBe(5)
-    expect(endState[todolistID2].length).toBe(6)
-    expect(endState[todolistID2][5].title).toBe('SQL')
-    expect(endState[todolistID2][5].isDone).toBe(false)
+    expect(endState['todolistID1'].length).toBe(2)
+    expect(endState['todolistID2'].length).toBe(3)
+    expect(endState['todolistID2'][2].title).toBe('SQL')
+    expect(endState['todolistID2'][2].completed).toBe(false)
 })
 
 test('correct task should be changed tittle', () => {
     let newTitle = 'SSSSSQL'
 
-    const action = updateTaskAC(todolistID1, '1', newTitle)
+    const action = updateTaskAC('todolistID1', '1', newTitle)
     const endState: TasksStateType = tasksReducer(startState, action);
 
-    expect(endState[todolistID1].length).toBe(5)
-    expect(endState[todolistID2].length).toBe(5)
-    expect(endState[todolistID1][0].id).toBe('1')
-    expect(endState[todolistID1][0].title).toBe('SSSSSQL')
-    expect(endState[todolistID1][0].isDone).toBe(true)
+    expect(endState['todolistID1'].length).toBe(2)
+    expect(endState['todolistID2'].length).toBe(2)
+    expect(endState['todolistID1'][0].id).toBe('1')
+    expect(endState['todolistID1'][0].title).toBe('SSSSSQL')
+    expect(endState['todolistID1'][0].completed).toBe(true)
 
 })
 
 test('correct should be changed status of the task ', () => {
 
-    const action = changeToggleTaskAC(todolistID1, '3', true)
+    const action = changeToggleTaskAC('todolistID1', '1', false)
     const endState: TasksStateType = tasksReducer(startState, action);
 
-    expect(endState[todolistID1].length).toBe(5)
-    expect(endState[todolistID2].length).toBe(5)
-    expect(endState[todolistID1][2].id).toBe('3')
-    expect(endState[todolistID1][2].title).toBe('ReactJS')
-    expect(endState[todolistID1][2].isDone).toBe(true)
+    expect(endState['todolistID1'].length).toBe(2)
+    expect(endState['todolistID2'].length).toBe(2)
+    expect(endState['todolistID1'][0].id).toBe('1')
+    expect(endState['todolistID1'][0].title).toBe('HTML&CSS')
+    expect(endState['todolistID1'][0].completed).toBe(false)
 
 })
 
@@ -81,7 +89,7 @@ test('new array should be added when new todolist is added ', () => {
     const endState = tasksReducer(startState, action);
 
     const keys = Object.keys(endState)
-    const newKey = keys.find(k => k!= todolistID1 && k!= todolistID2)
+    const newKey = keys.find(k => k != 'todolistID1' && k != 'todolistID2')
     if (!newKey) {
         throw Error('new key should be added')
     }
@@ -91,12 +99,12 @@ test('new array should be added when new todolist is added ', () => {
 })
 
 test('property with todolistId should be deleted ', () => {
-    const action = removeTodolistAC(todolistID2)
+    const action = removeTodolistAC('todolistID2')
     const endState = tasksReducer(startState, action)
 
     const keys = Object.keys(endState)
 
     expect(keys.length).toBe(1)
-    expect(endState[todolistID2]).toBeUndefined()
+    expect(endState['todolistID2']).toBeUndefined()
 });
 

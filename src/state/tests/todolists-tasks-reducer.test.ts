@@ -1,8 +1,8 @@
-import {addTodolistAC, removeTodolistAC, todolistsReducer, TodolistType} from "../reducers/todolists-reducer";
+import {addTodolistAC, removeTodolistAC, TodolistDomainType, todolistsReducer} from "../reducers/todolists-reducer";
 import {tasksReducer, TasksStateType} from "../reducers/task-reducer";
 
 test('id should be equals', () => {
-    let startTodolistState: TodolistType[] = []
+    let startTodolistState: TodolistDomainType[] = []
     let startTasksState: TasksStateType = {}
 
     const action = addTodolistAC('todolistId3')
@@ -20,20 +20,43 @@ test('id should be equals', () => {
 });
 
 test('tasks should be removed when todolist removed', () => {
-    const startTodololistsState: TodolistType[] = [
-        {id: "todolist1", title: 'My hobbies', filter: 'All'},
+    const startTodololistsState: TodolistDomainType[] = [
+        {id: "todolist1", title: 'My hobbies', filter: 'All', order: 0, addedDate: ''},
     ]
     const startTasksState: TasksStateType = {
         ["todolist1"]: [
-            {id: '1', title: 'HTML', isDone: true},
-            {id: '2', title: 'Css', isDone: true},
-            {id: '3', title: 'React', isDone: false}
+            {
+                id: '1',
+                title: 'HTML',
+                completed: true,
+                description: '',
+                status: 0,
+                priority: 0,
+                startDate: '',
+                deadline: '',
+                todoListId: '',
+                order: 0,
+                addedDate: ''
+            },
+            {
+                id: '2',
+                title: 'Css',
+                completed: true,
+                description: '',
+                status: 0,
+                priority: 0,
+                startDate: '',
+                deadline: '',
+                todoListId: '',
+                order: 0,
+                addedDate: ''
+            },
         ],
     }
 
     const action = removeTodolistAC("todolist1")
 
-    const endTodolistState: TodolistType[] = todolistsReducer(startTodololistsState, action)
+    const endTodolistState: TodolistDomainType[] = todolistsReducer(startTodololistsState, action)
     const endTasksState: TasksStateType = tasksReducer(startTasksState, action)
 
     const key = Object.keys(endTasksState)
