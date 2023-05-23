@@ -1,36 +1,30 @@
-import axios from "axios";
-
-
-const instance = axios.create({
-    baseURL: 'https://social-network.samuraijs.com/api/1.1',
-    withCredentials: true,
-    headers: {
-        'API-KEY': 'a8396d06-b83d-42f5-8590-6098fa5c66c4'
-    }
-})
+import {instance, ResponseType} from "../instance";
 
 export const tasksAPI = {
     getTasks(todolistId: string) {
         return instance.get<GetTasksResponseType>(`/todo-lists/${todolistId}/tasks`)
     },
     createTask(todolistId: string, title: string) {
-        return instance.post<ResponseType<{item: TasksType}>>(`/todo-lists/${todolistId}/tasks`, {title})
+        return instance.post<ResponseType<{ item: TaskType }>>(`/todo-lists/${todolistId}/tasks`, {title})
     },
     updateTaskTittle(todolistId: string, taskId: string, title: string) {
-        return instance.put<ResponseType<{item: TasksType}>>(`/todo-lists/${todolistId}/tasks/${taskId}`, {title})
+        return instance.put<ResponseType<{ item: TaskType }>>(`/todo-lists/${todolistId}/tasks/${taskId}`, {title})
     },
     deleteTask(todolistId: string, taskId: string) {
         return instance.delete<ResponseType>(`/todo-lists/${todolistId}/tasks/${taskId}`)
     }
 }
-
-
-type TasksType = {
+type GetTasksResponseType = {
+    items: TaskType[]
+    totalCount: number
+    error: null | string
+}
+export type TaskType = {
     description: string
     title: string
     completed: boolean
-    status: number
-    priority: number
+    status: TaskStatuses
+    priority: TaskPriorities
     startDate: string
     deadline: string
     id: string
@@ -39,15 +33,20 @@ type TasksType = {
     addedDate: string
 }
 
-type ResponseType <T = {}> = {
-    resultCode: number
-    messages: string[]
-    data: T
-    fieldsErrors: string[]
+export enum TaskStatuses {
+    New = 0,
+    InProgress = 1,
+    Completed = 2,
+    Draft = 3
 }
 
-type GetTasksResponseType = {
-    items: TasksType[]
-    totalCount: number
-    error: null | string
+export enum TaskPriorities {
+    Low = 0,
+    Middle = 1,
+    Hi = 2,
+    Urgently = 3,
+    Later = 4
 }
+
+
+
