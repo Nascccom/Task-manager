@@ -2,7 +2,6 @@ import type {ComponentStory, Meta} from '@storybook/react';
 import {Task} from "./Task";
 import {ReduxStoreProviderDecorator} from "../../state/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
 import {useDispatch, useSelector} from "react-redux";
-import {TaskType} from "../Todolist/ToDoList";
 import {AppRootStateType} from "../../state/store/store";
 import React from 'react';
 import {SuperCheckBox} from "../SuperCheckBox/SuperCheckBox";
@@ -12,6 +11,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import styles from "../Todolist/Todolist.module.css";
 import {changeToggleTaskAC, removeTaskAC, updateTaskAC} from "../../state/reducers/task-reducer";
 import {action} from '@storybook/addon-actions';
+import {TaskType} from "../../api/tasksAPI/tasks-api";
 
 
 const meta: Meta<typeof Task> = {
@@ -46,9 +46,9 @@ const TaskRedux = ({todolistId}: TaskRedux) => {
 
 
     return (
-      <li className={task.isDone ? styles.isDone : ''}>
+      <li className={task.completed ? styles.isDone : ''}>
           <SuperCheckBox callBack={(checked) => changeCheckboxStatus(checked)}
-                         checked={task.isDone}/>
+                         checked={task.completed}/>
 
           <EditableSpan title={task.title}
                         callBack={updateTaskTitleHandler}/>
