@@ -4,9 +4,9 @@ import {SuperCheckBox} from "../SuperCheckBox/SuperCheckBox";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {TaskType} from "../Todolist/ToDoList";
 import {useDispatch} from "react-redux";
 import {changeToggleTaskAC, removeTaskAC, updateTaskAC} from "../../state/reducers/task-reducer";
+import {TaskType} from "../../api/tasksAPI/tasks-api";
 
 
 export type TaskPropsType = {
@@ -30,9 +30,9 @@ export const Task = memo(({task, todolistId}: TaskPropsType) => {
     }, [dispatch, todolistId, task.id])
 
     return (
-      <li className={task.isDone ? styles.isDone : ''}>
+      <li className={task.completed ? styles.isDone : ''}>
           <SuperCheckBox callBack={(checked) => changeCheckboxStatus(checked)}
-                         checked={task.isDone}/>
+                         checked={task.completed}/>
 
           <EditableSpan title={task.title}
                         callBack={updateTaskTitleHandler}/>

@@ -10,7 +10,7 @@ import {action} from "@storybook/addon-actions";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import {addTaskAC} from "../../state/reducers/task-reducer";
 import {AppRootStateType} from "../../state/store/store";
-import {TaskType, Todolist} from "./ToDoList";
+import { Todolist} from "./ToDoList";
 import {ReduxStoreProviderDecorator} from "../../state/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
 import {
     changeFilterAC,
@@ -19,6 +19,7 @@ import {
     removeTodolistAC
 } from "../../state/reducers/todolists-reducer";
 import {ButtonUniversal} from "../Button/Button";
+import {TaskType} from "../../api/tasksAPI/tasks-api";
 
 
 const meta: Meta<typeof Todolist> = {
@@ -62,9 +63,9 @@ const ReduxTodolist = ({todolistId, title}: ReduxTodolistType) => {
         let tasksForTodolist;
         switch (activeButton) {
             case 'Active':
-                return tasksForTodolist = tasks.filter(t => !t.isDone);
+                return tasksForTodolist = tasks.filter(t => !t.completed);
             case 'Completed':
-                return tasksForTodolist = tasks.filter(t => t.isDone);
+                return tasksForTodolist = tasks.filter(t => t.completed);
             default:
                 return tasksForTodolist = tasks;
         }

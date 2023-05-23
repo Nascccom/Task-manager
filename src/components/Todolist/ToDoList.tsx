@@ -15,12 +15,8 @@ import {AppRootStateType} from "../../state/store/store";
 import {Task} from "../Task/Task";
 import {InputLine} from "../InputLine/InputLine";
 import ButtonGroup from "@mui/material/ButtonGroup";
+import {TaskType} from "../../api/tasksAPI/tasks-api";
 
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
 
 type PropsType = {
     todolistId: string
@@ -54,9 +50,9 @@ export const Todolist = memo((props: PropsType) => {
     const filteredTasks = () => {
         switch (props.activeFilter) {
             case 'Active':
-                return tasks.filter(t => !t.isDone);
+                return tasks.filter(t => !t.completed);
             case 'Completed':
-                return tasks.filter(t => t.isDone);
+                return tasks.filter(t => t.completed);
             default:
                 return tasks;
         }
@@ -83,13 +79,7 @@ export const Todolist = memo((props: PropsType) => {
               {mappedTasks}
           </ul>
 
-          <ButtonGroup size="large" variant="text" aria-label="large outlined button group" sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              ".MuiButtonGroup-grouped:not(:last-of-type)": {
-                  border: 'none',
-              }
-          }}>
+          <ButtonGroup size="large" variant="text" aria-label="large outlined button group" sx={ButtonGroupStyles}>
               <ButtonUniversal buttonName={'All'}
                                color={activeButton === 'All' ? 'success' : "secondary"}
                                callBack={() => changeFilterButtonHandler(props.todolistId, 'All')}/>
@@ -103,3 +93,11 @@ export const Todolist = memo((props: PropsType) => {
       </div>
     )
 })
+
+const ButtonGroupStyles = {
+    display: "flex",
+    justifyContent: "space-between",
+    ".MuiButtonGroup-grouped:not(:last-of-type)": {
+        border: 'none',
+    }
+}

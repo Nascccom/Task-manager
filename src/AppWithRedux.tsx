@@ -6,12 +6,12 @@ import {ButtonAppBar} from './components/ButtonAppBar/ButtonAppBar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import {addTodolistAC, TodolistType} from "./state/reducers/todolists-reducer";
+import {addTodolistAC, TodolistDomainType} from "./state/reducers/todolists-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store/store";
 
 export function AppWithRedux() {
-    const todolist = useSelector<AppRootStateType, TodolistType[]>(state => state.todolists)
+    const todolist = useSelector<AppRootStateType, TodolistDomainType[]>(state => state.todolists)
     const dispatch = useDispatch()
 
     const addTodolist = useCallback((title: string) => {
