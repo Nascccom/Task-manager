@@ -1,14 +1,14 @@
 import {v1} from "uuid";
 import {AddTodolistACType, RemoveTodolistACType} from "./todolists-reducer";
-import {TaskType} from "../../components/Todolist/ToDoList";
+import {TaskType} from "../../api/tasksAPI/tasks-api";
 
-export type TasksReducerActionType = RemoveTaskACType
-  | AddTaskACType
-  | UpdateTaskACType
-  | ChangeToggleTaskACType
-  | AddTodolistACType
-  | RemoveTodolistACType
+export type TasksReducerActionType = RemoveTaskACType | AddTaskACType
+  | UpdateTaskACType | ChangeToggleTaskACType
+  | AddTodolistACType | RemoveTodolistACType
 
+export type TasksStateType = {
+    [key: string]: TaskType[]
+}
 
 const initialState: TasksStateType = {}
 
@@ -22,11 +22,22 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Tasks
                 [action.payload.todolistId]: filteredTasks
             }
         case "ADD-TASK":
-            const newTask = {id: v1(), title: action.payload.valueTitle, isDone: false}
+            const newTask = {
+                description: '',
+                id: v1(),
+                title: action.payload.valueTitle,
+                completed: false,
+                status: 0,
+                priority: 0,
+                startDate: '',
+                deadline: '',
+                todoListId: action.payload.todolistID,
+                order: 0,
+                addedDate: ''
+            }
             return {
                 ...state,
-                [action.payload.todolistID]:
-                  [...state[action.payload.todolistID], newTask]
+                [action.payload.todolistID]: [...state[action.payload.todolistID], newTask]
             }
         case "CHANGE-TITLE-TASK":
             return {
@@ -41,7 +52,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Tasks
                 ...state,
                 [action.payload.todolistID]: state[action.payload.todolistID]
                   .map(el => el.id === action.payload.taskID
-                    ? {...el, isDone: action.payload.checked}
+                    ? {...el, completed: action.payload.checked}
                     : el)
             }
         case "ADD-TODOLIST":
@@ -106,8 +117,3 @@ export const changeToggleTaskAC = (todolistID: string, taskID: string, checked: 
 };
 
 
-//types
-
-export type TasksStateType = {
-    [key: string]: TaskType[]
-}
