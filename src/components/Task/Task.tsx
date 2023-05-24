@@ -4,9 +4,9 @@ import {SuperCheckBox} from "../SuperCheckBox/SuperCheckBox";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {useDispatch} from "react-redux";
-import {changeToggleTaskAC, removeTaskAC, updateTaskAC} from "../../state/reducers/task-reducer";
+import {changeTaskStatusTC, removeTaskTC, updateTaskTitleTC} from "../../state/reducers/task-reducer";
 import {TaskType} from "../../api/tasksAPI/tasks-api";
+import {useAppDispatch} from "../../hooks/useDiapstch/useDispacth";
 
 
 export type TaskPropsType = {
@@ -15,18 +15,18 @@ export type TaskPropsType = {
 }
 
 export const Task = memo(({task, todolistId}: TaskPropsType) => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const removeTaskHandler = useCallback(() => {
-        dispatch(removeTaskAC(todolistId, task.id))
+        dispatch(removeTaskTC(todolistId, task.id));
     }, [dispatch, todolistId, task.id])
 
     const updateTaskTitleHandler = useCallback((newTitle: string) => {
-        dispatch(updateTaskAC(todolistId, task.id, newTitle))
+        dispatch(updateTaskTitleTC(todolistId, task.id, newTitle))
     }, [dispatch, todolistId, task.id])
 
     const changeCheckboxStatus = useCallback((checked: boolean) => {
-        dispatch(changeToggleTaskAC(todolistId, task.id, checked))
+        dispatch(changeTaskStatusTC(todolistId, task.id, checked))
     }, [dispatch, todolistId, task.id])
 
     return (

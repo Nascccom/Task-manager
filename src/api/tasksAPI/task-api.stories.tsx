@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-import {tasksAPI} from "./tasks-api";
+import {tasksAPI, UpdateTaskModelType} from "./tasks-api";
+import {useAppSelector} from "../../hooks/useSelector/useSelector";
 
 export default {
     title: 'API/TasksAPI'
@@ -50,21 +51,35 @@ export const UpdateTaskTitle = () => {
     const [taskId, setTaskId] = useState('')
     const [newTitle, setNewTitle] = useState('')
 
-    const updateTaskTitle = () => {
-        tasksAPI.updateTaskTittle(todolistId, taskId, newTitle)
-          .then(res => setState(res.data))
-    }
+    const task = useAppSelector(state => state.tasks[todolistId].find((t) => t.id === taskId))
 
-    return <>
-        <div>{JSON.stringify(state)}</div>
-        <input placeholder={'Enter Todolist Id'}
-               onChange={(e) => setTodolistId(e.currentTarget.value)}/>
-        <input placeholder={'Enter Task Id'}
-               onChange={(e) => setTaskId(e.currentTarget.value)}/>
-        <input placeholder={'Enter new title'}
-               onChange={(e) => setNewTitle(e.currentTarget.value)}/>
-        <button onClick={updateTaskTitle}>Update Task Title</button>
-    </>
+    if (task) {
+        const newModel: UpdateTaskModelType = {
+            title: newTitle,
+            description: task.description,
+            completed: task.completed,
+            status: task.status,
+            priority: task.priority,
+            startDate: task.startDate,
+            deadline: task.deadline
+        }
+
+        const updateTaskTitle = () => {
+            tasksAPI.updateTask(todolistId, taskId, newModel)
+              .then(res => setState(res.data))
+        }
+
+        return <>
+            <div>{JSON.stringify(state)}</div>
+            <input placeholder={'Enter Todolist Id'}
+                   onChange={(e) => setTodolistId(e.currentTarget.value)}/>
+            <input placeholder={'Enter Task Id'}
+                   onChange={(e) => setTaskId(e.currentTarget.value)}/>
+            <input placeholder={'Enter new title'}
+                   onChange={(e) => setNewTitle(e.currentTarget.value)}/>
+            <button onClick={updateTaskTitle}>Update Task Title</button>
+        </>
+    }
 }
 
 export const DeleteTask = () => {

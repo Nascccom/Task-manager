@@ -1,8 +1,6 @@
 import type {ComponentStory, Meta} from '@storybook/react';
 import {Task} from "./Task";
 import {ReduxStoreProviderDecorator} from "../../state/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../state/store/store";
 import React from 'react';
 import {SuperCheckBox} from "../SuperCheckBox/SuperCheckBox";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
@@ -12,6 +10,8 @@ import styles from "../Todolist/Todolist.module.css";
 import {changeToggleTaskAC, removeTaskAC, updateTaskAC} from "../../state/reducers/task-reducer";
 import {action} from '@storybook/addon-actions';
 import {TaskType} from "../../api/tasksAPI/tasks-api";
+import {useAppSelector} from "../../hooks/useSelector/useSelector";
+import {useAppDispatch} from "../../hooks/useDiapstch/useDispacth";
 
 
 const meta: Meta<typeof Task> = {
@@ -28,9 +28,8 @@ type TaskRedux = {
 
 const TaskRedux = ({todolistId}: TaskRedux) => {
 
-    const task = useSelector<AppRootStateType, TaskType>(
-      state => state.tasks[todolistId][1])
-    const dispatch = useDispatch()
+    const task = useAppSelector<TaskType>(state => state.tasks[todolistId][1])
+    const dispatch = useAppDispatch()
 
     const removeTaskHandler = () => {
         dispatch(removeTaskAC(todolistId, task.id))
