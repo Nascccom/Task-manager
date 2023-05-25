@@ -1,11 +1,12 @@
 import {addTodolistAC, removeTodolistAC, TodolistDomainType, todolistsReducer} from "../reducers/todolists-reducer";
 import {tasksReducer, TasksStateType} from "../reducers/task-reducer";
+import {TodolistType} from "../../api/todolist-api/todolists-api";
 
 test('id should be equals', () => {
     let startTodolistState: TodolistDomainType[] = []
     let startTasksState: TasksStateType = {}
-
-    const action = addTodolistAC('todolistId3')
+    const newTodolist: TodolistType = {id: 'todolistId3', title: 'What to buy', order: 0, addedDate: ''}
+    const action = addTodolistAC(newTodolist)
 
     const endTodolistsState = todolistsReducer(startTodolistState, action);
     const endTasksState = tasksReducer(startTasksState, action);
@@ -15,8 +16,8 @@ test('id should be equals', () => {
     const idFromTask = keys[0]
 
     expect(idFromTask).toBe(idFromTodolist)
-    expect(idFromTask).toBe(action.payload.todolistId)
-    expect(idFromTodolist).toBe(action.payload.todolistId)
+    expect(idFromTask).toBe(action.newTodolist.id)
+    expect(idFromTodolist).toBe(action.newTodolist.id)
 });
 
 test('tasks should be removed when todolist removed', () => {

@@ -7,6 +7,8 @@ import {
     updateTaskAC
 } from "../reducers/task-reducer";
 import {addTodolistAC, removeTodolistAC} from "../reducers/todolists-reducer";
+import {TaskType} from "../../api/tasksAPI/tasks-api";
+import {TodolistType} from "../../api/todolist-api/todolists-api";
 
 let startState: TasksStateType
 
@@ -45,9 +47,14 @@ test('correct task should be removed', () => {
 })
 
 test('correct task should be added to correct array', () => {
-    let newTitle = 'SQL'
+    let newTask: TaskType = {
+        id: '1', title: 'SQL', completed: false, description: '',
+        status: 0, priority: 0, startDate: '', deadline: '',
+        todoListId: 'todolistID2', order: 0, addedDate: ''
+    }
 
-    const action = addTaskAC('todolistID2', newTitle)
+
+    const action = addTaskAC('todolistID2', newTask)
     const endState: TasksStateType = tasksReducer(startState, action);
 
     expect(endState['todolistID1'].length).toBe(2)
@@ -84,8 +91,9 @@ test('correct should be changed status of the task ', () => {
 })
 
 test('new array should be added when new todolist is added ', () => {
+    const newTodolist: TodolistType = {id: 'todolistId3', title: 'What to buy', order: 0, addedDate: ''}
 
-    const action = addTodolistAC('todolistId3')
+    const action = addTodolistAC(newTodolist)
     const endState = tasksReducer(startState, action);
 
     const keys = Object.keys(endState)
