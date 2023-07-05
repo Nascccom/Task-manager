@@ -40,7 +40,6 @@ export const Todolist = memo((props: PropsType) => {
 
     const deleteTodolistHandler = useCallback(() => {
         dispatch(removeTodolistTC(props.todolistId))
-        // dispatch(removeTodolistAC(props.todolistId))
     }, [dispatch, props.todolistId])
 
     const addTaskForTodolistHandler = useCallback((valueTitle: string) => {

@@ -3,8 +3,8 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import {createRoot} from 'react-dom/client';
 import {Provider} from "react-redux";
-import {store} from "./state/store/store";
-import {AppWithRedux} from "./AppWithRedux";
+import {store} from "./app/store";
+import {AppWithRedux} from "./app/AppWithRedux";
 
 const container = document.getElementById('root') as HTMLElement
 const root = createRoot(container);
