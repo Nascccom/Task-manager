@@ -1,6 +1,6 @@
 import React, {memo, useCallback, useEffect, useState} from 'react';
-import {ButtonUniversal} from '../Button/Button';
-import {EditableSpan} from '../EditableSpan/EditableSpan';
+import {ButtonUniversal} from '../../../components/Button/Button';
+import {EditableSpan} from '../../../components/EditableSpan/EditableSpan';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import {
@@ -8,14 +8,14 @@ import {
     FilterValuesType,
     removeTodolistTC,
     updateTodolistTitleTC
-} from "../../state/reducers/todolists-reducer";
-import {addTaskTC, getTasksTC} from "../../state/reducers/task-reducer";
-import {Task} from "../Task/Task";
-import {InputLine} from "../InputLine/InputLine";
+} from "../../../state/reducers/todolists-reducer";
+import {addTaskTC, getTasksTC} from "../../../state/reducers/task-reducer";
+import {Task} from "./Task/Task";
+import {InputLine} from "../../../components/InputLine/InputLine";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import {TaskType} from "../../api/tasksAPI/tasks-api";
-import {useAppDispatch} from "../../hooks/useDiapstch/useDispacth";
-import {useAppSelector} from "../../hooks/useSelector/useSelector";
+import {TaskType} from "../../../api/tasksAPI/tasks-api";
+import {useAppDispatch} from "../../../hooks/useDiapstch/useDispacth";
+import {useAppSelector} from "../../../hooks/useSelector/useSelector";
 
 
 type PropsType = {

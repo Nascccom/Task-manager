@@ -1,15 +1,15 @@
 import type {ComponentStory, Meta} from '@storybook/react';
 import {Task} from "./Task";
-import {ReduxStoreProviderDecorator} from "../../state/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
+import {ReduxStoreProviderDecorator} from "../../../../state/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
 import React, {useState} from 'react';
-import {SuperCheckBox} from "../SuperCheckBox/SuperCheckBox";
-import {EditableSpan} from "../EditableSpan/EditableSpan";
+import {SuperCheckBox} from "../../../../components/SuperCheckBox/SuperCheckBox";
+import {EditableSpan} from "../../../../components/EditableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import styles from "../Todolist/Todolist.module.css";
+import styles from "../Todolist.module.css";
 import {action} from '@storybook/addon-actions';
-import {TaskStatuses, TaskType} from "../../api/tasksAPI/tasks-api";
-import {useAppSelector} from "../../hooks/useSelector/useSelector";
+import {TaskStatuses, TaskType} from "../../../../api/tasksAPI/tasks-api";
+import {useAppSelector} from "../../../../hooks/useSelector/useSelector";
 
 
 const meta: Meta<typeof Task> = {

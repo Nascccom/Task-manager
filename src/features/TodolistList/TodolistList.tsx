@@ -1,11 +1,11 @@
 import React, {useCallback, useEffect} from 'react';
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import {Todolist} from "../Todolist/ToDoList";
+import {Todolist} from "./Todolist/ToDoList";
 import {useAppSelector} from "../../hooks/useSelector/useSelector";
 import {createTodolistTC, getTodolistsTC, TodolistDomainType} from "../../state/reducers/todolists-reducer";
 import {useAppDispatch} from "../../hooks/useDiapstch/useDispacth";
-import {InputLine} from "../InputLine/InputLine";
+import {InputLine} from "../../components/InputLine/InputLine";
 
 export const TodolistList = () => {
     const todolist = useAppSelector<TodolistDomainType[]>(state => state.todolists)
