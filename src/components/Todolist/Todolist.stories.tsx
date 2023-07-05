@@ -9,7 +9,7 @@ import {InputLine} from "../InputLine/InputLine";
 import {action} from "@storybook/addon-actions";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import {addTaskAC} from "../../state/reducers/task-reducer";
-import {AppRootStateType} from "../../state/store/store";
+import {AppRootStateType} from "../../app/store";
 import {Todolist} from "./ToDoList";
 import {ReduxStoreProviderDecorator} from "../../state/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
 import {
