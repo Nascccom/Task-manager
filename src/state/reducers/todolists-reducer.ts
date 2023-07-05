@@ -1,7 +1,8 @@
 import {todolistAPI, TodolistType} from "../../api/todolist-api/todolists-api";
 import {ActionTypes} from "../../app/store";
 import {Dispatch} from "redux";
-import {setLoadingStatus} from "../../app/app-reducer";
+import {setErrorMessageAC, setLoadingStatusAC} from "../../app/app-reducer";
+import {ResultCode} from "../../api/instance";
 
 export type TodolistsReducerActionType =
   | ReturnType<typeof removeTodolistAC>
@@ -64,43 +65,64 @@ export const changeFilterAC = (todolistID: string, newFilter: FilterValuesType) 
 
 //thunkCreators
 export const getTodolistsTC = () => (dispatch: Dispatch) => {
-    dispatch(setLoadingStatus('loading'))
+    dispatch(setLoadingStatusAC('loading'))
     todolistAPI.getTodolists()
       .then(res => {
-          dispatch(setLoadingStatus('succeeded'))
+          dispatch(setLoadingStatusAC('succeeded'))
           dispatch(setTodolistAC(res.data))
       })
 }
 
 export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
-    dispatch(setLoadingStatus('loading'))
+
+    dispatch(setLoadingStatusAC('loading'))
+
     todolistAPI.deleteTodolist(todolistId)
       .then(res => {
-          if (res.data.resultCode === 0) {
-              dispatch(setLoadingStatus('succeeded'))
+          if (res.data.resultCode === ResultCode.SUCCESS) {
+              dispatch(setLoadingStatusAC('succeeded'))
               dispatch(removeTodolistAC(todolistId))
           }
       })
 }
 
 export const createTodolistTC = (title: string) => (dispatch: Dispatch) => {
-    dispatch(setLoadingStatus('loading'))
+
+    dispatch(setLoadingStatusAC('loading'))
+
     todolistAPI.createTodolist(title)
       .then(res => {
-          if (res.data.resultCode === 0) {
-              dispatch(setLoadingStatus('succeeded'))
+          if (res.data.resultCode === ResultCode.SUCCESS) {
+              dispatch(setLoadingStatusAC('succeeded'))
               dispatch(addTodolistAC(res.data.data.item))
+          } else {
+              if (res.data.messages.length) {
+                  dispatch(setErrorMessageAC(res.data.messages[0]))
+              } else {
+                  dispatch(setErrorMessageAC('Some error occurred'))
+              }
+              dispatch(setLoadingStatusAC('failed'))
           }
       })
+
 }
 
-export const updateTodolistTitleTC = (todolistId: string, newTitle: string) => (dispatch: Dispatch) => {
-    dispatch(setLoadingStatus('loading'))
+export const updateTodolistTitleTC = (todolistId: string, newTitle: string) => (dispatch: Dispatch) =>
+{
+    dispatch(setLoadingStatusAC('loading'))
+
     todolistAPI.updateTodolistTittle(todolistId, newTitle)
       .then(res => {
-          if (res.data.resultCode === 0) {
-              dispatch(setLoadingStatus('succeeded'))
+          if (res.data.resultCode === ResultCode.SUCCESS) {
+              dispatch(setLoadingStatusAC('succeeded'))
               dispatch(changeTitleTodolistAC(todolistId, newTitle))
+          } else {
+              if (res.data.messages.length) {
+                  dispatch(setErrorMessageAC(res.data.messages[0]))
+              } else {
+                  dispatch(setErrorMessageAC('Some error occurred'))
+              }
+              dispatch(setLoadingStatusAC('failed'))
           }
       })
 }

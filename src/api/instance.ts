@@ -16,3 +16,9 @@ export type ResponseType<T = {}> = {
     data: T
     fieldsErrors: string[]
 }
+
+export enum ResultCode {
+    SUCCESS= 0,
+    ERROR = 1,
+    ERROR_CAPTCHA = 10
+}
