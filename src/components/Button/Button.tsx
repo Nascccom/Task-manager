@@ -1,11 +1,10 @@
-import React from 'react';
-import {Button} from '@mui/material';
+import React, {memo, useCallback} from 'react';
+import Button from '@mui/material/Button';
 
 
 type ButtonType = {
     buttonName: string
     callBack: () => void
-    activeFilter?: string
     color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
     size?:  "small" | "medium" | "large"
     variant?:  "text" | "outlined" | "contained"
@@ -13,10 +12,11 @@ type ButtonType = {
     style?: object
 }
 
-export const ButtonUniversal = (props: ButtonType) => {
-    const onclickButtonHandler = () => {
+export const ButtonUniversal = memo((props: ButtonType) => {
+
+    const onclickButtonHandler = useCallback(() => {
         props.callBack()
-    }
+    }, [props.callBack])
 
     return (
       <Button onClick={onclickButtonHandler}
@@ -29,7 +29,5 @@ export const ButtonUniversal = (props: ButtonType) => {
           {props.buttonName}
       </Button>
     );
-};
-
-
+});
 
