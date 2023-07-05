@@ -1,13 +1,6 @@
-import {
-    addTaskAC,
-    changeToggleTaskAC,
-    removeTaskAC,
-    tasksReducer,
-    TasksStateType,
-    updateTaskAC
-} from "../reducers/task-reducer";
+import {addTaskAC, removeTaskAC, tasksReducer, TasksStateType, updateTaskAC} from "../reducers/task-reducer";
 import {addTodolistAC, removeTodolistAC} from "../reducers/todolists-reducer";
-import {TaskType} from "../../api/tasksAPI/tasks-api";
+import {TaskStatuses, TaskType} from "../../api/tasksAPI/tasks-api";
 import {TodolistType} from "../../api/todolist-api/todolists-api";
 
 let startState: TasksStateType
@@ -66,7 +59,21 @@ test('correct task should be added to correct array', () => {
 test('correct task should be changed tittle', () => {
     let newTitle = 'SSSSSQL'
 
-    const action = updateTaskAC('todolistID1', '1', newTitle)
+    const task: TaskType = {
+        id: '1',
+        title: newTitle,
+        completed: true,
+        description: null,
+        todoListId: 'todolistID1',
+        order: 0,
+        status: 0,
+        priority: 1,
+        startDate: null,
+        deadline: null,
+        addedDate: "2023-06-13T18:01:13.75"
+    }
+
+    const action = updateTaskAC('todolistID1', '1', task)
     const endState: TasksStateType = tasksReducer(startState, action);
 
     expect(endState['todolistID1'].length).toBe(2)
@@ -78,15 +85,28 @@ test('correct task should be changed tittle', () => {
 })
 
 test('correct should be changed status of the task ', () => {
+    const task: TaskType = {
+        id: '1',
+        title: 'Abracadabra',
+        completed: true,
+        description: null,
+        todoListId: 'todolistID1',
+        order: 0,
+        status: TaskStatuses.New,
+        priority: 1,
+        startDate: null,
+        deadline: null,
+        addedDate: "2023-06-13T18:01:13.75"
+    }
 
-    const action = changeToggleTaskAC('todolistID1', '1', false)
+    const action = updateTaskAC('todolistID1', '1', task)
     const endState: TasksStateType = tasksReducer(startState, action);
 
     expect(endState['todolistID1'].length).toBe(2)
     expect(endState['todolistID2'].length).toBe(2)
     expect(endState['todolistID1'][0].id).toBe('1')
-    expect(endState['todolistID1'][0].title).toBe('HTML&CSS')
-    expect(endState['todolistID1'][0].completed).toBe(false)
+    expect(endState['todolistID1'][0].title).toBe('Abracadabra')
+    expect(endState['todolistID1'][0].status).toBe(TaskStatuses.New)
 
 })
 

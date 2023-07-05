@@ -4,10 +4,9 @@ import {SuperCheckBox} from "../SuperCheckBox/SuperCheckBox";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {changeTaskStatusTC, removeTaskTC, updateTaskTitleTC} from "../../state/reducers/task-reducer";
-import {TaskType} from "../../api/tasksAPI/tasks-api";
+import {removeTaskTC, updateTaskTC} from "../../state/reducers/task-reducer";
+import {TaskStatuses, TaskType} from "../../api/tasksAPI/tasks-api";
 import {useAppDispatch} from "../../hooks/useDiapstch/useDispacth";
-
 
 export type TaskPropsType = {
     task: TaskType
@@ -22,17 +21,20 @@ export const Task = memo(({task, todolistId}: TaskPropsType) => {
     }, [dispatch, todolistId, task.id])
 
     const updateTaskTitleHandler = useCallback((newTitle: string) => {
-        dispatch(updateTaskTitleTC(todolistId, task.id, newTitle))
+        const part = {title: newTitle}
+        dispatch(updateTaskTC(todolistId, task.id, part))
     }, [dispatch, todolistId, task.id])
 
-    const changeCheckboxStatus = useCallback((checked: boolean) => {
-        dispatch(changeTaskStatusTC(todolistId, task.id, checked))
+    const changeCheckboxStatus = useCallback((newStatus: TaskStatuses) => {
+        const part = {status: newStatus}
+        dispatch(updateTaskTC(todolistId, task.id, part))
     }, [dispatch, todolistId, task.id])
 
     return (
-      <li className={task.completed ? styles.isDone : ''}>
-          <SuperCheckBox callBack={(checked) => changeCheckboxStatus(checked)}
-                         checked={task.completed}/>
+      <li className={task.status === TaskStatuses.Completed ? styles.isDone : ''}>
+          <SuperCheckBox
+            callBack={(checked: boolean) => changeCheckboxStatus(checked ? TaskStatuses.Completed : TaskStatuses.New)}
+            checked={task.status === TaskStatuses.Completed}/>
 
           <EditableSpan title={task.title}
                         callBack={updateTaskTitleHandler}/>

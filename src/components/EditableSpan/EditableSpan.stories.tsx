@@ -1,6 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import React, {ChangeEvent, useState} from "react";
-import {EditableSpan, PropsTypeEditableSpan} from "./EditableSpan";
+import {EditableSpan, PropsType} from "./EditableSpan";
 
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -32,7 +32,7 @@ export const SpanText: Story = {
 
 };
 
-export const SpanInput = (args: PropsTypeEditableSpan) => {
+export const SpanInput = (args: PropsType) => {
     const [newTitle, setNewTitle] = useState<string>(args.title)
     const [edit, setEdit] = useState(true)
     const transformHandler = () => {

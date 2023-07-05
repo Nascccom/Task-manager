@@ -8,7 +8,7 @@ export type TasksReducerActionType =
   | ReturnType<typeof removeTaskAC>
   | ReturnType<typeof addTaskAC>
   | ReturnType<typeof updateTaskAC>
-  | ReturnType<typeof changeToggleTaskAC>
+  // | ReturnType<typeof changeToggleTaskAC>
   | ReturnType<typeof setTasksAC>
 
 
@@ -37,32 +37,41 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
                 ...state,
                 [action.todolistId]: [...state[action.todolistId], action.task]
             }
-        case "TASKS/CHANGE-TITLE-TASK":
+        case "TASKS/UPDATE-TASK":
             return {
                 ...state,
                 [action.todolistId]: state[action.todolistId]
-                  .map(el => el.id === action.taskId
-                    ? {...el, title: action.newTitle}
-                    : el)
+                  .map(t => t.id === action.task.id
+                    ? {...t, ...action.task}
+                    : t)
             }
-        case "TASKS/CHANGE-TOGGLE-TASK":
-            return {
-                ...state,
-                [action.todolistID]: state[action.todolistID]
-                  .map(el => el.id === action.taskID
-                    ? {...el, completed: action.checked}
-                    : el)
-            }
+      // case "TASKS/CHANGE-TITLE-TASK":
+      //     return {
+      //         ...state,
+      //         [action.todolistId]: state[action.todolistId]
+      //           .map(el => el.id === action.taskId
+      //             ? {...el, title: action.newTitle}
+      //             : el)
+      //     }
+      // case "TASKS/CHANGE-TOGGLE-TASK":
+      //     return {
+      //         ...state,
+      //         [action.todolistID]: state[action.todolistID]
+      //           .map(el => el.id === action.taskID
+      //             ? {...el, status: action.newStatus}
+      //             : el)
+      //     }
         case "TASKS/SET-TASKS":
             return {
                 ...state,
                 [action.todolistId]: action.tasks
             }
-        case "TODOLISTS/ADD-TODOLIST":
+        case "TODOLISTS/ADD-TODOLIST": {
             return {
                 ...state,
                 [action.newTodolist.id]: []
             }
+        }
         case "TODOLISTS/REMOVE-TODOLIST": {
             let copyState = {...state}
             delete copyState[action.todolistID1]
@@ -70,7 +79,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         }
         case "TODOLISTS/SET-TODOLIST": {
             let copyState = {...state}
-            action.todolists.forEach(todo => copyState[todo.id] = [])
+            action.todolists.forEach((todo) => copyState[todo.id] = [])
             return copyState
         }
         default:
@@ -87,12 +96,16 @@ export const addTaskAC = (todolistId: string, task: TaskType) => ({
     type: 'TASKS/ADD-TASK', todolistId, task
 } as const)
 
-export const updateTaskAC = (todolistId: string, taskId: string, newTitle: string) => ({
-    type: 'TASKS/CHANGE-TITLE-TASK', todolistId, taskId, newTitle
-} as const)
+// export const updateTaskAC = (todolistId: string, taskId: string, newTitle: string) => ({
+//     type: 'TASKS/CHANGE-TITLE-TASK', todolistId, taskId, newTitle
+// } as const)
+//
+// export const changeToggleTaskAC = (todolistID: string, taskID: string, newStatus: TaskStatuses) => ({
+//     type: 'TASKS/CHANGE-TOGGLE-TASK', todolistID, taskID, newStatus
+// } as const)
 
-export const changeToggleTaskAC = (todolistID: string, taskID: string, checked: boolean) => ({
-    type: 'TASKS/CHANGE-TOGGLE-TASK', todolistID, taskID, checked
+export const updateTaskAC = (todolistId: string, taskId: string, task: TaskType) => ({
+    type: 'TASKS/UPDATE-TASK', todolistId, taskId, task
 } as const)
 
 export const setTasksAC = (todolistId: string, tasks: TaskType[]) => ({
@@ -145,65 +158,116 @@ export const addTaskTC = (todolistId: string, textForTask: string) => (dispatch:
       })
 }
 
-export const updateTaskTitleTC = (todolistId: string, taskId: string, newTitle: string) =>
+export const updateTaskTC = (todolistId: string, taskId: string, changingPart: Object) =>
   (dispatch: Dispatch, getState: () => AppRootStateType) => {
-      dispatch(setLoadingStatusAC('loading'))
-
-      const task = getState().tasks[todolistId].find((t) => t.id === taskId)
-
-      if (task) {
-          const newModel: UpdateTaskModelType = {
-              title: newTitle,
-              description: task.description,
-              completed: task.completed,
-              status: task.status,
-              priority: task.priority,
-              startDate: task.startDate,
-              deadline: task.deadline
-          }
-          tasksAPI.updateTask(todolistId, taskId, newModel)
-            .then(res => {
-                if (res.data.resultCode === ResultCode.SUCCESS) {
-                    dispatch(setLoadingStatusAC('succeeded'))
-                    dispatch(updateTaskAC(todolistId, taskId, newTitle))
-                } else {
-                    if (res.data.messages.length) {
-                        dispatch(setErrorMessageAC(res.data.messages[0]))
-                    } else {
-                        dispatch(setErrorMessageAC('Some error occurred'))
-                    }
-                    dispatch(setLoadingStatusAC('failed'))
-                }
-            })
-      }
-  }
-
-export const changeTaskStatusTC = (todolistId: string, taskId: string, checked: boolean) =>
-  (dispatch: Dispatch, getState: () => AppRootStateType) => {
-
-      dispatch(setLoadingStatusAC('loading'))
-
-      const task = getState().tasks[todolistId].find((t) => t.id === taskId)
+      const state = getState()
+      const task = state.tasks[todolistId].find(t => t.id === taskId)
 
       if (task) {
           const newModel: UpdateTaskModelType = {
               title: task.title,
+              completed: task.completed,
               description: task.description,
-              completed: checked,
+              deadline: task.deadline,
+              startDate: task.startDate,
               status: task.status,
               priority: task.priority,
-              startDate: task.startDate,
-              deadline: task.deadline
+              ...changingPart
           }
+
           tasksAPI.updateTask(todolistId, taskId, newModel)
             .then(res => {
-                if (res.data.resultCode === ResultCode.SUCCESS) {
-                    dispatch(setLoadingStatusAC('succeeded'))
-                    dispatch(changeToggleTaskAC(todolistId, taskId, checked))
+
+                if (res.data.resultCode === 0) {
+                    const updatedTask: TaskType = res.data.data.item
+                    dispatch(updateTaskAC(todolistId, taskId, updatedTask))
                 }
             })
       }
+
+      if (!task) {
+          console.warn('this task did not found')
+      }
   }
+
+
+// export const updateTaskTitleTC = (todolistId: string, taskId: string, newTitle: string) =>
+//   (dispatch: Dispatch, getState: () => AppRootStateType) => {
+//
+//       dispatch(setLoadingStatusAC('loading'))
+//
+//       const task = getState().tasks[todolistId].find((t) => t.id === taskId)
+//
+//       if (task) {
+//           const newModel: UpdateTaskModelType = {
+//               title: newTitle,
+//               description: task.description,
+//               completed: task.completed,
+//               status: task.status,
+//               priority: task.priority,
+//               startDate: task.startDate,
+//               deadline: task.deadline
+//           }
+//
+//           tasksAPI.updateTask(todolistId, taskId, newModel)
+//             .then(res => {
+//                 console.log(res)
+//                 if (res.data.resultCode === ResultCode.SUCCESS) {
+//                     dispatch(setLoadingStatusAC('succeeded'))
+//                     dispatch(updateTaskAC(todolistId, taskId, newTitle))
+//                 } else {
+//                     if (res.data.messages.length) {
+//                         dispatch(setErrorMessageAC(res.data.messages[0]))
+//                     } else {
+//                         dispatch(setErrorMessageAC('Some error occurred'))
+//                     }
+//                     dispatch(setLoadingStatusAC('failed'))
+//                 }
+//             })
+//       }
+//       if (!task) {
+//           console.warn('task not found')
+//       }
+//   }
+//
+// export const changeTaskStatusTC = (todolistId: string, taskId: string, newStatus: TaskStatuses) =>
+//   (dispatch: Dispatch, getState: () => AppRootStateType) => {
+//
+//       dispatch(setLoadingStatusAC('loading'))
+//
+//       const task = getState().tasks[todolistId].find((t) => t.id === taskId)
+//
+//       if (task) {
+//           const newModel: UpdateTaskModelType = {
+//               title: task.title,
+//               description: task.description,
+//               completed: task.completed,
+//               status: newStatus,
+//               priority: task.priority,
+//               startDate: task.startDate,
+//               deadline: task.deadline
+//           }
+//
+//           tasksAPI.updateTask(todolistId, taskId, newModel)
+//             .then(res => {
+//                 console.log(res)
+//                 if (res.data.resultCode === 0) {
+//                     dispatch(setLoadingStatusAC('succeeded'))
+//                     dispatch(changeToggleTaskAC(todolistId, taskId, newStatus))
+//                 } else {
+//                     if (res.data.messages.length) {
+//                         dispatch(setErrorMessageAC(res.data.messages[0]))
+//                     } else {
+//                         dispatch(setErrorMessageAC('Some error occurred'))
+//                     }
+//                     dispatch(setLoadingStatusAC('failed'))
+//                 }
+//             })
+//       }
+//       if (!task) {
+//           console.warn('task not found')
+//       }
+//   }
 
 
 
