@@ -6,9 +6,9 @@ const initialState = {
     status: 'idle' as RequestStatusType,
     error: null as null | string
 }
-type initialStateType = typeof initialState
+export type initialAppStateType = typeof initialState
 
-export const appReducer = (state: initialStateType = initialState, action: ActionTypes) => {
+export const appReducer = (state: initialAppStateType = initialState, action: ActionTypes) => {
     switch (action.type) {
         case "APP/SET-STATUS":
             return {...state, status: action.status}

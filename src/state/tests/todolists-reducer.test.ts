@@ -11,11 +11,9 @@ import {TodolistType} from "../../api/todolist-api/todolists-api";
 let startState: Array<TodolistDomainType>
 
 beforeEach(() => {
-
-
     startState = [
-        {id: 'todolistID1', title: 'What to learn', filter: 'All', addedDate: '', order: 0},
-        {id: 'todolistID2', title: 'What to buy', filter: 'All', addedDate: 'string', order: 0}
+        {id: 'todolistID1', title: 'What to learn', filter: 'All', addedDate: '', order: 0, entityStatus: 'idle'},
+        {id: 'todolistID2', title: 'What to buy', filter: 'All', addedDate: 'string', order: 0, entityStatus: 'idle'}
     ];
 })
 

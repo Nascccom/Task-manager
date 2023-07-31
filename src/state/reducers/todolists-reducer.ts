@@ -1,7 +1,7 @@
 import {todolistAPI, TodolistType} from "../../api/todolist-api/todolists-api";
 import {ActionTypes} from "../../app/store";
 import {Dispatch} from "redux";
-import {setErrorMessageAC, setLoadingStatusAC} from "../../app/app-reducer";
+import {RequestStatusType, setErrorMessageAC, setLoadingStatusAC} from "../../app/app-reducer";
 import {ResultCode} from "../../api/instance";
 
 export type TodolistsReducerActionType =
@@ -12,19 +12,20 @@ export type TodolistsReducerActionType =
   | ReturnType<typeof setTodolistAC>
 
 const initialState: TodolistDomainType[] = [
-    // {id: todolistId1, title: 'What to buy', order: 0, filter: 'All', addedDate: ''}
+    // {id: todolistId1, title: 'What to buy', order: 0, filter: 'All', addedDate: '', entityStatus: 'idle'}
 ]
 
 export const todolistsReducer = (state: TodolistDomainType[] = initialState, action: ActionTypes): TodolistDomainType[] => {
     switch (action.type) {
         case "TODOLISTS/SET-TODOLIST":
-            return action.todolists.map((todo: TodolistType) => ({...todo, filter: 'All'}))
+            return action.todolists.map((todo: TodolistType) => ({...todo, filter: 'All', entityStatus: 'idle'}))
         case 'TODOLISTS/REMOVE-TODOLIST':
-            return state.filter(todo => todo.id !== action.todolistID1);
+            return state.filter(todo => todo.id !== action.todolistID);
         case 'TODOLISTS/ADD-TODOLIST':
             const newTodo: TodolistDomainType = {
                 ...action.newTodolist,
-                filter: 'All'
+                filter: 'All',
+                entityStatus: 'idle'
             };
             return [newTodo, ...state];
         case 'TODOLISTS/CHANGE-TITLE-TODOLIST':
@@ -46,8 +47,8 @@ export const setTodolistAC = (todolists: TodolistType[]) => ({
     type: 'TODOLISTS/SET-TODOLIST', todolists
 } as const)
 
-export const removeTodolistAC = (todolistID1: string) => ({
-    type: 'TODOLISTS/REMOVE-TODOLIST', todolistID1
+export const removeTodolistAC = (todolistID: string) => ({
+    type: 'TODOLISTS/REMOVE-TODOLIST', todolistID
 } as const)
 
 export const addTodolistAC = (newTodolist: TodolistType) => ({
@@ -129,5 +130,5 @@ export const updateTodolistTitleTC = (todolistId: string, newTitle: string) => (
 
 
 //types
-export type TodolistDomainType = TodolistType & { filter: FilterValuesType }
+export type TodolistDomainType = TodolistType & { filter: FilterValuesType,  entityStatus: RequestStatusType }
 export type FilterValuesType = 'All' | 'Active' | 'Completed';

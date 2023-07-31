@@ -1,5 +1,4 @@
-import type {Meta, StoryObj} from '@storybook/react';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import React, {useState} from "react";
 import {Task} from "./Task/Task";
 import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
@@ -9,37 +8,47 @@ import {InputLine} from "../../../components/InputLine/InputLine";
 import {action} from "@storybook/addon-actions";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import {addTaskAC} from "../../../state/reducers/task-reducer";
-import {AppRootStateType} from "../../../app/store";
 import {Todolist} from "./ToDoList";
 import {ReduxStoreProviderDecorator} from "../../../state/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
-import {
-    changeFilterAC,
-    changeTitleTodolistAC,
-    FilterValuesType,
-    removeTodolistAC
-} from "../../../state/reducers/todolists-reducer";
+import {changeFilterAC, FilterValuesType} from "../../../state/reducers/todolists-reducer";
 import {ButtonUniversal} from "../../../components/Button/Button";
-import {TaskType} from "../../../api/tasksAPI/tasks-api";
+import {TaskPriorities, TaskStatuses, TaskType} from "../../../api/tasksAPI/tasks-api";
 import {v1} from "uuid";
+import {ButtonGroupStyle} from "./TodolistStyles";
+import {useAppSelector} from "../../../hooks/useSelector/useSelector";
 
 
-const meta: Meta<typeof Todolist> = {
+export default {
     title: 'TODOLISTS/Todolist',
     component: Todolist,
     tags: ['autodocs'],
     decorators: [ReduxStoreProviderDecorator],
+    excludeStories: /.*initialGlobalState$/,
 }
-
-export default meta;
-type Story = StoryObj<typeof Todolist>;
 
 type ReduxTodolistType = {
     todolistId: string
     title: string
 }
 
+const newTask = (todolistId: string, valueTitle: string): TaskType => {
+    return {
+        id: v1(),
+        completed: true,
+        title: valueTitle,
+        status: TaskStatuses.New,
+        priority: TaskPriorities.Low,
+        startDate: '',
+        deadline: '',
+        todoListId: todolistId,
+        order: 0,
+        addedDate: '',
+        description: ''
+    }
+}
+
 const ReduxTodolist = ({todolistId, title}: ReduxTodolistType) => {
-    const tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[todolistId])
+    const tasks = useAppSelector<TaskType[]>(state => state.tasks[todolistId])
     const dispatch = useDispatch()
     const [activeButton, setActiveButton] = useState<FilterValuesType>('All')
 
@@ -48,28 +57,17 @@ const ReduxTodolist = ({todolistId, title}: ReduxTodolistType) => {
         setActiveButton(filterValue)
     }
 
-    const deleteAllTodolistHandler = () => {
-        dispatch(removeTodolistAC(todolistId))
-    }
-    const newTask: TaskType = {description: '', id: v1(), title: 'It is a new Task', completed: false, status: 0, priority: 0,
-        startDate: '', deadline: '', todoListId: todolistId, order: 0, addedDate: ''
-    }
-
     const addTaskForTodolistHandler = (valueTitle: string) => {
-        dispatch(addTaskAC(todolistId, newTask))
-    }
-
-    const updateTodolistHandler = (newTitleTodo: string) => {
-        dispatch(changeTitleTodolistAC(todolistId, newTitleTodo))
+        dispatch(addTaskAC(todolistId, newTask(todolistId, valueTitle)))
     }
 
     const filteredTasks = (): TaskType[] => {
         let tasksForTodolist;
         switch (activeButton) {
             case 'Active':
-                return tasksForTodolist = tasks.filter(t => !t.completed);
+                return tasksForTodolist = tasks.filter(t => t.status === TaskStatuses.New);
             case 'Completed':
-                return tasksForTodolist = tasks.filter(t => t.completed);
+                return tasksForTodolist = tasks.filter(t => t.status === TaskStatuses.Completed);
             default:
                 return tasksForTodolist = tasks;
         }
@@ -83,10 +81,10 @@ const ReduxTodolist = ({todolistId, title}: ReduxTodolistType) => {
       <div>
           <h3>
               <EditableSpan title={title}
-                            callBack={updateTodolistHandler}/>
+                            callBack={action('Title was changed')}/>
 
               <IconButton aria-label="delete"
-                          onClick={action('Removed Todolist')}>
+                          onClick={action('Todolist was removed')}>
                   <DeleteIcon/>
               </IconButton>
           </h3>
@@ -96,13 +94,7 @@ const ReduxTodolist = ({todolistId, title}: ReduxTodolistType) => {
               {mappedTasks}
           </ul>
 
-          <ButtonGroup size="large" variant="text" aria-label="large outlined button group" sx={{
-              display: "flex",
-              justifyContent: "flex-start",
-              ".MuiButtonGroup-grouped:not(:last-of-type)": {
-                  border: 'none',
-              }
-          }}>
+          <ButtonGroup size="large" variant="text" aria-label="large outlined button group" sx={ButtonGroupStyle}>
               <ButtonUniversal buttonName={'All'}
                                color={activeButton === 'All' ? 'success' : "secondary"}
                                callBack={() => changeFilterButtonHandler(todolistId, 'All')}/>
@@ -117,6 +109,14 @@ const ReduxTodolist = ({todolistId, title}: ReduxTodolistType) => {
     )
 }
 
-export const TodolistStory: Story = {
-    render: () => <ReduxTodolist todolistId={'todolistId1'} title={'My hobbies'}/>,
-};
+export const Todolist1 = {
+    decorators: [
+        () => (<ReduxTodolist todolistId={'todolistId1'} title={'Cold '}/>)
+    ]
+}
+
+export const Todolist2 = {
+    decorators: [
+        () => (<ReduxTodolist todolistId={'todolistId2'} title={'New '} />)
+    ]
+}

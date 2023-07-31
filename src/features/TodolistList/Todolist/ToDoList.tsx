@@ -13,15 +13,18 @@ import {addTaskTC, getTasksTC} from "../../../state/reducers/task-reducer";
 import {Task} from "./Task/Task";
 import {InputLine} from "../../../components/InputLine/InputLine";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import {TaskType} from "../../../api/tasksAPI/tasks-api";
+import {TaskStatuses, TaskType} from "../../../api/tasksAPI/tasks-api";
 import {useAppDispatch} from "../../../hooks/useDiapstch/useDispacth";
 import {useAppSelector} from "../../../hooks/useSelector/useSelector";
+import {ButtonGroupStyle} from './TodolistStyles';
+import {RequestStatusType} from "../../../app/app-reducer";
 
 
 type PropsType = {
     todolistId: string
     title: string
     activeFilter: FilterValuesType
+    entityStatus: RequestStatusType
 }
 
 export const Todolist = memo((props: PropsType) => {
@@ -44,20 +47,18 @@ export const Todolist = memo((props: PropsType) => {
 
     const addTaskForTodolistHandler = useCallback((valueTitle: string) => {
         dispatch(addTaskTC(props.todolistId, valueTitle))
-        // dispatch(addTaskAC(props.todolistId, valueTitle))
     }, [dispatch, props.todolistId])
 
     const updateTodolistHandler = useCallback((newTitleTodo: string) => {
-        // dispatch(changeTitleTodolistAC(props.todolistId, newTitleTodo))
         dispatch(updateTodolistTitleTC(props.todolistId, newTitleTodo))
     }, [dispatch, props.todolistId])
 
     const filteredTasks = () => {
         switch (props.activeFilter) {
             case 'Active':
-                return tasks.filter(t => !t.completed);
+                return tasks.filter(t => t.status === TaskStatuses.New);
             case 'Completed':
-                return tasks.filter(t => t.completed);
+                return tasks.filter(t => t.status === TaskStatuses.Completed);
             default:
                 return tasks;
         }
@@ -74,7 +75,8 @@ export const Todolist = memo((props: PropsType) => {
                             callBack={updateTodolistHandler}/>
 
               <IconButton aria-label="delete"
-                          onClick={deleteTodolistHandler}>
+                          onClick={deleteTodolistHandler}
+                          disabled={props.entityStatus === 'loading'}>
                   <DeleteIcon/>
               </IconButton>
           </h3>
@@ -84,7 +86,7 @@ export const Todolist = memo((props: PropsType) => {
               {mappedTasks}
           </ul>
 
-          <ButtonGroup size="large" variant="text" aria-label="large outlined button group" sx={ButtonGroupStyles}>
+          <ButtonGroup size="large" variant="text" aria-label="large outlined button group" sx={ButtonGroupStyle}>
               <ButtonUniversal buttonName={'All'}
                                color={activeButton === 'All' ? 'success' : "secondary"}
                                callBack={() => changeFilterButtonHandler(props.todolistId, 'All')}/>
@@ -98,11 +100,3 @@ export const Todolist = memo((props: PropsType) => {
       </div>
     )
 })
-
-const ButtonGroupStyles = {
-    display: "flex",
-    justifyContent: "space-between",
-    ".MuiButtonGroup-grouped:not(:last-of-type)": {
-        border: 'none',
-    }
-}

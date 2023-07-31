@@ -1,6 +1,7 @@
 import {addTodolistAC, removeTodolistAC, TodolistDomainType, todolistsReducer} from "../reducers/todolists-reducer";
 import {tasksReducer, TasksStateType} from "../reducers/task-reducer";
 import {TodolistType} from "../../api/todolist-api/todolists-api";
+import {TaskPriorities, TaskStatuses} from "../../api/tasksAPI/tasks-api";
 
 test('id should be equals', () => {
     let startTodolistState: TodolistDomainType[] = []
@@ -22,7 +23,7 @@ test('id should be equals', () => {
 
 test('tasks should be removed when todolist removed', () => {
     const startTodololistsState: TodolistDomainType[] = [
-        {id: "todolist1", title: 'My hobbies', filter: 'All', order: 0, addedDate: ''},
+        {id: "todolist1", title: 'My hobbies', filter: 'All', order: 0, addedDate: '', entityStatus: 'idle'},
     ]
     const startTasksState: TasksStateType = {
         ["todolist1"]: [
@@ -31,11 +32,11 @@ test('tasks should be removed when todolist removed', () => {
                 title: 'HTML',
                 completed: true,
                 description: '',
-                status: 0,
-                priority: 0,
+                status: TaskStatuses.New,
+                priority: TaskPriorities.Hi,
                 startDate: '',
                 deadline: '',
-                todoListId: '',
+                todoListId: "todolist1",
                 order: 0,
                 addedDate: ''
             },
@@ -44,11 +45,11 @@ test('tasks should be removed when todolist removed', () => {
                 title: 'Css',
                 completed: true,
                 description: '',
-                status: 0,
-                priority: 0,
+                status: TaskStatuses.New,
+                priority: TaskPriorities.Hi,
                 startDate: '',
                 deadline: '',
-                todoListId: '',
+                todoListId: "todolist1",
                 order: 0,
                 addedDate: ''
             },

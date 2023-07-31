@@ -1,22 +1,6 @@
-
-.input {
-    border: 3px solid black;
+ul, li {
+    list-style: none;
 }
-
-.error {
-    border: 3px solid red ;
-    outline: none;
-}
-
-.errorMessage {
-    color: red;
-}
-
-.activeFilter {
-    background-color: aquamarine;
-}
-
 .isDone {
     opacity: 0.5;
-
 }

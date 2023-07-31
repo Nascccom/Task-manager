@@ -17,7 +17,7 @@ export function AppWithRedux() {
 
           {status === 'loading' && <LinearProgress color={'secondary'}/>}
 
-          <Container fixed>
+          <Container fixed maxWidth={false}>
               <TodolistList/>
           </Container>
 
