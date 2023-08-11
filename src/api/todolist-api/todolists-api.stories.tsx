@@ -13,7 +13,7 @@ export const GetTodolistsTitleWithId = () => {
 
     useEffect(() => {
         todolistAPI.getTodolists()
-          .then(res => setState(res.data))
+          .then(res => setState(res))
     }, [])
 
     return state

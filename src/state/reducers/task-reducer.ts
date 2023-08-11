@@ -97,7 +97,7 @@ export const getTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
     tasksAPI.getTasks(todolistId)
       .then(res => {
           dispatch(setLoadingStatusAC('succeeded'))
-          dispatch(setTasksAC(todolistId, res.data.items))
+          dispatch(setTasksAC(todolistId, res.items))
       })
 }
 
@@ -107,7 +107,7 @@ export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: D
 
     tasksAPI.deleteTask(todolistId, taskId)
       .then(res => {
-          if (res.data.resultCode === ResultCode.SUCCESS) {
+          if (res.resultCode === ResultCode.SUCCESS) {
               dispatch(setLoadingStatusAC('succeeded'))
               dispatch(removeTaskAC(todolistId, taskId))
           }
@@ -120,12 +120,12 @@ export const addTaskTC = (todolistId: string, textForTask: string) => (dispatch:
 
     tasksAPI.createTask(todolistId, textForTask)
       .then(res => {
-          if (res.data.resultCode === ResultCode.SUCCESS) {
+          if (res.resultCode === ResultCode.SUCCESS) {
               dispatch(setLoadingStatusAC('succeeded'))
-              dispatch(addTaskAC(todolistId, res.data.data.item))
+              dispatch(addTaskAC(todolistId, res.data.item))
           } else {
-              if (res.data.messages.length) {
-                  dispatch(setErrorMessageAC(res.data.messages[0]))
+              if (res.messages.length) {
+                  dispatch(setErrorMessageAC(res.messages[0]))
               } else {
                   dispatch(setErrorMessageAC('Some error occurred'))
               }
@@ -154,12 +154,12 @@ export const updateTaskTC = (todolistId: string, taskId: string, changingPart: O
           tasksAPI.updateTask(todolistId, taskId, newModel)
             .then(res => {
 
-                if (res.data.resultCode === 0) {
-                    const updatedTask: TaskType = res.data.data.item
+                if (res.resultCode === 0) {
+                    const updatedTask: TaskType = res.data.item
                     dispatch(updateTaskAC(todolistId, taskId, updatedTask))
                 } else {
-                    if (res.data.messages.length) {
-                        dispatch(setErrorMessageAC(res.data.messages[0]))
+                    if (res.messages.length) {
+                        dispatch(setErrorMessageAC(res.messages[0]))
                     } else {
                         dispatch(setErrorMessageAC('Some error occurred'))
                     }

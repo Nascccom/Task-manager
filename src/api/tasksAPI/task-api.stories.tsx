@@ -13,7 +13,7 @@ export const GetTasks = () => {
 
     const getTasks = () => {
         tasksAPI.getTasks(todolistId)
-          .then(res => setState(res.data))
+          .then(res => setState(res))
     }
 
     return <>

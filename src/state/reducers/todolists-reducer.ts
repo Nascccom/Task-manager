@@ -66,11 +66,15 @@ export const changeFilterAC = (todolistID: string, newFilter: FilterValuesType) 
 
 //thunkCreators
 export const getTodolistsTC = () => (dispatch: Dispatch) => {
+
     dispatch(setLoadingStatusAC('loading'))
+
     todolistAPI.getTodolists()
       .then(res => {
-          dispatch(setLoadingStatusAC('succeeded'))
-          dispatch(setTodolistAC(res.data))
+          dispatch(setTodolistAC(res))
+      })
+      .finally(() => {
+          dispatch(setLoadingStatusAC('idle'))
       })
 }
 
@@ -80,10 +84,13 @@ export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => 
 
     todolistAPI.deleteTodolist(todolistId)
       .then(res => {
-          if (res.data.resultCode === ResultCode.SUCCESS) {
+          if (res.resultCode === ResultCode.SUCCESS) {
               dispatch(setLoadingStatusAC('succeeded'))
               dispatch(removeTodolistAC(todolistId))
           }
+      })
+      .finally(() => {
+          dispatch(setLoadingStatusAC('idle'))
       })
 }
 
@@ -93,33 +100,35 @@ export const createTodolistTC = (title: string) => (dispatch: Dispatch) => {
 
     todolistAPI.createTodolist(title)
       .then(res => {
-          if (res.data.resultCode === ResultCode.SUCCESS) {
+          if (res.resultCode === ResultCode.SUCCESS) {
               dispatch(setLoadingStatusAC('succeeded'))
-              dispatch(addTodolistAC(res.data.data.item))
+              dispatch(addTodolistAC(res.data.item))
           } else {
-              if (res.data.messages.length) {
-                  dispatch(setErrorMessageAC(res.data.messages[0]))
+              if (res.messages.length) {
+                  dispatch(setErrorMessageAC(res.messages[0]))
               } else {
                   dispatch(setErrorMessageAC('Some error occurred'))
               }
               dispatch(setLoadingStatusAC('failed'))
           }
       })
+      .finally(() => {
+          dispatch(setLoadingStatusAC('idle'))
+      })
 
 }
 
-export const updateTodolistTitleTC = (todolistId: string, newTitle: string) => (dispatch: Dispatch) =>
-{
+export const updateTodolistTitleTC = (todolistId: string, newTitle: string) => (dispatch: Dispatch) => {
     dispatch(setLoadingStatusAC('loading'))
 
     todolistAPI.updateTodolistTittle(todolistId, newTitle)
       .then(res => {
-          if (res.data.resultCode === ResultCode.SUCCESS) {
+          if (res.resultCode === ResultCode.SUCCESS) {
               dispatch(setLoadingStatusAC('succeeded'))
               dispatch(changeTitleTodolistAC(todolistId, newTitle))
           } else {
-              if (res.data.messages.length) {
-                  dispatch(setErrorMessageAC(res.data.messages[0]))
+              if (res.messages.length) {
+                  dispatch(setErrorMessageAC(res.messages[0]))
               } else {
                   dispatch(setErrorMessageAC('Some error occurred'))
               }
@@ -130,5 +139,5 @@ export const updateTodolistTitleTC = (todolistId: string, newTitle: string) => (
 
 
 //types
-export type TodolistDomainType = TodolistType & { filter: FilterValuesType,  entityStatus: RequestStatusType }
+export type TodolistDomainType = TodolistType & { filter: FilterValuesType, entityStatus: RequestStatusType }
 export type FilterValuesType = 'All' | 'Active' | 'Completed';

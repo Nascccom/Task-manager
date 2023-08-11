@@ -3,7 +3,7 @@ import {ActionTypes} from "./store";
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 const initialState = {
-    status: 'idle' as RequestStatusType,
+    status: 'loading' as RequestStatusType,
     error: null as null | string
 }
 export type initialAppStateType = typeof initialState
