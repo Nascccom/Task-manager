@@ -3,6 +3,7 @@ import React, {ChangeEvent, memo, useState} from 'react';
 export type PropsType = {
     title: string
     callBack: (newTitle: string) => void
+
 }
 
 export const EditableSpan = memo((props: PropsType) => {

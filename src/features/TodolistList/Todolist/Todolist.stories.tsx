@@ -11,11 +11,12 @@ import {addTaskAC} from "../../../state/reducers/task-reducer";
 import {Todolist} from "./ToDoList";
 import {ReduxStoreProviderDecorator} from "../../../state/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
 import {changeFilterAC, FilterValuesType} from "../../../state/reducers/todolists-reducer";
-import {ButtonUniversal} from "../../../components/Button/Button";
+import {ButtonUniversal} from "../../../components/Button/ButtonUniversal";
 import {TaskPriorities, TaskStatuses, TaskType} from "../../../api/tasksAPI/tasks-api";
 import {v1} from "uuid";
 import {ButtonGroupStyle} from "./TodolistStyles";
 import {useAppSelector} from "../../../hooks/useSelector/useSelector";
+import {RequestStatusType} from "../../../app/app-reducer";
 
 
 export default {
@@ -29,6 +30,7 @@ export default {
 type ReduxTodolistType = {
     todolistId: string
     title: string
+    entityStatus: RequestStatusType
 }
 
 const newTask = (todolistId: string, valueTitle: string): TaskType => {
@@ -47,7 +49,7 @@ const newTask = (todolistId: string, valueTitle: string): TaskType => {
     }
 }
 
-const ReduxTodolist = ({todolistId, title}: ReduxTodolistType) => {
+const ReduxTodolist = ({todolistId, title, entityStatus}: ReduxTodolistType) => {
     const tasks = useAppSelector<TaskType[]>(state => state.tasks[todolistId])
     const dispatch = useDispatch()
     const [activeButton, setActiveButton] = useState<FilterValuesType>('All')
@@ -88,7 +90,8 @@ const ReduxTodolist = ({todolistId, title}: ReduxTodolistType) => {
                   <DeleteIcon/>
               </IconButton>
           </h3>
-          <InputLine callBack={addTaskForTodolistHandler}/>
+          <InputLine callBack={addTaskForTodolistHandler}
+                     isDisabled={entityStatus === 'loading'}/>
 
           <ul>
               {mappedTasks}
@@ -111,12 +114,12 @@ const ReduxTodolist = ({todolistId, title}: ReduxTodolistType) => {
 
 export const Todolist1 = {
     decorators: [
-        () => (<ReduxTodolist todolistId={'todolistId1'} title={'Cold '}/>)
+        () => (<ReduxTodolist todolistId={'todolistId1'} title={'Cold '} entityStatus={'idle'}/>)
     ]
 }
 
 export const Todolist2 = {
     decorators: [
-        () => (<ReduxTodolist todolistId={'todolistId2'} title={'New '} />)
+        () => (<ReduxTodolist todolistId={'todolistId2'} title={'New '} entityStatus={'loading'}/>)
     ]
 }

@@ -1,5 +1,5 @@
 import React, {memo, useCallback, useEffect, useState} from 'react';
-import {ButtonUniversal} from '../../../components/Button/Button';
+import {ButtonUniversal} from '../../../components/Button/ButtonUniversal';
 import {EditableSpan} from '../../../components/EditableSpan/EditableSpan';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
@@ -27,13 +27,20 @@ type PropsType = {
     entityStatus: RequestStatusType
 }
 
-export const Todolist = memo((props: PropsType) => {
-    const tasks = useAppSelector<TaskType[]>(state => state.tasks[props.todolistId])
+export const Todolist = memo((
+  {
+      todolistId,
+      title,
+      activeFilter,
+      entityStatus
+  }: PropsType) => {
+
+    const tasks = useAppSelector<TaskType[]>(state => state.tasks[todolistId])
     const dispatch = useAppDispatch()
     const [activeButton, setActiveButton] = useState<FilterValuesType>('All')
 
     useEffect(() => {
-        dispatch(getTasksTC(props.todolistId))
+        dispatch(getTasksTC(todolistId))
     }, [])
 
     const changeFilterButtonHandler = useCallback((todolistID: string, filterValue: FilterValuesType) => {
@@ -42,19 +49,19 @@ export const Todolist = memo((props: PropsType) => {
     }, [dispatch])
 
     const deleteTodolistHandler = useCallback(() => {
-        dispatch(removeTodolistTC(props.todolistId))
-    }, [dispatch, props.todolistId])
+        dispatch(removeTodolistTC(todolistId))
+    }, [dispatch, todolistId])
 
     const addTaskForTodolistHandler = useCallback((valueTitle: string) => {
-        dispatch(addTaskTC(props.todolistId, valueTitle))
-    }, [dispatch, props.todolistId])
+        dispatch(addTaskTC(todolistId, valueTitle))
+    }, [dispatch, todolistId])
 
     const updateTodolistHandler = useCallback((newTitleTodo: string) => {
-        dispatch(updateTodolistTitleTC(props.todolistId, newTitleTodo))
-    }, [dispatch, props.todolistId])
+        dispatch(updateTodolistTitleTC(todolistId, newTitleTodo))
+    }, [dispatch, todolistId])
 
     const filteredTasks = () => {
-        switch (props.activeFilter) {
+        switch (activeFilter) {
             case 'Active':
                 return tasks.filter(t => t.status === TaskStatuses.New);
             case 'Completed':
@@ -66,21 +73,23 @@ export const Todolist = memo((props: PropsType) => {
 
     const mappedTasks = filteredTasks().map(t => <Task key={t.id}
                                                        task={t}
-                                                       todolistId={props.todolistId}/>)
+                                                       todolistId={todolistId}/>)
 
     return (
       <div>
           <h3>
-              <EditableSpan title={props.title}
-                            callBack={updateTodolistHandler}/>
+              <EditableSpan title={title}
+                            callBack={updateTodolistHandler}
+              />
 
               <IconButton aria-label="delete"
                           onClick={deleteTodolistHandler}
-                          disabled={props.entityStatus === 'loading'}>
+                          disabled={entityStatus === 'loading'}>
                   <DeleteIcon/>
               </IconButton>
           </h3>
-          <InputLine callBack={addTaskForTodolistHandler}/>
+          <InputLine callBack={addTaskForTodolistHandler}
+                     isDisabled={entityStatus === 'loading'}/>
 
           <ul>
               {mappedTasks}
@@ -89,13 +98,13 @@ export const Todolist = memo((props: PropsType) => {
           <ButtonGroup size="large" variant="text" aria-label="large outlined button group" sx={ButtonGroupStyle}>
               <ButtonUniversal buttonName={'All'}
                                color={activeButton === 'All' ? 'success' : "secondary"}
-                               callBack={() => changeFilterButtonHandler(props.todolistId, 'All')}/>
+                               callBack={() => changeFilterButtonHandler(todolistId, 'All')}/>
               <ButtonUniversal buttonName={'Active'}
                                color={activeButton === 'Active' ? 'success' : "secondary"}
-                               callBack={() => changeFilterButtonHandler(props.todolistId, 'Active')}/>
+                               callBack={() => changeFilterButtonHandler(todolistId, 'Active')}/>
               <ButtonUniversal buttonName={'Completed'}
                                color={activeButton === 'Completed' ? 'success' : "secondary"}
-                               callBack={() => changeFilterButtonHandler(props.todolistId, 'Completed')}/>
+                               callBack={() => changeFilterButtonHandler(todolistId, 'Completed')}/>
           </ButtonGroup>
       </div>
     )

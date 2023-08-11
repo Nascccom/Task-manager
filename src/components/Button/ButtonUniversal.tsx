@@ -9,11 +9,13 @@ type ButtonType = {
     /** Button color */
     color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
     /** Button size */
-    size?:  "small" | "medium" | "large"
+    size?: "small" | "medium" | "large"
     /** Button appearance */
-    variant?:  "text" | "outlined" | "contained"
+    variant?: "text" | "outlined" | "contained"
     /** Additional button styles */
     style?: object
+    /** Button is disabled or not */
+    isDisabled?: boolean
 }
 
 export const ButtonUniversal = memo((props: ButtonType) => {
@@ -28,6 +30,7 @@ export const ButtonUniversal = memo((props: ButtonType) => {
               size={props.size}
               variant={props.variant}
               style={props.style}
+              disabled={props.isDisabled}
       >
           {props.buttonName}
       </Button>

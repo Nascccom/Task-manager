@@ -112,6 +112,9 @@ export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: D
               dispatch(removeTaskAC(todolistId, taskId))
           }
       })
+      .catch(err => {
+          dispatch(setErrorMessageAC(err.message))
+      })
 }
 
 export const addTaskTC = (todolistId: string, textForTask: string) => (dispatch: Dispatch) => {
