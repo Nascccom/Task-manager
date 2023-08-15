@@ -89,7 +89,7 @@ export const Todolist = memo((
               </IconButton>
           </h3>
           <InputLine callBack={addTaskForTodolistHandler}
-                     isDisabled={entityStatus === 'loading'}/>
+                     disabled={entityStatus === 'loading'}/>
 
           <ul>
               {mappedTasks}

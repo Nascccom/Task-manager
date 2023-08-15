@@ -1,18 +1,13 @@
 import React from 'react'
 import {Provider} from "react-redux";
-import {AppRootStateType} from "../../app/store";
-import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
-import {TodolistDomainType, todolistsReducer} from "../reducers/todolists-reducer";
-import {tasksReducer, TasksStateType} from "../reducers/task-reducer";
+import {AppRootStateType, rootReducer} from "../../app/store";
+import {applyMiddleware, createStore} from "redux";
+import {TodolistDomainType} from "../reducers/todolists-reducer";
+import {TasksStateType} from "../reducers/task-reducer";
 import {TaskPriorities, TaskStatuses} from "../../api/tasksAPI/tasks-api";
-import {appReducer, initialAppStateType} from "../../app/app-reducer";
+import {initialAppStateType} from "../../app/app-reducer";
 import thunk from 'redux-thunk';
 
-const rootReducer = combineReducers({
-    app: appReducer,
-    todolists: todolistsReducer,
-    tasks: tasksReducer
-})
 
 const initialGlobalState = {
     app: {
@@ -51,7 +46,8 @@ const initialGlobalState = {
     } as TasksStateType
 }
 
-export const storyBookStore = legacy_createStore(rootReducer,
+
+export const storyBookStore = createStore(rootReducer,
   initialGlobalState as AppRootStateType, applyMiddleware(thunk))
 
 

@@ -15,7 +15,7 @@ type ButtonType = {
     /** Additional button styles */
     style?: object
     /** Button is disabled or not */
-    isDisabled?: boolean
+    disabled?: boolean
 }
 
 export const ButtonUniversal = memo((props: ButtonType) => {
@@ -30,7 +30,7 @@ export const ButtonUniversal = memo((props: ButtonType) => {
               size={props.size}
               variant={props.variant}
               style={props.style}
-              disabled={props.isDisabled}
+              disabled={props.disabled}
       >
           {props.buttonName}
       </Button>

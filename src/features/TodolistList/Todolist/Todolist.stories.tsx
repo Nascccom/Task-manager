@@ -91,7 +91,7 @@ const ReduxTodolist = ({todolistId, title, entityStatus}: ReduxTodolistType) => 
               </IconButton>
           </h3>
           <InputLine callBack={addTaskForTodolistHandler}
-                     isDisabled={entityStatus === 'loading'}/>
+                     disabled={entityStatus === 'loading'}/>
 
           <ul>
               {mappedTasks}

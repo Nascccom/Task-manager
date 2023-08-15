@@ -23,10 +23,7 @@ const meta: Meta<typeof AppWithRedux> = {
 export default meta;
 type Story = StoryObj<typeof AppWithRedux>;
 
-type ReduxAppType = {
-    status: RequestStatusType
-}
-const ReduxApp = ({status}: ReduxAppType) => {
+const ReduxApp = ({status}: { status: RequestStatusType }) => {
 
     return (
       <div className="App">
@@ -44,9 +41,14 @@ const ReduxApp = ({status}: ReduxAppType) => {
 }
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+// export const AppWithLoading: Story = {
+//     render: () => <ReduxApp status={'loading'}/>
+// };
 export const AppWithLoading: Story = {
     render: () => <ReduxApp status={'loading'}/>
-};
+}
 
-// export const AppWithoutLoading: Story = {}
+export const AppWithoutLoading: Story = {
+    render: () => <ReduxApp status={'failed'}/>
+}
 

@@ -7,7 +7,7 @@ type PropsType = {
     /** Optional click handler */
     callBack: (valueTitle: string) => void
     /** Input is disabled or not */
-    isDisabled?: boolean
+    disabled?: boolean
 }
 
 export const InputLine = memo((props: PropsType) => {
@@ -41,7 +41,7 @@ export const InputLine = memo((props: PropsType) => {
                  size="md"
                  color={error ? "danger" : "primary"}
                  value={title}
-                 disabled={props.isDisabled}
+                 disabled={props.disabled}
                  sx={{
                      "--Input-focusedThickness": "2px",
                      "--Input-radius": "19px",
@@ -59,16 +59,14 @@ export const InputLine = memo((props: PropsType) => {
                                                     border: 'none',
                                                     alignItems: 'center',
                                                     borderRadius: '50%',
-                                                    backgroundColor: props.isDisabled ? '#ccc' : (error ? '#d2194a' : '#1976d2'),
+                                                    backgroundColor: props.disabled ? '#ccc' : (error ? '#d2194a' : '#1976d2'),
                                                     color: '#fff',
                                                     fontWeight: '600',
                                                 }}
-                                                isDisabled={props.isDisabled}
+                                                disabled={props.disabled}
                                                 buttonName={'+'}
                                                 callBack={addTaskHandler}/>}
           />
-
-
       </div>
     );
 });

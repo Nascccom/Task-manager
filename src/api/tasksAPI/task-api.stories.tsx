@@ -1,9 +1,11 @@
 import React, {useState} from "react";
 import {tasksAPI, UpdateTaskModelType} from "./tasks-api";
 import {useAppSelector} from "../../hooks/useSelector/useSelector";
+import {ReduxStoreProviderDecorator} from "../../state/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
 
 export default {
-    title: 'API/TasksAPI'
+    title: 'API/TasksAPI',
+    decorators: [ReduxStoreProviderDecorator]
 }
 
 
@@ -51,17 +53,18 @@ export const UpdateTaskTitle = () => {
     const [taskId, setTaskId] = useState('')
     const [newTitle, setNewTitle] = useState('')
 
-    const task = useAppSelector(state => state.tasks[todolistId].find((t) => t.id === taskId))
+    const task = useAppSelector(state =>
+      state.tasks[todolistId].find((t) => t.id === taskId))
 
     if (task) {
         const newModel: UpdateTaskModelType = {
             title: newTitle,
-            description: task.description,
             completed: task.completed,
+            description: task.description,
+            deadline: task.deadline,
+            startDate: task.startDate,
             status: task.status,
             priority: task.priority,
-            startDate: task.startDate,
-            deadline: task.deadline
         }
 
         const updateTaskTitle = () => {
