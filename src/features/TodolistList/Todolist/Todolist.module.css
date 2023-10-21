@@ -1,0 +1,6 @@
+ul, li {
+    list-style: none;
+}
+.isDone {
+    opacity: 0.5;
+}

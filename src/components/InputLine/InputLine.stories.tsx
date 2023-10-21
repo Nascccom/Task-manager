@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react';
 import {InputLine} from "./InputLine";
 import React, {ChangeEvent, useState, KeyboardEvent} from "react";
 import Input from "@mui/joy/Input";
-import {ButtonUniversal} from "../Button/Button";
+import {ButtonUniversal} from "../Button/ButtonUniversal";
 
 type PropsType = {
     /**

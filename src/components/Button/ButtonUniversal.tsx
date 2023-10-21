@@ -1,15 +1,21 @@
 import React, {memo, useCallback} from 'react';
 import Button from '@mui/material/Button';
 
-
 type ButtonType = {
+    /** Name of the button */
     buttonName: string
+    /** Action which happens on click */
     callBack: () => void
+    /** Button color */
     color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
-    size?:  "small" | "medium" | "large"
-    variant?:  "text" | "outlined" | "contained"
-    startIcon?: React.ReactNode
+    /** Button size */
+    size?: "small" | "medium" | "large"
+    /** Button appearance */
+    variant?: "text" | "outlined" | "contained"
+    /** Additional button styles */
     style?: object
+    /** Button is disabled or not */
+    disabled?: boolean
 }
 
 export const ButtonUniversal = memo((props: ButtonType) => {
@@ -24,7 +30,7 @@ export const ButtonUniversal = memo((props: ButtonType) => {
               size={props.size}
               variant={props.variant}
               style={props.style}
-              startIcon={props.startIcon}
+              disabled={props.disabled}
       >
           {props.buttonName}
       </Button>

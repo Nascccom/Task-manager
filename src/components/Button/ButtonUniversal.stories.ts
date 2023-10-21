@@ -1,8 +1,7 @@
-import type {Meta, StoryObj} from '@storybook/react';
-import {ButtonUniversal} from './Button';
+import {ButtonUniversal} from './ButtonUniversal';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
-const meta : Meta<typeof ButtonUniversal> = {
+export default {
     title: 'TODOLISTS/Button',
     component: ButtonUniversal,
     tags: ['autodocs'],
@@ -13,33 +12,30 @@ const meta : Meta<typeof ButtonUniversal> = {
     },
     args: {
         buttonName: 'Button',
-
     },
 } ;
 
-export default meta;
-type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const SecondaryColor: Story = {
+export const SecondaryColor = {
     args: {
         color: 'secondary'
     },
 };
 
-export const SuccessColor: Story = {
+export const SuccessColor = {
     args: {
         color: 'success'
     },
 };
 
-export const ErrorColor: Story = {
+export const ErrorColor = {
     args: {
         color: 'error'
     },
 };
 
-export const AddButton: Story = {
+export const AddButton = {
     args: {
         size: "medium",
         color: 'error',
@@ -57,12 +53,12 @@ export const AddButton: Story = {
     },
     argTypes: {
         callBack: {
-            action: 'Add Task'
+            action: 'Click'
         }
     }
 };
 
-export const AddErrorButton: Story = {
+export const AddErrorButton = {
     args: {
         size: "medium",
         color: 'error',

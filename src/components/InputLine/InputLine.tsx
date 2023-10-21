@@ -1,13 +1,13 @@
 import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
-import {ButtonUniversal} from '../Button/Button';
+import {ButtonUniversal} from '../Button/ButtonUniversal';
 import Input from '@mui/joy/Input';
 
 
 type PropsType = {
-    /**
-     * Optional click handler
-     */
+    /** Optional click handler */
     callBack: (valueTitle: string) => void
+    /** Input is disabled or not */
+    disabled?: boolean
 }
 
 export const InputLine = memo((props: PropsType) => {
@@ -41,6 +41,7 @@ export const InputLine = memo((props: PropsType) => {
                  size="md"
                  color={error ? "danger" : "primary"}
                  value={title}
+                 disabled={props.disabled}
                  sx={{
                      "--Input-focusedThickness": "2px",
                      "--Input-radius": "19px",
@@ -53,21 +54,19 @@ export const InputLine = memo((props: PropsType) => {
 
                  }}
                  endDecorator={<ButtonUniversal size="medium"
-                                                variant="outlined"
                                                 style={{
                                                     display: 'inline-flex',
                                                     border: 'none',
                                                     alignItems: 'center',
                                                     borderRadius: '50%',
-                                                    backgroundColor: error ? '#d2194a' : '#1976d2',
+                                                    backgroundColor: props.disabled ? '#ccc' : (error ? '#d2194a' : '#1976d2'),
                                                     color: '#fff',
                                                     fontWeight: '600',
                                                 }}
+                                                disabled={props.disabled}
                                                 buttonName={'+'}
                                                 callBack={addTaskHandler}/>}
           />
-
-
       </div>
     );
 });
