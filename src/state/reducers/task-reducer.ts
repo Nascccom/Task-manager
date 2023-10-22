@@ -101,6 +101,7 @@ export const getTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
       })
       .catch(err => {
           handleServerNetworkError(dispatch, err.message)
+          dispatch(setLoadingStatusAC('failed'))
       })
 }
 
@@ -115,10 +116,12 @@ export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: D
               dispatch(removeTaskAC(todolistId, taskId))
           } else {
               handleServerAppError(dispatch, res)
+              dispatch(setLoadingStatusAC('failed'))
           }
       })
       .catch(err => {
           handleServerNetworkError(dispatch, err.message)
+          dispatch(setLoadingStatusAC('failed'))
       })
 }
 
@@ -133,10 +136,12 @@ export const addTaskTC = (todolistId: string, textForTask: string) => (dispatch:
               dispatch(addTaskAC(todolistId, res.data.item))
           } else {
               handleServerAppError(dispatch, res)
+              dispatch(setLoadingStatusAC('failed'))
           }
       })
       .catch(err => {
           handleServerNetworkError(dispatch, err.message)
+          dispatch(setLoadingStatusAC('failed'))
       })
 }
 
@@ -157,18 +162,23 @@ export const updateTaskTC = (todolistId: string, taskId: string, changingPart: O
               ...changingPart
           }
 
+          dispatch(setLoadingStatusAC('loading'))
+
           tasksAPI.updateTask(todolistId, taskId, newModel)
             .then(res => {
 
                 if (res.resultCode === ResultCode.SUCCESS) {
                     const updatedTask: TaskType = res.data.item
                     dispatch(updateTaskAC(todolistId, taskId, updatedTask))
+                    dispatch(setLoadingStatusAC('succeeded'))
                 } else {
                     handleServerAppError(dispatch, res)
+                    dispatch(setLoadingStatusAC('failed'))
                 }
             })
             .catch(err => {
                 handleServerNetworkError(dispatch, err.message)
+                dispatch(setLoadingStatusAC('failed'))
             })
       }
 
