@@ -1,6 +1,5 @@
 import {Task} from "./Task";
 import {ReduxStoreProviderDecorator} from "../../../../state/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
-import React from 'react';
 import {TaskPriorities, TaskStatuses} from "../../../../api/tasks-api";
 
 

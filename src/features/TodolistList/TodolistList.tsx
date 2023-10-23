@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import {Todolist} from "./Todolist/ToDoList";
 import {useAppSelector} from "../../hooks/useSelector/useSelector";
-import {createTodolistTC, getTodolistsTC, TodolistDomainType} from "./todolists-reducer";
+import {createTodolistTC, getTodolistsTC} from "./todolists-reducer";
 import {useAppDispatch} from "../../hooks/useDiapstch/useDispacth";
 import {InputLine} from "../../components/InputLine/InputLine";
 import {selectTodolists} from "../../hooks/useSelector/selectors";

@@ -6,7 +6,6 @@ export const instance = axios.create({
     withCredentials: true,
     headers: {
         'API-KEY': "dfc294e4-cdd2-4578-b4cc-6a8c08399163",
-        "Content-Type": "application/json"
     }
 })
 
