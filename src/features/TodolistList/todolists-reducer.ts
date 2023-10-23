@@ -1,4 +1,4 @@
-import {todolistAPI, TodolistType} from "../../api/todolist-api/todolists-api";
+import {todolistAPI, TodolistType} from "../../api/todolists-api";
 import {ActionTypes} from "../../app/store";
 import {Dispatch} from "redux";
 import {RequestStatusType, setLoadingStatusAC} from "../../app/app-reducer";

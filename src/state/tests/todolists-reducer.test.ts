@@ -5,8 +5,8 @@ import {
     removeTodolistAC,
     TodolistDomainType,
     todolistsReducer
-} from '../reducers/todolists-reducer';
-import {TodolistType} from "../../api/todolist-api/todolists-api";
+} from '../../features/TodolistList/todolists-reducer';
+import {TodolistType} from "../../api/todolists-api";
 
 let startState: Array<TodolistDomainType>
 

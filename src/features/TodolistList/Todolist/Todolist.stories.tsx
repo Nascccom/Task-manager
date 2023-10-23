@@ -7,16 +7,17 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import {InputLine} from "../../../components/InputLine/InputLine";
 import {action} from "@storybook/addon-actions";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import {addTaskAC} from "../../../state/reducers/task-reducer";
+import {addTaskAC} from "./Task/task-reducer";
 import {Todolist} from "./ToDoList";
 import {ReduxStoreProviderDecorator} from "../../../state/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
-import {changeFilterAC, FilterValuesType} from "../../../state/reducers/todolists-reducer";
+import {changeFilterAC, FilterValuesType} from "../todolists-reducer";
 import {ButtonUniversal} from "../../../components/Button/ButtonUniversal";
-import {TaskPriorities, TaskStatuses, TaskType} from "../../../api/tasksAPI/tasks-api";
+import {TaskPriorities, TaskStatuses, TaskType} from "../../../api/tasks-api";
 import {v1} from "uuid";
 import {ButtonGroupStyle} from "./TodolistStyles";
 import {useAppSelector} from "../../../hooks/useSelector/useSelector";
 import {RequestStatusType} from "../../../app/app-reducer";
+import {selectTasks} from "../../../hooks/useSelector/selectors";
 
 
 export default {
@@ -50,7 +51,7 @@ const newTask = (todolistId: string, valueTitle: string): TaskType => {
 }
 
 const ReduxTodolist = ({todolistId, title, entityStatus}: ReduxTodolistType) => {
-    const tasks = useAppSelector<TaskType[]>(state => state.tasks[todolistId])
+    const tasks = useAppSelector(selectTasks(todolistId))
     const dispatch = useDispatch()
     const [activeButton, setActiveButton] = useState<FilterValuesType>('All')
 

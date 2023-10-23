@@ -1,9 +1,9 @@
-import {tasksAPI, TaskType, UpdateTaskModelType} from "../../api/tasksAPI/tasks-api";
-import {ActionTypes, AppRootStateType} from "../../app/store";
+import {tasksAPI, TaskType, UpdateTaskModelType} from "../../../../api/tasks-api";
+import {ActionTypes, AppRootStateType} from "../../../../app/store";
 import {Dispatch} from "redux";
-import {setLoadingStatusAC} from "../../app/app-reducer";
-import {ResultCode} from "../../api/instance";
-import {handleServerAppError, handleServerNetworkError} from "../../utils/handleServerError";
+import {setLoadingStatusAC} from "../../../../app/app-reducer";
+import {ResultCode} from "../../../../api/instance";
+import {handleServerAppError, handleServerNetworkError} from "../../../../utils/handleServerError";
 
 export type TasksReducerActionType =
   | ReturnType<typeof removeTaskAC>

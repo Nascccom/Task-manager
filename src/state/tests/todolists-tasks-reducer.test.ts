@@ -1,7 +1,7 @@
-import {addTodolistAC, removeTodolistAC, TodolistDomainType, todolistsReducer} from "../reducers/todolists-reducer";
-import {tasksReducer, TasksStateType} from "../reducers/task-reducer";
-import {TodolistType} from "../../api/todolist-api/todolists-api";
-import {TaskPriorities, TaskStatuses} from "../../api/tasksAPI/tasks-api";
+import {addTodolistAC, removeTodolistAC, TodolistDomainType, todolistsReducer} from "../../features/TodolistList/todolists-reducer";
+import {tasksReducer, TasksStateType} from "../../features/TodolistList/Todolist/Task/task-reducer";
+import {TodolistType} from "../../api/todolists-api";
+import {TaskPriorities, TaskStatuses} from "../../api/tasks-api";
 
 test('id should be equals', () => {
     let startTodolistState: TodolistDomainType[] = []
