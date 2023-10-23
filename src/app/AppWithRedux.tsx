@@ -5,16 +5,15 @@ import Container from '@mui/material/Container';
 import {TodolistList} from "../features/TodolistList/TodolistList";
 import LinearProgress from '@mui/material/LinearProgress';
 import {useAppSelector} from "../hooks/useSelector/useSelector";
-import {RequestStatusType} from "./app-reducer";
 import {ErrorSnackbars} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {Login} from "../features/Login/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {useAppDispatch} from "../hooks/useDiapstch/useDispacth";
-import {getAuthMeDataTC} from "../state/reducers/auth-reducer";
+import {getAuthMeDataTC} from "../features/Login/auth-reducer";
+import {selectIsLoadingStatus} from "../hooks/useSelector/selectors";
 
 export function AppWithRedux() {
-    const isAuth = useAppSelector(state => state.auth.isAuth)
-    const status = useAppSelector<RequestStatusType>(state => state.app.status)
+    const isLoadingStatus = useAppSelector(selectIsLoadingStatus)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -25,7 +24,7 @@ export function AppWithRedux() {
       <div className="App">
           <ButtonAppBar/>
 
-          {status === 'loading' && <LinearProgress color={'secondary'}/>}
+          {isLoadingStatus === 'loading' && <LinearProgress color={'secondary'}/>}
 
           <Container fixed maxWidth={false}>
               <Routes>
