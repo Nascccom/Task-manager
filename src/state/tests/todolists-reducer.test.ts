@@ -43,7 +43,7 @@ test('correct todolist should be changed tittle todolist', () => {
     let newTodolistTitle = 'New Todolist';
 
     const endState: Array<TodolistDomainType> = todolistsReducer(startState,
-      changeTitleTodolistAC('todolistID1', newTodolistTitle));
+      changeTitleTodolistAC({todolistId: 'todolistID1', newTitle: newTodolistTitle}));
 
     expect(endState.length).toBe(2);
     expect(endState[0].id).toBe('todolistID1');

@@ -2,8 +2,8 @@ import {todolistAPI, TodolistType} from "../../api/todolists-api";
 import {ActionTypes} from "../../app/store";
 import {Dispatch} from "redux";
 import {RequestStatusType, setLoadingStatusAC} from "../../app/app-reducer";
-import {ResultCode} from "../../api/instance";
-import {handleServerAppError, handleServerNetworkError} from "../../utils/handleServerError";
+import {handleServerNetworkError} from "../../utils/handleServerError";
+import {handleSuccessResponse} from "../../utils/handleSuccessResponse";
 
 export type TodolistsReducerActionType =
   | ReturnType<typeof removeTodolistAC>
@@ -27,8 +27,8 @@ export const todolistsReducer = (state: TodolistDomainType[] = initialState, act
             const newTodo: TodolistDomainType = {...action.newTodolist, filter: 'All', entityStatus: 'idle'};
             return [newTodo, ...state];
         case 'TODOLISTS/CHANGE-TITLE-TODOLIST':
-            return state.map(td => td.id === action.todolistID
-              ? {...td, title: action.newTodolistTitle}
+            return state.map(td => td.id === action.payload.todolistId
+              ? {...td, title: action.payload.newTitle}
               : td)
         case "TODOLISTS/CHANGE-FILTER":
             return state.map((td) => td.id === action.todolistID
@@ -57,8 +57,12 @@ export const addTodolistAC = (newTodolist: TodolistType) => ({
     type: 'TODOLISTS/ADD-TODOLIST', newTodolist
 } as const)
 
-export const changeTitleTodolistAC = (todolistID: string, newTodolistTitle: string) => ({
-    type: 'TODOLISTS/CHANGE-TITLE-TODOLIST', todolistID, newTodolistTitle
+export const changeTitleTodolistAC = (data: { todolistId: string, newTitle: string }) => ({
+    type: 'TODOLISTS/CHANGE-TITLE-TODOLIST',
+    payload: {
+        todolistId: data.todolistId,
+        newTitle: data.newTitle
+    }
 } as const)
 
 export const changeFilterAC = (todolistID: string, newFilter: FilterValuesType) => ({
@@ -82,7 +86,6 @@ export const getTodolistsTC = () => (dispatch: Dispatch) => {
       })
       .catch(err => {
           handleServerNetworkError(dispatch, err.message)
-          dispatch(setLoadingStatusAC('failed'))
       })
 }
 
@@ -93,12 +96,7 @@ export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => 
 
     todolistAPI.deleteTodolist(todolistId)
       .then(res => {
-          if (res.resultCode === ResultCode.SUCCESS) {
-              dispatch(setLoadingStatusAC('succeeded'))
-              dispatch(removeTodolistAC(todolistId))
-          } else {
-              handleServerAppError(dispatch, res)
-          }
+          handleSuccessResponse(dispatch, removeTodolistAC, res, todolistId)
       })
       .catch(err => {
           handleServerNetworkError(dispatch, err.message)
@@ -112,16 +110,10 @@ export const createTodolistTC = (title: string) => (dispatch: Dispatch) => {
 
     todolistAPI.createTodolist(title)
       .then(res => {
-          if (res.resultCode === ResultCode.SUCCESS) {
-              dispatch(setLoadingStatusAC('succeeded'))
-              dispatch(addTodolistAC(res.data.item))
-          } else {
-              handleServerAppError(dispatch, res)
-          }
+          handleSuccessResponse(dispatch, addTodolistAC, res, res.data.item)
       })
       .catch(err => {
           handleServerNetworkError(dispatch, err.message)
-          dispatch(setLoadingStatusAC('failed'))
       })
 }
 
@@ -130,17 +122,10 @@ export const updateTodolistTitleTC = (todolistId: string, newTitle: string) => (
 
     todolistAPI.updateTodolistTittle(todolistId, newTitle)
       .then(res => {
-          if (res.resultCode === ResultCode.SUCCESS) {
-              dispatch(setLoadingStatusAC('succeeded'))
-              dispatch(changeTitleTodolistAC(todolistId, newTitle))
-          } else {
-              handleServerAppError(dispatch, res)
-              dispatch(setLoadingStatusAC('failed'))
-          }
+          handleSuccessResponse(dispatch, changeTitleTodolistAC, res, {todolistId, newTitle})
       })
       .catch(err => {
           handleServerNetworkError(dispatch, err.message)
-          dispatch(setLoadingStatusAC('failed'))
       })
 }
 

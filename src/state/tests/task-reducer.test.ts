@@ -90,7 +90,7 @@ const taskId = '1'
 
 
 test('correct task should be removed', () => {
-    const action = removeTaskAC(todolistId, taskId)
+    const action = removeTaskAC({todolistId, taskId})
     const endState: TasksStateType = tasksReducer(startState, action);
 
     expect(endState['todolistID1'].length).toBe(1)
@@ -101,7 +101,7 @@ test('correct task should be removed', () => {
 test('correct task should be added to correct array', () => {
     let newTask: TaskType = createTask('todolistID2', '5', 'SQL', TaskStatuses.New)
 
-    const action = addTaskAC('todolistID2', newTask)
+    const action = addTaskAC({todolistId: 'todolistID2', task: newTask})
     const endState: TasksStateType = tasksReducer(startState, action);
 
     expect(endState['todolistID1'].length).toBe(2)
@@ -121,7 +121,7 @@ test('correct task should be changed tittle', () => {
         console.warn('task not found')
     } else {
         necessaryTask.title = newTitle
-        const action = updateTaskAC(todolistId, taskId, necessaryTask)
+        const action = updateTaskAC({todolistId, taskId, task: necessaryTask})
         const endState: TasksStateType = tasksReducer(startState, action);
 
         expect(endState['todolistID1'].length).toBe(2)
@@ -140,7 +140,7 @@ test('correct should be changed status of the task ', () => {
         console.warn('task not found')
     } else {
         necessaryTask.status = TaskStatuses.Completed
-        const action = updateTaskAC(todolistId, taskId, necessaryTask)
+        const action = updateTaskAC({todolistId, taskId, task: necessaryTask})
         const endState: TasksStateType = tasksReducer(startState, action);
 
         expect(endState['todolistID1'].length).toBe(2)

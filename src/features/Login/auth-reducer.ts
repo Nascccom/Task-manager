@@ -3,6 +3,7 @@ import {setLoadingStatusAC} from "../../app/app-reducer";
 import {authAPI} from "../../api/auth-api";
 import {AppThunkDispatch} from "../../hooks/useDiapstch/useDispacth";
 import {ResultCode} from "../../api/instance";
+import {handleServerAppError, handleServerNetworkError} from "../../utils/handleServerError";
 
 const initialState = {
     userId: null as null | number,
@@ -52,13 +53,13 @@ export const getAuthMeDataTC = () =>
                 dispatch(setAuthDataAC(id, email, login))
                 dispatch(setIsLoggedInAC(true))
                 dispatch(setLoadingStatusAC('succeeded'))
+            } else {
+                handleServerAppError(dispatch, res)
             }
         })
-      .catch(err => {
-          console.log('getAuthMeDataTC: ' + err)
-          // dispatch(setErrorMessageAC(err))
-          dispatch(setLoadingStatusAC('failed'))
-      })
+        .catch(err => {
+            handleServerNetworkError(dispatch, err)
+        })
   }
 
 export const loginTC = (email: string, password: string, rememberMe: boolean) =>
@@ -69,12 +70,13 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
         .then(res => {
             if (res.resultCode === ResultCode.SUCCESS) {
                 dispatch(getAuthMeDataTC())
+            } else {
+                handleServerAppError(dispatch, res)
             }
         })
-      .catch(err => {
-          console.log('loginTC: ' + err)
-          dispatch(setLoadingStatusAC('failed'))
-      })
+        .catch(err => {
+            handleServerNetworkError(dispatch, err)
+        })
   }
 
 export const logoutTC = () =>
@@ -88,12 +90,11 @@ export const logoutTC = () =>
                 dispatch(setIsLoggedInAC(false))
                 dispatch(setLoadingStatusAC('succeeded'))
             } else {
-
+                handleServerAppError(dispatch, res)
             }
         })
         .catch(err => {
-            console.log('logoutTC: ' + err)
-            dispatch(setLoadingStatusAC('failed'))
+            handleServerNetworkError(dispatch, err)
         })
   }
 

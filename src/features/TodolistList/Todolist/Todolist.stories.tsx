@@ -61,7 +61,10 @@ const ReduxTodolist = ({todolistId, title, entityStatus}: ReduxTodolistType) => 
     }
 
     const addTaskForTodolistHandler = (valueTitle: string) => {
-        dispatch(addTaskAC(todolistId, newTask(todolistId, valueTitle)))
+        dispatch(addTaskAC({
+            todolistId: todolistId,
+            task: newTask(todolistId, valueTitle)
+        }))
     }
 
     const filteredTasks = (): TaskType[] => {
