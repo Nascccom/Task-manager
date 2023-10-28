@@ -2,6 +2,7 @@ import {AppRootStateType} from "../../app/store";
 
 //from app-reducer
 export const selectIsLoadingStatus = (state: AppRootStateType) => state.app.status
+export const selectIsInitialized = (state: AppRootStateType) => state.app.isInitialized
 
 //from auth-reducer
 export const selectIsLoggedIn = (state: AppRootStateType) => state.auth.isLoggedIn

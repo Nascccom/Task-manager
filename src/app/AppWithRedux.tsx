@@ -10,15 +10,23 @@ import {Login} from "../features/Login/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {useAppDispatch} from "../hooks/useDiapstch/useDispacth";
 import {getAuthMeDataTC} from "../features/Login/auth-reducer";
-import {selectIsLoadingStatus} from "../hooks/useSelector/selectors";
+import {selectIsInitialized, selectIsLoadingStatus} from "../hooks/useSelector/selectors";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export function AppWithRedux() {
     const isLoadingStatus = useAppSelector(selectIsLoadingStatus)
+    const isInitialized = useAppSelector(selectIsInitialized)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(getAuthMeDataTC())
     }, [dispatch])
+
+    if (!isInitialized) {
+        return <div style={{position: 'fixed', top: '30%', textAlign: "center", width: '100%'}}>
+            <CircularProgress color="secondary" size={150} thickness={3}/>
+        </div>
+    }
 
     return (
       <div className="App">
