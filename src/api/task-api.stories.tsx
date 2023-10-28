@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {tasksAPI, UpdateTaskModelType} from "./tasks-api";
-import {useAppSelector} from "../../hooks/useSelector/useSelector";
-import {ReduxStoreProviderDecorator} from "../../state/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
+import {useAppSelector} from "../hooks/useSelector/useSelector";
+import {ReduxStoreProviderDecorator} from "../state/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
 
 export default {
     title: 'API/TasksAPI',

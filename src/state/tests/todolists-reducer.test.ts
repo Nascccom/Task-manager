@@ -5,8 +5,8 @@ import {
     removeTodolistAC,
     TodolistDomainType,
     todolistsReducer
-} from '../reducers/todolists-reducer';
-import {TodolistType} from "../../api/todolist-api/todolists-api";
+} from '../../features/TodolistList/todolists-reducer';
+import {TodolistType} from "../../api/todolists-api";
 
 let startState: Array<TodolistDomainType>
 
@@ -43,7 +43,7 @@ test('correct todolist should be changed tittle todolist', () => {
     let newTodolistTitle = 'New Todolist';
 
     const endState: Array<TodolistDomainType> = todolistsReducer(startState,
-      changeTitleTodolistAC('todolistID1', newTodolistTitle));
+      changeTitleTodolistAC({todolistId: 'todolistID1', newTitle: newTodolistTitle}));
 
     expect(endState.length).toBe(2);
     expect(endState[0].id).toBe('todolistID1');

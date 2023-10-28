@@ -1,23 +1,19 @@
-import React, {memo, useCallback, useEffect, useState} from 'react';
+import React, {memo, useCallback, useState} from 'react';
 import {ButtonUniversal} from '../../../components/Button/ButtonUniversal';
 import {EditableSpan} from '../../../components/EditableSpan/EditableSpan';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
-import {
-    changeFilterAC,
-    FilterValuesType,
-    removeTodolistTC,
-    updateTodolistTitleTC
-} from "../../../state/reducers/todolists-reducer";
-import {addTaskTC, getTasksTC} from "../../../state/reducers/task-reducer";
+import {changeFilterAC, FilterValuesType, removeTodolistTC, updateTodolistTitleTC} from "../todolists-reducer";
+import {addTaskTC} from "./Task/task-reducer";
 import {Task} from "./Task/Task";
 import {InputLine} from "../../../components/InputLine/InputLine";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import {TaskStatuses, TaskType} from "../../../api/tasksAPI/tasks-api";
+import {TaskStatuses} from "../../../api/tasks-api";
 import {useAppDispatch} from "../../../hooks/useDiapstch/useDispacth";
-import {useAppSelector} from "../../../hooks/useSelector/useSelector";
 import {ButtonGroupStyle} from './TodolistStyles';
 import {RequestStatusType} from "../../../app/app-reducer";
+import {useSelector} from "react-redux";
+import {selectTasks} from "../../../hooks/useSelector/selectors";
 
 
 type PropsType = {
@@ -34,14 +30,9 @@ export const Todolist = memo((
       activeFilter,
       entityStatus
   }: PropsType) => {
-
-    const tasks = useAppSelector<TaskType[]>(state => state.tasks[todolistId])
+    const tasks = useSelector(selectTasks(todolistId));
     const dispatch = useAppDispatch()
     const [activeButton, setActiveButton] = useState<FilterValuesType>('All')
-
-    useEffect(() => {
-        dispatch(getTasksTC(todolistId))
-    }, [])
 
     const changeFilterButtonHandler = useCallback((todolistID: string, filterValue: FilterValuesType) => {
         dispatch(changeFilterAC(todolistID, filterValue))

@@ -2,9 +2,9 @@ import React from 'react'
 import {Provider} from "react-redux";
 import {AppRootStateType, rootReducer} from "../../app/store";
 import {applyMiddleware, createStore} from "redux";
-import {TodolistDomainType} from "../reducers/todolists-reducer";
-import {TasksStateType} from "../reducers/task-reducer";
-import {TaskPriorities, TaskStatuses} from "../../api/tasksAPI/tasks-api";
+import {TodolistDomainType} from "../../features/TodolistList/todolists-reducer";
+import {TasksStateType} from "../../features/TodolistList/Todolist/Task/task-reducer";
+import {TaskPriorities, TaskStatuses} from "../../api/tasks-api";
 import {initialAppStateType} from "../../app/app-reducer";
 import thunk from 'redux-thunk';
 

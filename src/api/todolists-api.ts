@@ -1,4 +1,4 @@
-import {instance, ResponseType} from "../instance";
+import {instance, ResponseType} from "./instance";
 import {AxiosResponse} from "axios";
 
 export const todolistAPI = {
