@@ -14,6 +14,7 @@ export type TodolistsReducerActionType =
   | ReturnType<typeof changeFilterAC>
   | ReturnType<typeof setTodolistAC>
   | ReturnType<typeof changeEntityStatusAC>
+  | ReturnType<typeof deleteAllTodolistsWithTasksAC>
 
 const initialState: TodolistDomainType[] = [
     // {id: todolistId1, title: 'What to buy', order: 0, filter: 'All', addedDate: '', entityStatus: 'idle'}
@@ -40,6 +41,8 @@ export const todolistsReducer = (state: TodolistDomainType[] = initialState, act
             return state.map((td) => td.id === action.todolistID
               ? {...td, entityStatus: action.status}
               : td)
+        case "TODOLISTS/DELETE-ALL-TODOLISTS-WITH-TASKS":
+            return []
         default:
             return state;
     }
@@ -73,6 +76,10 @@ export const changeFilterAC = (todolistID: string, newFilter: FilterValuesType) 
 
 export const changeEntityStatusAC = (todolistID: string, status: RequestStatusType) => ({
     type: 'TODOLISTS/CHANGE-ENTITY-STATUS', todolistID, status
+} as const)
+
+export const deleteAllTodolistsWithTasksAC = () => ({
+    type: 'TODOLISTS/DELETE-ALL-TODOLISTS-WITH-TASKS',
 } as const)
 
 

@@ -50,12 +50,12 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
                 ...state,
                 [action.todolistId]: action.tasks
             }
-        case "TODOLISTS/ADD-TODOLIST": {
+        case "TODOLISTS/ADD-TODOLIST":
             return {
                 ...state,
                 [action.newTodolist.id]: []
             }
-        }
+
         case "TODOLISTS/REMOVE-TODOLIST": {
             let copyState = {...state}
             delete copyState[action.todolistID]
@@ -66,6 +66,8 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
             action.todolists.forEach((todo) => copyState[todo.id] = [])
             return copyState
         }
+        case"TODOLISTS/DELETE-ALL-TODOLISTS-WITH-TASKS":
+            return {}
         default:
             return state;
     }

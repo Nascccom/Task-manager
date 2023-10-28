@@ -1,16 +1,18 @@
 import React from 'react'
 import {Provider} from "react-redux";
 import {AppRootStateType, rootReducer} from "../../app/store";
-import {applyMiddleware, createStore} from "redux";
+import {applyMiddleware, legacy_createStore} from "redux";
 import {TodolistDomainType} from "../../features/TodolistList/todolists-reducer";
 import {TasksStateType} from "../../features/TodolistList/Todolist/Task/task-reducer";
 import {TaskPriorities, TaskStatuses} from "../../api/tasks-api";
 import {initialAppStateType} from "../../app/app-reducer";
 import thunk from 'redux-thunk';
+import {MemoryRouter} from "react-router-dom";
 
 
 const initialGlobalState = {
     app: {
+        isInitialized: false,
         status: 'idle',
         error: null,
     } as initialAppStateType,
@@ -45,13 +47,14 @@ const initialGlobalState = {
         ],
     } as TasksStateType
 }
+export type DecoratorStateType = typeof initialGlobalState
 
 
-export const storyBookStore = createStore(rootReducer,
+export const storyBookStore = legacy_createStore(rootReducer,
   initialGlobalState as AppRootStateType, applyMiddleware(thunk))
 
 
 export const ReduxStoreProviderDecorator = (storyFn: () => React.ReactNode) => {
-    return <Provider store={storyBookStore}>{storyFn()}</Provider>
+    return <MemoryRouter><Provider store={storyBookStore}>{storyFn()}</Provider></MemoryRouter>
 }
 

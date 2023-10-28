@@ -4,7 +4,7 @@ import {authAPI} from "../../api/auth-api";
 import {AppThunkDispatch} from "../../hooks/useDiapstch/useDispacth";
 import {ResultCode} from "../../api/instance";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/handleServerError";
-import {setTodolistAC} from "../TodolistList/todolists-reducer";
+import {deleteAllTodolistsWithTasksAC} from "../TodolistList/todolists-reducer";
 
 const initialState = {
     userId: null as null | number,
@@ -90,7 +90,7 @@ export const logoutTC = () =>
       authAPI.logout()
         .then(res => {
             if (res.resultCode === ResultCode.SUCCESS) {
-                dispatch(setTodolistAC([]))
+                dispatch(deleteAllTodolistsWithTasksAC())
                 dispatch(setAuthDataAC(null, null, null))
                 dispatch(setIsLoggedInAC(false))
                 dispatch(setLoadingStatusAC('succeeded'))
