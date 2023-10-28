@@ -4,6 +4,8 @@ import {Dispatch} from "redux";
 import {RequestStatusType, setLoadingStatusAC} from "../../app/app-reducer";
 import {handleServerNetworkError} from "../../utils/handleServerError";
 import {handleSuccessResponse} from "../../utils/handleSuccessResponse";
+import {getTasksTC} from "./Todolist/Task/task-reducer";
+import {AppThunkDispatch} from "../../hooks/useDiapstch/useDispacth";
 
 export type TodolistsReducerActionType =
   | ReturnType<typeof removeTodolistAC>
@@ -75,7 +77,7 @@ export const changeEntityStatusAC = (todolistID: string, status: RequestStatusTy
 
 
 //thunkCreators
-export const getTodolistsTC = () => (dispatch: Dispatch) => {
+export const getTodolistsTC = () => (dispatch: AppThunkDispatch) => {
 
     dispatch(setLoadingStatusAC('loading'))
 
@@ -83,6 +85,12 @@ export const getTodolistsTC = () => (dispatch: Dispatch) => {
       .then(res => {
           dispatch(setTodolistAC(res))
           dispatch(setLoadingStatusAC('succeeded'))
+          return res
+      })
+      .then(todolists => {
+          todolists.forEach(todo => {
+              dispatch(getTasksTC(todo.id))
+          })
       })
       .catch(err => {
           handleServerNetworkError(dispatch, err.message)

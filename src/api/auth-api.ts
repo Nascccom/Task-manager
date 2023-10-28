@@ -4,7 +4,7 @@ import {LoginDataType} from "../features/Login/Login";
 
 export const authAPI = {
     getAuthMeData() {
-        return instance.get<ResponseType<AuthMeType>, AxiosResponse<ResponseType<AuthMeType>>>('auth/me')
+        return instance.get<ResponseType<AuthMeType>>('auth/me')
           .then(res => res.data)
     },
     login(data: LoginDataType) {
@@ -14,7 +14,7 @@ export const authAPI = {
           .then(res => res.data)
     },
     logout() {
-        return instance.delete<ResponseType, AxiosResponse<ResponseType>>('auth/login')
+        return instance.delete<ResponseType>('auth/login')
           .then(res => res.data)
     }
 }

@@ -1,9 +1,10 @@
 import {ActionTypes} from "../../app/store";
-import {setLoadingStatusAC} from "../../app/app-reducer";
+import {setIsInitializedAC, setLoadingStatusAC} from "../../app/app-reducer";
 import {authAPI} from "../../api/auth-api";
 import {AppThunkDispatch} from "../../hooks/useDiapstch/useDispacth";
 import {ResultCode} from "../../api/instance";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/handleServerError";
+import {setTodolistAC} from "../TodolistList/todolists-reducer";
 
 const initialState = {
     userId: null as null | number,
@@ -60,6 +61,9 @@ export const getAuthMeDataTC = () =>
         .catch(err => {
             handleServerNetworkError(dispatch, err)
         })
+        .finally(() => {
+            dispatch(setIsInitializedAC(true))
+        })
   }
 
 export const loginTC = (email: string, password: string, rememberMe: boolean) =>
@@ -86,6 +90,7 @@ export const logoutTC = () =>
       authAPI.logout()
         .then(res => {
             if (res.resultCode === ResultCode.SUCCESS) {
+                dispatch(setTodolistAC([]))
                 dispatch(setAuthDataAC(null, null, null))
                 dispatch(setIsLoggedInAC(false))
                 dispatch(setLoadingStatusAC('succeeded'))
