@@ -7,15 +7,6 @@ import {handleSuccessResponse} from "../../utils/handleSuccessResponse";
 import {getTasksTC} from "./Todolist/Task/task-reducer";
 import {AppThunkDispatch} from "../../hooks/useDiapstch/useDispacth";
 
-export type TodolistsReducerActionType =
-  | ReturnType<typeof removeTodolistAC>
-  | ReturnType<typeof addTodolistAC>
-  | ReturnType<typeof changeTitleTodolistAC>
-  | ReturnType<typeof changeFilterAC>
-  | ReturnType<typeof setTodolistAC>
-  | ReturnType<typeof changeEntityStatusAC>
-  | ReturnType<typeof deleteAllTodolistsWithTasksAC>
-
 const initialState: TodolistDomainType[] = [
     // {id: todolistId1, title: 'What to buy', order: 0, filter: 'All', addedDate: '', entityStatus: 'idle'}
 ]
@@ -148,3 +139,12 @@ export const updateTodolistTitleTC = (todolistId: string, newTitle: string) => (
 //types
 export type TodolistDomainType = TodolistType & { filter: FilterValuesType, entityStatus: RequestStatusType }
 export type FilterValuesType = 'All' | 'Active' | 'Completed';
+
+export type TodolistsReducerActionType =
+  | ReturnType<typeof removeTodolistAC>
+  | ReturnType<typeof addTodolistAC>
+  | ReturnType<typeof changeTitleTodolistAC>
+  | ReturnType<typeof changeFilterAC>
+  | ReturnType<typeof setTodolistAC>
+  | ReturnType<typeof changeEntityStatusAC>
+  | ReturnType<typeof deleteAllTodolistsWithTasksAC>
