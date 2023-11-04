@@ -55,7 +55,6 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
                 ...state,
                 [action.newTodolist.id]: []
             }
-
         case "TODOLISTS/REMOVE-TODOLIST": {
             let copyState = {...state}
             delete copyState[action.todolistID]
