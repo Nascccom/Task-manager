@@ -14,13 +14,13 @@ beforeEach(() => {
 
 
 test('IsLoggedIn should be changed correct', () => {
-    const endState: initialAuthStateType = authReducer(startState, setIsLoggedInAC(true));
+    const endState: initialAuthStateType = authReducer(startState, setIsLoggedInAC({value: true}));
 
     expect(endState.isLoggedIn).toBe(true)
 })
 
 test('auth data should be added correct', () => {
-    const endState: initialAuthStateType = authReducer(startState, setAuthDataAC(1, 'blaBla@mail.com', 'BlaBla'));
+    const endState: initialAuthStateType = authReducer(startState, setAuthDataAC({userId: 1, email: 'blaBla@mail.com', login: 'BlaBla'}));
 
     expect(endState.userId).toBe(1)
     expect(endState.email).toBe('blaBla@mail.com')

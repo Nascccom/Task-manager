@@ -1,10 +1,10 @@
-import {ActionTypes} from "../../app/store";
 import {setIsInitializedAC, setLoadingStatusAC} from "../../app/app-reducer";
 import {authAPI} from "../../api/auth-api";
 import {AppThunkDispatch} from "../../hooks/useDiapstch/useDispacth";
 import {ResultCode} from "../../api/instance";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/handleServerError";
 import {deleteAllTodolistsWithTasksAC} from "../TodolistList/todolists-reducer";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState = {
     userId: null as null | number,
@@ -15,31 +15,41 @@ const initialState = {
 }
 export type initialAuthStateType = typeof initialState
 
-export const authReducer = (state: initialAuthStateType = initialState, action: ActionTypes): initialAuthStateType => {
-    switch (action.type) {
-        case 'AUTH/SET-IS-LOGGED-IN':
-            return {...state, isLoggedIn: action.isLoggedIn}
-        case'AUTH/SET-AUTH-DATA':
-            return {
-                ...state,
-                userId: action.userId,
-                email: action.email,
-                login: action.login
-            }
-        default:
-            return state
-    }
-}
-//Actions Creator
-export const setIsLoggedInAC = (isLoggedIn: boolean) => ({
-    type: 'AUTH/SET-IS-LOGGED-IN',
-    isLoggedIn
-} as const)
+// export const authReducer = (state: initialAuthStateType = initialState, action: ActionTypes): initialAuthStateType => {
+//     switch (action.type) {
+//         case 'AUTH/SET-IS-LOGGED-IN':
+//             return {...state, isLoggedIn: action.isLoggedIn}
+//         case'AUTH/SET-AUTH-DATA':
+//             return {
+//                 ...state,
+//                 userId: action.userId,
+//                 email: action.email,
+//                 login: action.login
+//             }
+//         default:
+//             return state
+//     }
+// }
 
-export const setAuthDataAC = (userId: null | number, email: string | null, login: null | string) => ({
-    type: 'AUTH/SET-AUTH-DATA',
-    userId, email, login
-} as const)
+export const authSlice = createSlice({
+    name: 'auth',
+    initialState,
+    reducers: {
+        setIsLoggedInAC: (state, action: PayloadAction<{ value: boolean }>) => {
+            state.isLoggedIn = action.payload.value
+        },
+        setAuthDataAC: (state, action: PayloadAction<{ userId: null | number, email: string | null, login: null | string }>) => {
+            state.userId = action.payload.userId
+            state.email = action.payload.email
+            state.login = action.payload.login
+        }
+    }
+})
+export const {
+    setIsLoggedInAC,
+    setAuthDataAC
+} = authSlice.actions
+export const authReducer = authSlice.reducer
 
 
 //Thunks Creator
@@ -51,8 +61,8 @@ export const getAuthMeDataTC = () =>
         .then(res => {
             if (res.resultCode === ResultCode.SUCCESS) {
                 const {id, email, login} = res.data
-                dispatch(setAuthDataAC(id, email, login))
-                dispatch(setIsLoggedInAC(true))
+                dispatch(setAuthDataAC({userId: id, email, login}))
+                dispatch(setIsLoggedInAC({value: true}))
                 dispatch(setLoadingStatusAC({status: 'succeeded'}))
             } else {
                 handleServerAppError(dispatch, res)
@@ -91,8 +101,8 @@ export const logoutTC = () =>
         .then(res => {
             if (res.resultCode === ResultCode.SUCCESS) {
                 dispatch(deleteAllTodolistsWithTasksAC())
-                dispatch(setAuthDataAC(null, null, null))
-                dispatch(setIsLoggedInAC(false))
+                dispatch(setAuthDataAC({userId: null, email: null, login: null}))
+                dispatch(setIsLoggedInAC({value: false}))
                 dispatch(setLoadingStatusAC({status: 'succeeded'}))
             } else {
                 handleServerAppError(dispatch, res)
