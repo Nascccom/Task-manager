@@ -45,7 +45,7 @@ export const setAuthDataAC = (userId: null | number, email: string | null, login
 //Thunks Creator
 export const getAuthMeDataTC = () =>
   (dispatch: AppThunkDispatch) => {
-      dispatch(setLoadingStatusAC('loading'))
+      dispatch(setLoadingStatusAC({status: 'loading'}))
 
       authAPI.getAuthMeData()
         .then(res => {
@@ -53,7 +53,7 @@ export const getAuthMeDataTC = () =>
                 const {id, email, login} = res.data
                 dispatch(setAuthDataAC(id, email, login))
                 dispatch(setIsLoggedInAC(true))
-                dispatch(setLoadingStatusAC('succeeded'))
+                dispatch(setLoadingStatusAC({status: 'succeeded'}))
             } else {
                 handleServerAppError(dispatch, res)
             }
@@ -62,13 +62,13 @@ export const getAuthMeDataTC = () =>
             handleServerNetworkError(dispatch, err)
         })
         .finally(() => {
-            dispatch(setIsInitializedAC(true))
+            dispatch(setIsInitializedAC({value: true}))
         })
   }
 
 export const loginTC = (email: string, password: string, rememberMe: boolean) =>
   (dispatch: AppThunkDispatch) => {
-      dispatch(setLoadingStatusAC('loading'))
+      dispatch(setLoadingStatusAC({status: 'loading'}))
 
       authAPI.login({email, password, rememberMe})
         .then(res => {
@@ -85,7 +85,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
 
 export const logoutTC = () =>
   (dispatch: AppThunkDispatch) => {
-      dispatch(setLoadingStatusAC('loading'))
+      dispatch(setLoadingStatusAC({status: 'loading'}))
 
       authAPI.logout()
         .then(res => {
@@ -93,7 +93,7 @@ export const logoutTC = () =>
                 dispatch(deleteAllTodolistsWithTasksAC())
                 dispatch(setAuthDataAC(null, null, null))
                 dispatch(setIsLoggedInAC(false))
-                dispatch(setLoadingStatusAC('succeeded'))
+                dispatch(setLoadingStatusAC({status: 'succeeded'}))
             } else {
                 handleServerAppError(dispatch, res)
             }

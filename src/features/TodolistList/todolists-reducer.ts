@@ -77,12 +77,12 @@ export const deleteAllTodolistsWithTasksAC = () => ({
 //thunkCreators
 export const getTodolistsTC = () => (dispatch: AppThunkDispatch) => {
 
-    dispatch(setLoadingStatusAC('loading'))
+    dispatch(setLoadingStatusAC({status: 'loading'}))
 
     todolistAPI.getTodolists()
       .then(res => {
           dispatch(setTodolistAC(res))
-          dispatch(setLoadingStatusAC('succeeded'))
+          dispatch(setLoadingStatusAC({status: 'succeeded'}))
           return res
       })
       .then(todolists => {
@@ -97,7 +97,7 @@ export const getTodolistsTC = () => (dispatch: AppThunkDispatch) => {
 
 export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
 
-    dispatch(setLoadingStatusAC('loading'))
+    dispatch(setLoadingStatusAC({status: 'loading'}))
     dispatch(changeEntityStatusAC(todolistId, 'loading'))
 
     todolistAPI.deleteTodolist(todolistId)
@@ -112,7 +112,7 @@ export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => 
 
 export const createTodolistTC = (title: string) => (dispatch: Dispatch) => {
 
-    dispatch(setLoadingStatusAC('loading'))
+    dispatch(setLoadingStatusAC({status: 'loading'}))
 
     todolistAPI.createTodolist(title)
       .then(res => {
@@ -124,7 +124,7 @@ export const createTodolistTC = (title: string) => (dispatch: Dispatch) => {
 }
 
 export const updateTodolistTitleTC = (todolistId: string, newTitle: string) => (dispatch: Dispatch) => {
-    dispatch(setLoadingStatusAC('loading'))
+    dispatch(setLoadingStatusAC({status: 'loading'}))
 
     todolistAPI.updateTodolistTittle(todolistId, newTitle)
       .then(res => {

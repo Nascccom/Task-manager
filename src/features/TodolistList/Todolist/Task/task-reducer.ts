@@ -106,12 +106,12 @@ export const setTasksAC = (todolistId: string, tasks: TaskType[]) => ({
 export const getTasksTC = (todolistId: string) =>
   (dispatch: AppThunkDispatch) => {
 
-      dispatch(setLoadingStatusAC('loading'))
+      dispatch(setLoadingStatusAC({status: 'loading'}))
 
       tasksAPI.getTasks(todolistId)
         .then(res => {
             dispatch(setTasksAC(todolistId, res.items))
-            dispatch(setLoadingStatusAC('succeeded'))
+            dispatch(setLoadingStatusAC({status: 'succeeded'}))
         })
         .catch(err => {
             handleServerNetworkError(dispatch, err.message)
@@ -121,7 +121,7 @@ export const getTasksTC = (todolistId: string) =>
 export const removeTaskTC = (todolistId: string, taskId: string) =>
   (dispatch: AppThunkDispatch) => {
 
-      dispatch(setLoadingStatusAC('loading'))
+      dispatch(setLoadingStatusAC({status: 'loading'}))
 
       tasksAPI.deleteTask(todolistId, taskId)
         .then(res => {
@@ -135,7 +135,7 @@ export const removeTaskTC = (todolistId: string, taskId: string) =>
 export const addTaskTC = (todolistId: string, textForTask: string) =>
   (dispatch: AppThunkDispatch) => {
 
-      dispatch(setLoadingStatusAC('loading'))
+      dispatch(setLoadingStatusAC({status: 'loading'}))
 
       tasksAPI.createTask(todolistId, textForTask)
         .then(res => {
@@ -163,7 +163,7 @@ export const updateTaskTC = (todolistId: string, taskId: string, changingPart: O
               ...changingPart
           }
 
-          dispatch(setLoadingStatusAC('loading'))
+          dispatch(setLoadingStatusAC({status: 'loading'}))
 
           tasksAPI.updateTask(todolistId, taskId, newModel)
             .then(res => {
