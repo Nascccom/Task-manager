@@ -4,6 +4,7 @@ import {setLoadingStatusAC} from "../../../../app/app-reducer";
 import {handleServerNetworkError} from "../../../../utils/handleServerError";
 import {AppThunkDispatch} from "../../../../hooks/useDiapstch/useDispacth";
 import {handleSuccessResponse} from "../../../../utils/handleSuccessResponse";
+import {addTodolistAC, deleteAllTodolistsWithTasksAC, removeTodolistAC, setTodolistAC} from "../../todolists-reducer";
 
 export type TasksReducerActionType =
   | ReturnType<typeof removeTaskAC>
@@ -50,22 +51,22 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
                 ...state,
                 [action.todolistId]: action.tasks
             }
-        case "TODOLISTS/ADD-TODOLIST":
+        case addTodolistAC.type:
             return {
                 ...state,
-                [action.newTodolist.id]: []
+                [action.payload.todolist.id]: []
             }
-        case "TODOLISTS/REMOVE-TODOLIST": {
+        case removeTodolistAC.type: {
             let copyState = {...state}
-            delete copyState[action.todolistID]
+            delete copyState[action.payload.todolistID]
             return copyState
         }
-        case "TODOLISTS/SET-TODOLIST": {
+        case setTodolistAC.type: {
             let copyState = {...state}
-            action.todolists.forEach((todo) => copyState[todo.id] = [])
+            action.payload.todolists.forEach((todo) => copyState[todo.id] = [])
             return copyState
         }
-        case"TODOLISTS/DELETE-ALL-TODOLISTS-WITH-TASKS":
+        case deleteAllTodolistsWithTasksAC.type:
             return {}
         default:
             return state;

@@ -35,7 +35,7 @@ export const Todolist = memo((
     const [activeButton, setActiveButton] = useState<FilterValuesType>('All')
 
     const changeFilterButtonHandler = useCallback((todolistID: string, filterValue: FilterValuesType) => {
-        dispatch(changeFilterAC(todolistID, filterValue))
+        dispatch(changeFilterAC({todolistId, filter: filterValue}))
         setActiveButton(filterValue)
     }, [dispatch])
 

@@ -15,22 +15,6 @@ const initialState = {
 }
 export type initialAuthStateType = typeof initialState
 
-// export const authReducer = (state: initialAuthStateType = initialState, action: ActionTypes): initialAuthStateType => {
-//     switch (action.type) {
-//         case 'AUTH/SET-IS-LOGGED-IN':
-//             return {...state, isLoggedIn: action.isLoggedIn}
-//         case'AUTH/SET-AUTH-DATA':
-//             return {
-//                 ...state,
-//                 userId: action.userId,
-//                 email: action.email,
-//                 login: action.login
-//             }
-//         default:
-//             return state
-//     }
-// }
-
 export const authSlice = createSlice({
     name: 'auth',
     initialState,

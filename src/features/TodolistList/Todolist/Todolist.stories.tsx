@@ -55,8 +55,8 @@ const ReduxTodolist = ({todolistId, title, entityStatus}: ReduxTodolistType) => 
     const dispatch = useDispatch()
     const [activeButton, setActiveButton] = useState<FilterValuesType>('All')
 
-    const changeFilterButtonHandler = (todolistID: string, filterValue: FilterValuesType) => {
-        dispatch(changeFilterAC(todolistID, filterValue))
+    const changeFilterButtonHandler = (todolistId: string, filterValue: FilterValuesType) => {
+        dispatch(changeFilterAC({todolistId, filter: filterValue}))
         setActiveButton(filterValue)
     }
 
