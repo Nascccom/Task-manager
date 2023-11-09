@@ -1,4 +1,4 @@
-import { AppRootStateType } from "../../app/store"
+import { AppRootStateType } from "app/store"
 
 //from app-reducer
 export const selectIsLoadingStatus = (state: AppRootStateType) => state.app.status

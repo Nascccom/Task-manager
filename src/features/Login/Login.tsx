@@ -7,12 +7,12 @@ import FormGroup from "@mui/material/FormGroup"
 import FormLabel from "@mui/material/FormLabel"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
-import { useAppSelector } from "../../hooks/useSelector/useSelector"
-import { useAppDispatch } from "../../hooks/useDiapstch/useDispacth"
+import { useAppSelector } from "hooks/useSelector/useSelector"
+import { useAppDispatch } from "hooks/useDiapstch/useDispacth"
 import { useFormik } from "formik"
 import { loginTC } from "./auth-reducer"
 import { Navigate } from "react-router-dom"
-import { selectIsLoggedIn } from "../../hooks/useSelector/selectors"
+import { selectIsLoggedIn } from "hooks/useSelector/selectors"
 
 type FormikErrorType = {
     email?: string

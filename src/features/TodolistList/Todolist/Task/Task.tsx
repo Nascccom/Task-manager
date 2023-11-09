@@ -1,12 +1,12 @@
 import React, { memo, useCallback } from "react"
 import styles from "../Todolist.module.css"
-import { SuperCheckBox } from "../../../../components/SuperCheckBox/SuperCheckBox"
-import { EditableSpan } from "../../../../components/EditableSpan/EditableSpan"
+import { SuperCheckBox } from "components/SuperCheckBox/SuperCheckBox"
+import { EditableSpan } from "components/EditableSpan/EditableSpan"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { removeTaskTC, updateTaskTC } from "./task-reducer"
-import { TaskStatuses, TaskType } from "../../../../api/tasks-api"
-import { useAppDispatch } from "../../../../hooks/useDiapstch/useDispacth"
+import { TaskStatuses, TaskType } from "api/tasks-api"
+import { useAppDispatch } from "hooks/useDiapstch/useDispacth"
 
 export type TaskPropsType = {
     task: TaskType
