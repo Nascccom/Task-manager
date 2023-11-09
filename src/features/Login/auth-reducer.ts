@@ -3,7 +3,7 @@ import {authAPI} from "../../api/auth-api";
 import {AppThunkDispatch} from "../../hooks/useDiapstch/useDispacth";
 import {ResultCode} from "../../api/instance";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/handleServerError";
-import {deleteAllTodolistsWithTasksAC} from "../TodolistList/todolists-reducer";
+import {deleteAllTodolistsWithTasksAC, getTodolistsTC} from "../TodolistList/todolists-reducer";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState = {
@@ -51,6 +51,9 @@ export const getAuthMeDataTC = () =>
             } else {
                 handleServerAppError(dispatch, res)
             }
+        })
+        .then(() => {
+            dispatch(getTodolistsTC())
         })
         .catch(err => {
             handleServerNetworkError(dispatch, err)

@@ -1,9 +1,9 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback} from 'react';
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import {Todolist} from "./Todolist/ToDoList";
 import {useAppSelector} from "../../hooks/useSelector/useSelector";
-import {createTodolistTC, getTodolistsTC} from "./todolists-reducer";
+import {createTodolistTC} from "./todolists-reducer";
 import {useAppDispatch} from "../../hooks/useDiapstch/useDispacth";
 import {InputLine} from "../../components/InputLine/InputLine";
 import {selectIsLoggedIn, selectTodolists} from "../../hooks/useSelector/selectors";
@@ -13,12 +13,6 @@ export const TodolistList = () => {
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
     const todolists = useAppSelector(selectTodolists)
     const dispatch = useAppDispatch()
-
-    useEffect(() => {
-        if (isLoggedIn) {
-            dispatch(getTodolistsTC())
-        }
-    }, [])
 
     const addTodolist = useCallback((title: string) => {
         dispatch(createTodolistTC(title))

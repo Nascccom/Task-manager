@@ -4,7 +4,7 @@ import {
     setErrorMessageAC,
     setIsInitializedAC,
     setLoadingStatusAC
-} from "../../app/app-reducer";
+} from "../app/app-reducer";
 
 let startState: initialAppStateType
 

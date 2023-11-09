@@ -7,7 +7,7 @@ import {
     setTodolistAC,
     TodolistDomainType,
     todolistsReducer
-} from '../../features/TodolistList/todolists-reducer';
+} from '../features/TodolistList/todolists-reducer';
 
 let startState: TodolistDomainType[]
 
@@ -19,7 +19,7 @@ beforeEach(() => {
 })
 
 test('correct todolist should be removed', () => {
-    const endState = todolistsReducer(startState, removeTodolistAC({todolistID: 'todolistID1'}));
+    const endState = todolistsReducer(startState, removeTodolistAC({todolistId: 'todolistID1'}));
 
     expect(endState.length).toBe(1);
     expect(endState[0].id).toBe('todolistID2');
@@ -42,7 +42,7 @@ test('correct todolist should be added', () => {
 });
 test('correct todolist should be changed tittle todolist', () => {
     const endState = todolistsReducer(startState,
-      changeTitleTodolistAC({todolistId: 'todolistID1', title: 'New Todolist'}));
+      changeTitleTodolistAC({todolistId: 'todolistID1', newTitle: 'New Todolist'}));
 
     expect(endState.length).toBe(2);
     expect(endState[0].id).toBe('todolistID1');

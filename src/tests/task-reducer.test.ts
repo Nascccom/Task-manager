@@ -4,9 +4,9 @@ import {
     tasksReducer,
     TasksStateType,
     updateTaskAC
-} from "../../features/TodolistList/Todolist/Task/task-reducer";
-import {addTodolistAC, removeTodolistAC, setTodolistAC} from "../../features/TodolistList/todolists-reducer";
-import {TaskPriorities, TaskStatuses} from "../../api/tasks-api";
+} from "../features/TodolistList/Todolist/Task/task-reducer";
+import {addTodolistAC, removeTodolistAC, setTodolistAC} from "../features/TodolistList/todolists-reducer";
+import {TaskPriorities, TaskStatuses} from "../api/tasks-api";
 
 let startState: TasksStateType
 
@@ -73,10 +73,10 @@ test('correct task should be added to correct array', () => {
 
     expect(endState['todolistID1'].length).toBe(2)
     expect(endState['todolistID2'].length).toBe(3)
-    expect(endState['todolistID2'][2].todoListId).toBe('todolistID2')
-    expect(endState['todolistID2'][2].id).toBe('new id')
-    expect(endState['todolistID2'][2].title).toBe('SQL')
-    expect(endState['todolistID2'][2].status).toBe(TaskStatuses.New)
+    expect(endState['todolistID2'][0].todoListId).toBe('todolistID2')
+    expect(endState['todolistID2'][0].id).toBe("new id")
+    expect(endState['todolistID2'][0].title).toBe('SQL')
+    expect(endState['todolistID2'][0].status).toBe(TaskStatuses.New)
 })
 test('correct task should be changed tittle', () => {
     let newTitle = 'SSSSSQL'
@@ -121,7 +121,7 @@ test('new array should be added when new todolist is added ', () => {
     expect(endState[newKey]).toEqual([])
 })
 test('property with todolistId should be deleted ', () => {
-    const action = removeTodolistAC({todolistID: 'todolistID2'})
+    const action = removeTodolistAC({todolistId: 'todolistID2'})
     const endState = tasksReducer(startState, action)
 
     const keys = Object.keys(endState)
@@ -146,7 +146,7 @@ test('empty arrays should be added when we set todolists', () => {
 })
 
 test('tasks should be added for todolist', () => {
-    const action = setTasksAC('todolistID1', startState['todolistID1'])
+    const action = setTasksAC({todolistId: 'todolistID1', tasks: startState['todolistID1']})
     const endState = tasksReducer({
         'todolistID1': [],
         'todolistID2': []

@@ -1,5 +1,5 @@
 import type {Meta, StoryObj} from '@storybook/react';
-import {ReduxStoreProviderDecorator} from "../state/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
+import {ReduxStoreProviderDecorator} from "../stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
 import {AppWithRedux} from "./AppWithRedux";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export

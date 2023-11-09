@@ -8,15 +8,17 @@ import {AppThunkDispatch} from "../../hooks/useDiapstch/useDispacth";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
+const initialState: TodolistDomainType[] = []
+
 const todolistsSlice = createSlice({
     name: 'todolists',
-    initialState: [] as TodolistDomainType[],
+    initialState,
     reducers: {
         setTodolistAC: (state, action: PayloadAction<{ todolists: TodolistType[] }>) => {
             return action.payload.todolists.map(t => ({...t, filter: 'All', entityStatus: 'idle'}))
         },
-        removeTodolistAC: (state, action: PayloadAction<{ todolistID: string }>) => {
-            const index = state.findIndex(tl => tl.id === action.payload.todolistID)
+        removeTodolistAC: (state, action: PayloadAction<{  todolistId: string }>) => {
+            const index = state.findIndex(tl => tl.id === action.payload.todolistId)
             if (index > -1) {
                 state.splice(index, 1)
             }
@@ -24,10 +26,10 @@ const todolistsSlice = createSlice({
         addTodolistAC: (state, action: PayloadAction<{ todolist: TodolistType }>) => {
             state.unshift({...action.payload.todolist, filter: 'All', entityStatus: 'idle'})
         },
-        changeTitleTodolistAC: (state, action: PayloadAction<{ todolistId: string, title: string }>) => {
+        changeTitleTodolistAC: (state, action: PayloadAction<{ todolistId: string, newTitle: string }>) => {
             const index = state.findIndex(t => t.id === action.payload.todolistId)
             if (index > -1) {
-                state[index].title = action.payload.title
+                state[index].title = action.payload.newTitle
             }
         },
         changeFilterAC: (state, action: PayloadAction<{ todolistId: string, filter: FilterValuesType }>) => {
@@ -87,7 +89,7 @@ export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => 
 
     todolistAPI.deleteTodolist(todolistId)
       .then(res => {
-          handleSuccessResponse(dispatch, removeTodolistAC, res, todolistId)
+          handleSuccessResponse(dispatch, removeTodolistAC, res, {todolistId})
       })
       .catch(err => {
           handleServerNetworkError(dispatch, err.message)
@@ -101,14 +103,14 @@ export const createTodolistTC = (title: string) => (dispatch: Dispatch) => {
 
     todolistAPI.createTodolist(title)
       .then(res => {
-          handleSuccessResponse(dispatch, addTodolistAC, res, res.data.item)
+          handleSuccessResponse(dispatch, addTodolistAC, res, {todolist: res.data.item})
       })
       .catch(err => {
           handleServerNetworkError(dispatch, err.message)
       })
 }
 
-export const updateTodolistTitleTC = (todolistId: string, newTitle: string) => (dispatch: Dispatch) => {
+export const updateTodolistTitleTC = (todolistId: string, newTitle: string) => (dispatch: AppThunkDispatch) => {
     dispatch(setLoadingStatusAC({status: 'loading'}))
 
     todolistAPI.updateTodolistTittle(todolistId, newTitle)

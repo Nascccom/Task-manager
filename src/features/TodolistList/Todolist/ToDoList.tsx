@@ -10,10 +10,9 @@ import {InputLine} from "../../../components/InputLine/InputLine";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import {TaskStatuses} from "../../../api/tasks-api";
 import {useAppDispatch} from "../../../hooks/useDiapstch/useDispacth";
-import {ButtonGroupStyle} from './TodolistStyles';
 import {RequestStatusType} from "../../../app/app-reducer";
-import {useSelector} from "react-redux";
 import {selectTasks} from "../../../hooks/useSelector/selectors";
+import {useAppSelector} from "../../../hooks/useSelector/useSelector";
 
 
 type PropsType = {
@@ -30,11 +29,12 @@ export const Todolist = memo((
       activeFilter,
       entityStatus
   }: PropsType) => {
-    const tasks = useSelector(selectTasks(todolistId));
+
+    const tasks = useAppSelector(selectTasks(todolistId));
     const dispatch = useAppDispatch()
     const [activeButton, setActiveButton] = useState<FilterValuesType>('All')
 
-    const changeFilterButtonHandler = useCallback((todolistID: string, filterValue: FilterValuesType) => {
+    const changeFilterButtonHandler = useCallback((todolistId: string, filterValue: FilterValuesType) => {
         dispatch(changeFilterAC({todolistId, filter: filterValue}))
         setActiveButton(filterValue)
     }, [dispatch])
@@ -47,8 +47,8 @@ export const Todolist = memo((
         dispatch(addTaskTC(todolistId, valueTitle))
     }, [dispatch, todolistId])
 
-    const updateTodolistHandler = useCallback((newTitleTodo: string) => {
-        dispatch(updateTodolistTitleTC(todolistId, newTitleTodo))
+    const updateTodolistHandler = useCallback((newTitle: string) => {
+        dispatch(updateTodolistTitleTC(todolistId, newTitle))
     }, [dispatch, todolistId])
 
     const filteredTasks = () => {
@@ -100,3 +100,11 @@ export const Todolist = memo((
       </div>
     )
 })
+
+export const ButtonGroupStyle = {
+    display: "flex",
+    justifyContent: "flex-start",
+    ".MuiButtonGroup-grouped:not(:last-of-type)": {
+        border: 'none',
+    }
+}

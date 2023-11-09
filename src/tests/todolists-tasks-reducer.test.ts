@@ -3,10 +3,10 @@ import {
     removeTodolistAC,
     TodolistDomainType,
     todolistsReducer
-} from "../../features/TodolistList/todolists-reducer";
-import {tasksReducer, TasksStateType} from "../../features/TodolistList/Todolist/Task/task-reducer";
-import {TodolistType} from "../../api/todolists-api";
-import {TaskPriorities, TaskStatuses} from "../../api/tasks-api";
+} from "../features/TodolistList/todolists-reducer";
+import {tasksReducer, TasksStateType} from "../features/TodolistList/Todolist/Task/task-reducer";
+import {TodolistType} from "../api/todolists-api";
+import {TaskPriorities, TaskStatuses} from "../api/tasks-api";
 
 test('id should be equals', () => {
     let startTodolistState: TodolistDomainType[] = []
@@ -61,7 +61,7 @@ test('tasks should be removed when todolist removed', () => {
         ],
     }
 
-    const action = removeTodolistAC({todolistID: "todolist1"})
+    const action = removeTodolistAC({todolistId: "todolist1"})
 
     const endTodolistState: TodolistDomainType[] = todolistsReducer(startTodololistsState, action)
     const endTasksState: TasksStateType = tasksReducer(startTasksState, action)
