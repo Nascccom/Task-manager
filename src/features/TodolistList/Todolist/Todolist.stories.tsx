@@ -8,13 +8,12 @@ import {InputLine} from "../../../components/InputLine/InputLine";
 import {action} from "@storybook/addon-actions";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import {addTaskAC} from "./Task/task-reducer";
-import {Todolist} from "./ToDoList";
-import {ReduxStoreProviderDecorator} from "../../../state/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
+import {ButtonGroupStyle, Todolist} from "./ToDoList";
+import {ReduxStoreProviderDecorator} from "../../../stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
 import {changeFilterAC, FilterValuesType} from "../todolists-reducer";
 import {ButtonUniversal} from "../../../components/Button/ButtonUniversal";
 import {TaskPriorities, TaskStatuses, TaskType} from "../../../api/tasks-api";
 import {v1} from "uuid";
-import {ButtonGroupStyle} from "./TodolistStyles";
 import {useAppSelector} from "../../../hooks/useSelector/useSelector";
 import {RequestStatusType} from "../../../app/app-reducer";
 import {selectTasks} from "../../../hooks/useSelector/selectors";
@@ -55,8 +54,8 @@ const ReduxTodolist = ({todolistId, title, entityStatus}: ReduxTodolistType) => 
     const dispatch = useDispatch()
     const [activeButton, setActiveButton] = useState<FilterValuesType>('All')
 
-    const changeFilterButtonHandler = (todolistID: string, filterValue: FilterValuesType) => {
-        dispatch(changeFilterAC(todolistID, filterValue))
+    const changeFilterButtonHandler = (todolistId: string, filterValue: FilterValuesType) => {
+        dispatch(changeFilterAC({todolistId, filter: filterValue}))
         setActiveButton(filterValue)
     }
 

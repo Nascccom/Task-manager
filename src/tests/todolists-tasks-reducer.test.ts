@@ -1,13 +1,18 @@
-import {addTodolistAC, removeTodolistAC, TodolistDomainType, todolistsReducer} from "../../features/TodolistList/todolists-reducer";
-import {tasksReducer, TasksStateType} from "../../features/TodolistList/Todolist/Task/task-reducer";
-import {TodolistType} from "../../api/todolists-api";
-import {TaskPriorities, TaskStatuses} from "../../api/tasks-api";
+import {
+    addTodolistAC,
+    removeTodolistAC,
+    TodolistDomainType,
+    todolistsReducer
+} from "../features/TodolistList/todolists-reducer";
+import {tasksReducer, TasksStateType} from "../features/TodolistList/Todolist/Task/task-reducer";
+import {TodolistType} from "../api/todolists-api";
+import {TaskPriorities, TaskStatuses} from "../api/tasks-api";
 
 test('id should be equals', () => {
     let startTodolistState: TodolistDomainType[] = []
     let startTasksState: TasksStateType = {}
     const newTodolist: TodolistType = {id: 'todolistId3', title: 'What to buy', order: 0, addedDate: ''}
-    const action = addTodolistAC(newTodolist)
+    const action = addTodolistAC({todolist: newTodolist})
 
     const endTodolistsState = todolistsReducer(startTodolistState, action);
     const endTasksState = tasksReducer(startTasksState, action);
@@ -17,8 +22,8 @@ test('id should be equals', () => {
     const idFromTask = keys[0]
 
     expect(idFromTask).toBe(idFromTodolist)
-    expect(idFromTask).toBe(action.newTodolist.id)
-    expect(idFromTodolist).toBe(action.newTodolist.id)
+    expect(idFromTask).toBe(action.payload.todolist.id)
+    expect(idFromTodolist).toBe(action.payload.todolist.id)
 });
 
 test('tasks should be removed when todolist removed', () => {
@@ -56,7 +61,7 @@ test('tasks should be removed when todolist removed', () => {
         ],
     }
 
-    const action = removeTodolistAC("todolist1")
+    const action = removeTodolistAC({todolistId: "todolist1"})
 
     const endTodolistState: TodolistDomainType[] = todolistsReducer(startTodololistsState, action)
     const endTasksState: TasksStateType = tasksReducer(startTasksState, action)

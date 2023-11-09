@@ -12,12 +12,11 @@ export const handleSuccessResponse =
          data: T
   ) => {
 
-      if (!serverResponse.resultCode) {
-          if (serverResponse.resultCode === ResultCode.SUCCESS) {
-              dispatch(actionCreator(data))
-              dispatch(setLoadingStatusAC("succeeded"))
-          } else {
-              handleServerAppError(dispatch, serverResponse)
-          }
+      if (serverResponse.resultCode === ResultCode.SUCCESS) {
+          dispatch(actionCreator(data))
+          dispatch(setLoadingStatusAC({status: "succeeded"}))
+      } else {
+          handleServerAppError(dispatch, serverResponse)
       }
+
   }
