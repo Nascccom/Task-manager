@@ -1,5 +1,5 @@
-import React, {memo, useCallback} from 'react';
-import Button from '@mui/material/Button';
+import React, { memo, useCallback } from "react"
+import Button from "@mui/material/Button"
 
 type ButtonType = {
     /** Name of the button */
@@ -7,7 +7,7 @@ type ButtonType = {
     /** Action which happens on click */
     callBack: () => void
     /** Button color */
-    color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
+    color?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning"
     /** Button size */
     size?: "small" | "medium" | "large"
     /** Button appearance */
@@ -19,21 +19,19 @@ type ButtonType = {
 }
 
 export const ButtonUniversal = memo((props: ButtonType) => {
-
     const onclickButtonHandler = useCallback(() => {
         props.callBack()
     }, [props.callBack])
 
     return (
-      <Button onClick={onclickButtonHandler}
-              color={props.color}
-              size={props.size}
-              variant={props.variant}
-              style={props.style}
-              disabled={props.disabled}
-      >
-          {props.buttonName}
-      </Button>
-    );
-});
-
+        <Button
+            onClick={onclickButtonHandler}
+            color={props.color}
+            size={props.size}
+            variant={props.variant}
+            style={props.style}
+            disabled={props.disabled}>
+            {props.buttonName}
+        </Button>
+    )
+})

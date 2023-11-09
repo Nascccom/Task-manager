@@ -1,14 +1,12 @@
-import axios from "axios";
-
+import axios from "axios"
 
 export const instance = axios.create({
-    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
+    baseURL: "https://social-network.samuraijs.com/api/1.1/",
     withCredentials: true,
     headers: {
-        'API-KEY': "dfc294e4-cdd2-4578-b4cc-6a8c08399163",
-    }
+        "API-KEY": "dfc294e4-cdd2-4578-b4cc-6a8c08399163",
+    },
 })
-
 
 export type ResponseType<T = {}> = {
     resultCode: number
@@ -20,5 +18,5 @@ export type ResponseType<T = {}> = {
 export enum ResultCode {
     SUCCESS = 0,
     ERROR = 1,
-    ERROR_CAPTCHA = 10
+    ERROR_CAPTCHA = 10,
 }

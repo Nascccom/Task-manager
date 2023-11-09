@@ -1,28 +1,26 @@
-import {useDispatch} from "react-redux";
-import React, {useState} from "react";
-import {Task} from "./Task/Task";
-import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
-import {InputLine} from "../../../components/InputLine/InputLine";
-import {action} from "@storybook/addon-actions";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import {addTaskAC} from "./Task/task-reducer";
-import {ButtonGroupStyle, Todolist} from "./ToDoList";
-import {ReduxStoreProviderDecorator} from "../../../stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator";
-import {changeFilterAC, FilterValuesType} from "../todolists-reducer";
-import {ButtonUniversal} from "../../../components/Button/ButtonUniversal";
-import {TaskPriorities, TaskStatuses, TaskType} from "../../../api/tasks-api";
-import {v1} from "uuid";
-import {useAppSelector} from "../../../hooks/useSelector/useSelector";
-import {RequestStatusType} from "../../../app/app-reducer";
-import {selectTasks} from "../../../hooks/useSelector/selectors";
-
+import { useDispatch } from "react-redux"
+import React, { useState } from "react"
+import { Task } from "./Task/Task"
+import { EditableSpan } from "../../../components/EditableSpan/EditableSpan"
+import IconButton from "@mui/material/IconButton"
+import DeleteIcon from "@mui/icons-material/Delete"
+import { InputLine } from "../../../components/InputLine/InputLine"
+import { action } from "@storybook/addon-actions"
+import ButtonGroup from "@mui/material/ButtonGroup"
+import { addTaskAC } from "./Task/task-reducer"
+import { ButtonGroupStyle, Todolist } from "./ToDoList"
+import { ReduxStoreProviderDecorator } from "../../../stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"
+import { changeFilterAC, FilterValuesType } from "../todolists-reducer"
+import { ButtonUniversal } from "../../../components/Button/ButtonUniversal"
+import { TaskPriorities, TaskStatuses, TaskType } from "../../../api/tasks-api"
+import { useAppSelector } from "../../../hooks/useSelector/useSelector"
+import { RequestStatusType } from "../../../app/app-reducer"
+import { selectTasks } from "../../../hooks/useSelector/selectors"
 
 export default {
-    title: 'TODOLISTS/Todolist',
+    title: "TODOLISTS/Todolist",
     component: Todolist,
-    tags: ['autodocs'],
+    tags: ["autodocs"],
     decorators: [ReduxStoreProviderDecorator],
     excludeStories: /.*initialGlobalState$/,
 }
@@ -35,94 +33,91 @@ type ReduxTodolistType = {
 
 const newTask = (todolistId: string, valueTitle: string): TaskType => {
     return {
-        id: v1(),
+        id: Math.random().toString(),
         completed: true,
         title: valueTitle,
         status: TaskStatuses.New,
         priority: TaskPriorities.Low,
-        startDate: '',
-        deadline: '',
+        startDate: "",
+        deadline: "",
         todoListId: todolistId,
         order: 0,
-        addedDate: '',
-        description: ''
+        addedDate: "",
+        description: "",
     }
 }
 
-const ReduxTodolist = ({todolistId, title, entityStatus}: ReduxTodolistType) => {
+const ReduxTodolist = ({ todolistId, title, entityStatus }: ReduxTodolistType) => {
     const tasks = useAppSelector(selectTasks(todolistId))
     const dispatch = useDispatch()
-    const [activeButton, setActiveButton] = useState<FilterValuesType>('All')
+    const [activeButton, setActiveButton] = useState<FilterValuesType>("All")
 
     const changeFilterButtonHandler = (todolistId: string, filterValue: FilterValuesType) => {
-        dispatch(changeFilterAC({todolistId, filter: filterValue}))
+        dispatch(changeFilterAC({ todolistId, filter: filterValue }))
         setActiveButton(filterValue)
     }
 
     const addTaskForTodolistHandler = (valueTitle: string) => {
-        dispatch(addTaskAC({
-            todolistId: todolistId,
-            task: newTask(todolistId, valueTitle)
-        }))
+        dispatch(
+            addTaskAC({
+                todolistId: todolistId,
+                task: newTask(todolistId, valueTitle),
+            }),
+        )
     }
 
     const filteredTasks = (): TaskType[] => {
-        let tasksForTodolist;
+        let tasksForTodolist
         switch (activeButton) {
-            case 'Active':
-                return tasksForTodolist = tasks.filter(t => t.status === TaskStatuses.New);
-            case 'Completed':
-                return tasksForTodolist = tasks.filter(t => t.status === TaskStatuses.Completed);
+            case "Active":
+                return (tasksForTodolist = tasks.filter((t) => t.status === TaskStatuses.New))
+            case "Completed":
+                return (tasksForTodolist = tasks.filter((t) => t.status === TaskStatuses.Completed))
             default:
-                return tasksForTodolist = tasks;
+                return (tasksForTodolist = tasks)
         }
     }
 
-    const mappedTasks = filteredTasks().map(t => <Task key={t.id}
-                                                       task={t}
-                                                       todolistId={todolistId}/>)
+    const mappedTasks = filteredTasks().map((t) => <Task key={t.id} task={t} todolistId={todolistId} />)
 
     return (
-      <div>
-          <h3>
-              <EditableSpan title={title}
-                            callBack={action('Title was changed')}/>
+        <div>
+            <h3>
+                <EditableSpan title={title} callBack={action("Title was changed")} />
 
-              <IconButton aria-label="delete"
-                          onClick={action('Todolist was removed')}>
-                  <DeleteIcon/>
-              </IconButton>
-          </h3>
-          <InputLine callBack={addTaskForTodolistHandler}
-                     disabled={entityStatus === 'loading'}/>
+                <IconButton aria-label='delete' onClick={action("Todolist was removed")}>
+                    <DeleteIcon />
+                </IconButton>
+            </h3>
+            <InputLine callBack={addTaskForTodolistHandler} disabled={entityStatus === "loading"} />
 
-          <ul>
-              {mappedTasks}
-          </ul>
+            <ul>{mappedTasks}</ul>
 
-          <ButtonGroup size="large" variant="text" aria-label="large outlined button group" sx={ButtonGroupStyle}>
-              <ButtonUniversal buttonName={'All'}
-                               color={activeButton === 'All' ? 'success' : "secondary"}
-                               callBack={() => changeFilterButtonHandler(todolistId, 'All')}/>
-              <ButtonUniversal buttonName={'Active'}
-                               color={activeButton === 'Active' ? 'success' : "secondary"}
-                               callBack={() => changeFilterButtonHandler(todolistId, 'Active')}/>
-              <ButtonUniversal buttonName={'Completed'}
-                               color={activeButton === 'Completed' ? 'success' : "secondary"}
-                               callBack={() => changeFilterButtonHandler(todolistId, 'Completed')}/>
-          </ButtonGroup>
-      </div>
+            <ButtonGroup size='large' variant='text' aria-label='large outlined button group' sx={ButtonGroupStyle}>
+                <ButtonUniversal
+                    buttonName={"All"}
+                    color={activeButton === "All" ? "success" : "secondary"}
+                    callBack={() => changeFilterButtonHandler(todolistId, "All")}
+                />
+                <ButtonUniversal
+                    buttonName={"Active"}
+                    color={activeButton === "Active" ? "success" : "secondary"}
+                    callBack={() => changeFilterButtonHandler(todolistId, "Active")}
+                />
+                <ButtonUniversal
+                    buttonName={"Completed"}
+                    color={activeButton === "Completed" ? "success" : "secondary"}
+                    callBack={() => changeFilterButtonHandler(todolistId, "Completed")}
+                />
+            </ButtonGroup>
+        </div>
     )
 }
 
 export const Todolist1 = {
-    decorators: [
-        () => (<ReduxTodolist todolistId={'todolistId1'} title={'Cold '} entityStatus={'idle'}/>)
-    ]
+    decorators: [() => <ReduxTodolist todolistId={"todolistId1"} title={"Cold "} entityStatus={"idle"} />],
 }
 
 export const Todolist2 = {
-    decorators: [
-        () => (<ReduxTodolist todolistId={'todolistId2'} title={'New '} entityStatus={'loading'}/>)
-    ]
+    decorators: [() => <ReduxTodolist todolistId={"todolistId2"} title={"New "} entityStatus={"loading"} />],
 }

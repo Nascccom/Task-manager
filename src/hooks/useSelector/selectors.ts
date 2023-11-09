@@ -1,4 +1,4 @@
-import {AppRootStateType} from "../../app/store";
+import { AppRootStateType } from "../../app/store"
 
 //from app-reducer
 export const selectIsLoadingStatus = (state: AppRootStateType) => state.app.status
@@ -11,4 +11,4 @@ export const selectIsLoggedIn = (state: AppRootStateType) => state.auth.isLogged
 export const selectTodolists = (state: AppRootStateType) => state.todolists
 
 //from task-reducer
-export const selectTasks = (todolistId: string) => (state: AppRootStateType) => state.tasks[todolistId];
+export const selectTasks = (todolistId: string) => (state: AppRootStateType) => state.tasks[todolistId]
