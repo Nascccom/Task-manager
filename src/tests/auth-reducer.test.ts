@@ -1,6 +1,6 @@
-import { authReducer, initialAuthStateType, setAuthDataAC, setIsLoggedInAC } from "../features/Login/auth-reducer"
+import { authActions, authReducer, InitialAuthStateType } from "features/Login/auth-reducer"
 
-let startState: initialAuthStateType
+let startState: InitialAuthStateType
 
 beforeEach(() => {
     startState = {
@@ -13,15 +13,19 @@ beforeEach(() => {
 })
 
 test("IsLoggedIn should be changed correct", () => {
-    const endState: initialAuthStateType = authReducer(startState, setIsLoggedInAC({ value: true }))
+    const endState = authReducer(startState, authActions.setIsLoggedIn({ isLoggedIn: true }))
 
     expect(endState.isLoggedIn).toBe(true)
 })
 
 test("auth data should be added correct", () => {
-    const endState: initialAuthStateType = authReducer(
+    const endState = authReducer(
         startState,
-        setAuthDataAC({ userId: 1, email: "blaBla@mail.com", login: "BlaBla" }),
+        authActions.setAuthData({
+            userId: 1,
+            email: "blaBla@mail.com",
+            login: "BlaBla",
+        }),
     )
 
     expect(endState.userId).toBe(1)

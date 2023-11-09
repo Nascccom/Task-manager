@@ -1,18 +1,18 @@
-import { setErrorMessageAC, setLoadingStatusAC } from "../app/app-reducer"
-import { Dispatch } from "redux"
-import { ResponseType } from "../api/instance"
+import { appActions } from "app/app-reducer"
+import { ResponseType } from "api/instance"
+import { AppThunkDispatch } from "hooks/useDiapstch/useDispacth"
 
-export const handleServerAppError = <T>(dispatch: Dispatch, data: ResponseType<T>) => {
+export const handleServerAppError = <T>(dispatch: AppThunkDispatch, data: ResponseType<T>) => {
     const error = data.messages[0]
     if (error) {
-        dispatch(setErrorMessageAC({ error }))
+        dispatch(appActions.setErrorMessage({ error }))
     } else {
-        dispatch(setErrorMessageAC({ error: "Some error occurred" }))
+        dispatch(appActions.setErrorMessage({ error: "Some error occurred" }))
     }
-    dispatch(setLoadingStatusAC({ status: "failed" }))
+    dispatch(appActions.setLoadingStatus({ status: "failed" }))
 }
 
-export const handleServerNetworkError = (dispatch: Dispatch, error: string) => {
-    dispatch(setErrorMessageAC({ error }))
-    dispatch(setLoadingStatusAC({ status: "failed" }))
+export const handleServerNetworkError = (dispatch: AppThunkDispatch, error: string) => {
+    dispatch(appActions.setErrorMessage({ error }))
+    dispatch(appActions.setLoadingStatus({ status: "failed" }))
 }

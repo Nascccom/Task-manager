@@ -1,29 +1,20 @@
 import React from "react"
 import { Provider } from "react-redux"
-import { AppRootStateType } from "../../app/store"
-import { combineReducers } from "redux"
-import { TodolistDomainType, todolistsReducer } from "../../features/TodolistList/todolists-reducer"
-import { tasksReducer, TasksStateType } from "../../features/TodolistList/Todolist/Task/task-reducer"
-import { TaskPriorities, TaskStatuses } from "../../api/tasks-api"
-import { appReducer, initialAppStateType } from "../../app/app-reducer"
-import thunkMiddleware from "redux-thunk"
+import { AppRootStateType } from "app/store"
+import { TodolistDomainType, todolistsReducer } from "features/TodolistList/todolists-reducer"
+import { tasksReducer, TasksStateType } from "features/TodolistList/Todolist/Task/task-reducer"
+import { TaskPriorities, TaskStatuses } from "api/tasks-api"
+import { appReducer, InitialAppStateType } from "app/app-reducer"
 import { MemoryRouter } from "react-router-dom"
-import { authReducer } from "../../features/Login/auth-reducer"
+import { authReducer } from "features/Login/auth-reducer"
 import { configureStore } from "@reduxjs/toolkit"
-
-export const rootReducer = combineReducers({
-    app: appReducer,
-    auth: authReducer,
-    todolists: todolistsReducer,
-    tasks: tasksReducer,
-})
 
 const initialGlobalState: AppRootStateType = {
     app: {
         isInitialized: true,
         status: "succeeded",
         error: null,
-    } as initialAppStateType,
+    } as InitialAppStateType,
     todolists: [
         { id: "todolistId1", title: "What to learn", filter: "All", addedDate: "", order: 0, entityStatus: "idle" },
         { id: "todolistId2", title: "What to buy", filter: "All", addedDate: "", order: 0, entityStatus: "idle" },
@@ -97,9 +88,13 @@ const initialGlobalState: AppRootStateType = {
 export type DecoratorStateType = typeof initialGlobalState
 
 export const storyBookStore = configureStore({
-    reducer: rootReducer,
+    reducer: {
+        app: appReducer,
+        auth: authReducer,
+        todolists: todolistsReducer,
+        tasks: tasksReducer,
+    },
     preloadedState: initialGlobalState as AppRootStateType,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunkMiddleware),
 })
 
 export const ReduxStoreProviderDecorator = (storyFn: () => React.ReactNode) => {

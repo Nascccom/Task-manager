@@ -8,20 +8,20 @@ import React from "react"
 // import Grid from '@mui/material/Grid';
 // import Paper from '@mui/material/Paper';
 // import {
-//     addTodolistAC,
-//     changeFilterAC,
-//     changeTitleTodolistAC,
-//     removeTodolistAC,
+//     addTodolist,
+//     changeFilter,
+//     changeTitleTodolist,
+//     removeTodolist,
 //     todolistsReducer,
 //     TodolistsReducerActionType
 // } from "./state/todolists-reducer";
 // import {
-//     addTaskAC,
+//     addTask,
 //     changeToggleTaskAC,
-//     removeTaskAC,
+//     removeTask,
 //     tasksReducer,
 //     TasksReducerActionType,
-//     updateTaskAC
+//     updateTask
 // } from "./state/task-reducer";
 //
 // export type FilterValuesType = 'All' | 'all' | 'Active' | 'Completed';
@@ -62,35 +62,35 @@ import React from "react"
 //     });
 //
 //     const addTodolist = (title: string) => {
-//         const action = addTodolistAC(title)
+//         const action = addTodolist(title)
 //         dispatchTodolist(action)
 //         dispatchTasks(action)
 //     }
 //
 //     const updateTodolist = (todolistId: string, newTitleTodo: string) => {
-//         dispatchTodolist(changeTitleTodolistAC(todolistId, newTitleTodo))
+//         dispatchTodolist(changeTitleTodolist(todolistId, newTitleTodo))
 //     }
 //
 //     const removeTodolist = (todolistID: string) => {
-//         const action = removeTodolistAC(todolistID)
+//         const action = removeTodolist(todolistID)
 //         dispatchTodolist(action)
 //         dispatchTasks(action)
 //     }
 //
 //     function changeFilter(todolistID: string, value: FilterValuesType) {
-//         dispatchTodolist(changeFilterAC(todolistID, value))
+//         dispatchTodolist(changeFilter(todolistID, value))
 //     }
 //
 //     const addTask = (todolistID: string, valueTitle: string) => {
-//         dispatchTasks(addTaskAC(todolistID, valueTitle))
+//         dispatchTasks(addTask(todolistID, valueTitle))
 //     }
 //
 //     const updateTask = (todolistId: string, taskId: string, newTitle: string) => {
-//         dispatchTasks(updateTaskAC(todolistId, taskId, newTitle))
+//         dispatchTasks(updateTask(todolistId, taskId, newTitle))
 //     }
 //
 //     function removeTask(todolistId: string, taskId: string) {
-//         dispatchTasks(removeTaskAC(todolistId, taskId))
+//         dispatchTasks(removeTask(todolistId, taskId))
 //     }
 //
 //     const toggleCheckBox = (todolistID: string, taskID: string, checked: boolean) => {

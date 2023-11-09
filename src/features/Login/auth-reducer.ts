@@ -1,28 +1,26 @@
-import { setIsInitializedAC, setLoadingStatusAC } from "../../app/app-reducer"
-import { authAPI } from "../../api/auth-api"
-import { AppThunkDispatch } from "../../hooks/useDiapstch/useDispacth"
-import { ResultCode } from "../../api/instance"
-import { handleServerAppError, handleServerNetworkError } from "../../utils/handleServerError"
-import { deleteAllTodolistsWithTasksAC, getTodolistsTC } from "../TodolistList/todolists-reducer"
+import { authAPI } from "api/auth-api"
+import { AppThunkDispatch } from "hooks/useDiapstch/useDispacth"
+import { ResultCode } from "api/instance"
+import { handleServerAppError, handleServerNetworkError } from "utils/handleServerError"
+import { todolistsActions, getTodolistsTC } from "../TodolistList/todolists-reducer"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-
-const initialState = {
-    userId: null as null | number,
-    email: null as null | string,
-    login: null as null | string,
-    rememberMe: false as boolean,
-    isLoggedIn: false as boolean,
-}
-export type initialAuthStateType = typeof initialState
+import { AppThunk } from "app/store"
+import { appActions } from "app/app-reducer"
 
 export const authSlice = createSlice({
     name: "auth",
-    initialState,
+    initialState: {
+        userId: null as null | number,
+        email: null as null | string,
+        login: null as null | string,
+        rememberMe: false,
+        isLoggedIn: false,
+    },
     reducers: {
-        setIsLoggedInAC: (state, action: PayloadAction<{ value: boolean }>) => {
-            state.isLoggedIn = action.payload.value
+        setIsLoggedIn: (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
+            state.isLoggedIn = action.payload.isLoggedIn
         },
-        setAuthDataAC: (
+        setAuthData: (
             state,
             action: PayloadAction<{ userId: null | number; email: string | null; login: null | string }>,
         ) => {
@@ -32,21 +30,21 @@ export const authSlice = createSlice({
         },
     },
 })
-export const { setIsLoggedInAC, setAuthDataAC } = authSlice.actions
+export const authActions = authSlice.actions
 export const authReducer = authSlice.reducer
 
 //Thunks Creator
-export const getAuthMeDataTC = () => (dispatch: AppThunkDispatch) => {
-    dispatch(setLoadingStatusAC({ status: "loading" }))
+export const getAuthMeDataTC = (): AppThunk => (dispatch: AppThunkDispatch) => {
+    dispatch(appActions.setLoadingStatus({ status: "loading" }))
 
     authAPI
         .getAuthMeData()
         .then((res) => {
             if (res.resultCode === ResultCode.SUCCESS) {
                 const { id, email, login } = res.data
-                dispatch(setAuthDataAC({ userId: id, email, login }))
-                dispatch(setIsLoggedInAC({ value: true }))
-                dispatch(setLoadingStatusAC({ status: "succeeded" }))
+                dispatch(authActions.setAuthData({ userId: id, email, login }))
+                dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }))
+                dispatch(appActions.setLoadingStatus({ status: "succeeded" }))
             } else {
                 handleServerAppError(dispatch, res)
             }
@@ -58,38 +56,40 @@ export const getAuthMeDataTC = () => (dispatch: AppThunkDispatch) => {
             handleServerNetworkError(dispatch, err)
         })
         .finally(() => {
-            dispatch(setIsInitializedAC({ value: true }))
+            dispatch(appActions.setIsInitialized({ isInitialized: true }))
         })
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: AppThunkDispatch) => {
-    dispatch(setLoadingStatusAC({ status: "loading" }))
+export const loginTC =
+    (email: string, password: string, rememberMe: boolean): AppThunk =>
+    (dispatch: AppThunkDispatch) => {
+        dispatch(appActions.setLoadingStatus({ status: "loading" }))
 
-    authAPI
-        .login({ email, password, rememberMe })
-        .then((res) => {
-            if (res.resultCode === ResultCode.SUCCESS) {
-                dispatch(getAuthMeDataTC())
-            } else {
-                handleServerAppError(dispatch, res)
-            }
-        })
-        .catch((err) => {
-            handleServerNetworkError(dispatch, err)
-        })
-}
+        authAPI
+            .login({ email, password, rememberMe })
+            .then((res) => {
+                if (res.resultCode === ResultCode.SUCCESS) {
+                    dispatch(getAuthMeDataTC())
+                } else {
+                    handleServerAppError(dispatch, res)
+                }
+            })
+            .catch((err) => {
+                handleServerNetworkError(dispatch, err)
+            })
+    }
 
-export const logoutTC = () => (dispatch: AppThunkDispatch) => {
-    dispatch(setLoadingStatusAC({ status: "loading" }))
+export const logoutTC = (): AppThunk => (dispatch: AppThunkDispatch) => {
+    dispatch(appActions.setLoadingStatus({ status: "loading" }))
 
     authAPI
         .logout()
         .then((res) => {
             if (res.resultCode === ResultCode.SUCCESS) {
-                dispatch(deleteAllTodolistsWithTasksAC())
-                dispatch(setAuthDataAC({ userId: null, email: null, login: null }))
-                dispatch(setIsLoggedInAC({ value: false }))
-                dispatch(setLoadingStatusAC({ status: "succeeded" }))
+                dispatch(todolistsActions.deleteAllTodolistsWithTasks())
+                dispatch(authActions.setAuthData({ userId: null, email: null, login: null }))
+                dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }))
+                dispatch(appActions.setLoadingStatus({ status: "succeeded" }))
             } else {
                 handleServerAppError(dispatch, res)
             }
@@ -99,4 +99,8 @@ export const logoutTC = () => (dispatch: AppThunkDispatch) => {
         })
 }
 
-export type LoginReducerActionsType = ReturnType<typeof setIsLoggedInAC> | ReturnType<typeof setAuthDataAC>
+//types
+export type InitialAuthStateType = ReturnType<typeof authSlice.getInitialState>
+export type LoginReducerActionsType =
+    | ReturnType<typeof authActions.setIsLoggedIn>
+    | ReturnType<typeof authActions.setAuthData>

@@ -3,7 +3,7 @@ import { tasksAPI, TaskType, UpdateTaskModelType } from "./tasks-api"
 import {
     DecoratorStateType,
     ReduxStoreProviderDecorator,
-} from "../stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"
+} from "stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"
 import { useSelector } from "react-redux"
 
 export default {
