@@ -1,7 +1,6 @@
-import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
-import {ButtonUniversal} from '../Button/ButtonUniversal';
-import Input from '@mui/joy/Input';
-
+import React, { ChangeEvent, KeyboardEvent, memo, useState } from "react"
+import { ButtonUniversal } from "../Button/ButtonUniversal"
+import Input from "@mui/joy/Input"
 
 type PropsType = {
     /** Optional click handler */
@@ -11,7 +10,7 @@ type PropsType = {
 }
 
 export const InputLine = memo((props: PropsType) => {
-    let [title, setTitle] = useState<string>('')
+    let [title, setTitle] = useState<string>("")
     let [error, setError] = useState<null | string>(null)
 
     const onChangeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -19,55 +18,58 @@ export const InputLine = memo((props: PropsType) => {
         setTitle(event.currentTarget.value)
     }
     const onKeydownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
+        if (event.key === "Enter") {
             addTaskHandler()
         }
     }
     const addTaskHandler = () => {
         if (title.trim()) {
             props.callBack(title.trim())
-            setTitle('')
+            setTitle("")
         } else {
-            setError('Title is required')
+            setError("Title is required")
         }
     }
 
     return (
-      <div>
-          <Input onChange={onChangeInputHandler}
-                 onKeyDown={onKeydownHandler}
-                 placeholder={error ? error : "Type in here…"}
-                 variant="outlined"
-                 size="md"
-                 color={error ? "danger" : "primary"}
-                 value={title}
-                 disabled={props.disabled}
-                 sx={{
-                     "--Input-focusedThickness": "2px",
-                     "--Input-radius": "19px",
-                     "--Input-gap": "7px",
-                     "--Input-placeholderOpacity": 0.5,
-                     "--Input-minHeight": "40px",
-                     "--Input-paddingInline": "11px",
-                     "--Input-decoratorChildHeight": "35px",
-                     width: '300px'
-
-                 }}
-                 endDecorator={<ButtonUniversal size="medium"
-                                                style={{
-                                                    display: 'inline-flex',
-                                                    border: 'none',
-                                                    alignItems: 'center',
-                                                    borderRadius: '50%',
-                                                    backgroundColor: props.disabled ? '#ccc' : (error ? '#d2194a' : '#1976d2'),
-                                                    color: '#fff',
-                                                    fontWeight: '600',
-                                                }}
-                                                disabled={props.disabled}
-                                                buttonName={'+'}
-                                                callBack={addTaskHandler}/>}
-          />
-      </div>
-    );
-});
-
+        <div>
+            <Input
+                onChange={onChangeInputHandler}
+                onKeyDown={onKeydownHandler}
+                placeholder={error ? error : "Type in here…"}
+                variant='outlined'
+                size='md'
+                color={error ? "danger" : "primary"}
+                value={title}
+                disabled={props.disabled}
+                sx={{
+                    "--Input-focusedThickness": "2px",
+                    "--Input-radius": "19px",
+                    "--Input-gap": "7px",
+                    "--Input-placeholderOpacity": 0.5,
+                    "--Input-minHeight": "40px",
+                    "--Input-paddingInline": "11px",
+                    "--Input-decoratorChildHeight": "35px",
+                    width: "300px",
+                }}
+                endDecorator={
+                    <ButtonUniversal
+                        size='medium'
+                        style={{
+                            display: "inline-flex",
+                            border: "none",
+                            alignItems: "center",
+                            borderRadius: "50%",
+                            backgroundColor: props.disabled ? "#ccc" : error ? "#d2194a" : "#1976d2",
+                            color: "#fff",
+                            fontWeight: "600",
+                        }}
+                        disabled={props.disabled}
+                        buttonName={"+"}
+                        callBack={addTaskHandler}
+                    />
+                }
+            />
+        </div>
+    )
+})

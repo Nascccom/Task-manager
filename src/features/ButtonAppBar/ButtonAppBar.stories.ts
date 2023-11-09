@@ -1,16 +1,13 @@
-import type {Meta, StoryObj} from '@storybook/react';
-import {ButtonAppBar} from "./ButtonAppBar";
-
+import type { Meta, StoryObj } from "@storybook/react"
+import { ButtonAppBar } from "./ButtonAppBar"
 
 const meta: Meta<typeof ButtonAppBar> = {
-    title: 'TODOLISTS/ButtonAppBar',
+    title: "TODOLISTS/ButtonAppBar",
     component: ButtonAppBar,
-    tags: ['autodocs'],
+    tags: ["autodocs"],
 }
 
-export default meta;
-type Story = StoryObj<typeof ButtonAppBar>;
+export default meta
+type Story = StoryObj<typeof ButtonAppBar>
 
-export const ButtonAppBarStory: Story = {
-
-}
+export const ButtonAppBarStory: Story = {}
