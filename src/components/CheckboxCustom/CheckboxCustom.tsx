@@ -6,7 +6,7 @@ type PropsType = {
     checked: boolean
 }
 
-export const SuperCheckBox = memo(({ callBack, checked }: PropsType) => {
+export const CheckboxCustom = memo(({ callBack, checked }: PropsType) => {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         callBack(e.currentTarget.checked)
     }

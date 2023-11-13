@@ -1,9 +1,9 @@
-import { ButtonUniversal } from "./ButtonUniversal"
-
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
+import { ButtonCustom } from "components/ButtonCustom/ButtonCustom"
+
 export default {
-    title: "TODOLISTS/Button",
-    component: ButtonUniversal,
+    title: "TODOLISTS/ButtonCustom",
+    component: ButtonCustom,
     tags: ["autodocs"],
     argTypes: {
         callBack: {

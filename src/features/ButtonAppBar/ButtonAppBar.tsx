@@ -6,10 +6,8 @@ import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/icons-material/Menu"
-import { useAppSelector } from "hooks/useSelector/useSelector"
-import { useAppDispatch } from "hooks/useDiapstch/useDispacth"
+import { useAppSelector, useAppDispatch, selectIsLoggedIn } from "hooks"
 import { logoutTC } from "../Login/auth-reducer"
-import { selectIsLoggedIn } from "hooks/useSelector/selectors"
 
 export const ButtonAppBar = memo(() => {
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
