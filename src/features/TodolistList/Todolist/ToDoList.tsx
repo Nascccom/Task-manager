@@ -4,7 +4,7 @@ import { EditableSpan } from "components/EditableSpan/EditableSpan"
 import DeleteIcon from "@mui/icons-material/Delete"
 import IconButton from "@mui/material/IconButton"
 import { todolistsActions, FilterValuesType, removeTodolistTC, updateTodolistTitleTC } from "../todolists-reducer"
-import { addTaskTC } from "./Task/task-reducer"
+import { addTask } from "./Task/task-reducer"
 import { Task } from "./Task/Task"
 import { InputLine } from "components/InputLine/InputLine"
 import ButtonGroup from "@mui/material/ButtonGroup"
@@ -40,7 +40,7 @@ export const Todolist = memo(({ todolistId, title, activeFilter, entityStatus }:
 
     const addTaskForTodolistHandler = useCallback(
         (valueTitle: string) => {
-            dispatch(addTaskTC(todolistId, valueTitle))
+            dispatch(addTask({ todolistId, textForTask: valueTitle }))
         },
         [dispatch, todolistId],
     )

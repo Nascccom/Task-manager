@@ -2,7 +2,7 @@ import { todolistAPI, TodolistType } from "api/todolists-api"
 import { appActions, RequestStatusType } from "app/app-reducer"
 import { handleServerNetworkError } from "utils/handleServerError"
 import { handleSuccessResponse } from "utils/handleSuccessResponse"
-import { getTasksTC } from "./Todolist/Task/task-reducer"
+import { getTasks } from "./Todolist/Task/task-reducer"
 import { AppThunkDispatch } from "hooks/useDiapstch/useDispacth"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { AppThunk } from "app/store"
@@ -47,9 +47,6 @@ const todolistsSlice = createSlice({
     },
 })
 
-export const todolistsActions = todolistsSlice.actions
-export const todolistsReducer = todolistsSlice.reducer
-
 //thunkCreators
 export const getTodolistsTC = (): AppThunk => (dispatch: AppThunkDispatch) => {
     dispatch(appActions.setLoadingStatus({ status: "loading" }))
@@ -63,7 +60,7 @@ export const getTodolistsTC = (): AppThunk => (dispatch: AppThunkDispatch) => {
         })
         .then((todolists) => {
             todolists.forEach((todo) => {
-                dispatch(getTasksTC(todo.id))
+                dispatch(getTasks(todo.id))
             })
         })
         .catch((err) => {
@@ -130,3 +127,6 @@ export type TodolistsReducerActionType =
     | ReturnType<typeof todolistsActions.setTodolist>
     | ReturnType<typeof todolistsActions.changeEntityStatus>
     | ReturnType<typeof todolistsActions.deleteAllTodolistsWithTasks>
+
+export const todolistsActions = todolistsSlice.actions
+export const todolistsReducer = todolistsSlice.reducer
