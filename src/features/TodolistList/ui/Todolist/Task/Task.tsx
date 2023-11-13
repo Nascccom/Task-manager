@@ -1,12 +1,12 @@
 import React, { memo, useCallback } from "react"
-import styles from "../Todolist.module.css"
+import styles from "features/TodolistList/ui/Todolist/Todolist.module.css"
 import { CheckboxCustom, EditableSpan } from "common/components"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
-import { removeTask, updateTask } from "./task-reducer"
-import { TaskType } from "api/tasks-api"
+import { removeTask, updateTask } from "features/TodolistList/model/taskSlice"
 import { useAppDispatch } from "common/hooks"
 import { TaskStatuses } from "common/enums"
+import { TaskType } from "features/TodolistList/api/tasksApi.types"
 
 export type TaskPropsType = {
     task: TaskType

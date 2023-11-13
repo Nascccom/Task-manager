@@ -1,18 +1,18 @@
 import React, { useState } from "react"
-import { Task } from "./Task/Task"
+import { Task } from "features/TodolistList/ui/Todolist/Task/Task"
 import { ButtonCustom, EditableSpan, InputCustom } from "common/components"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { action } from "@storybook/addon-actions"
 import ButtonGroup from "@mui/material/ButtonGroup"
-import { tasksActions } from "./Task/task-reducer"
-import { ButtonGroupStyle, Todolist } from "./ToDoList"
+import { tasksActions } from "features/TodolistList/model/taskSlice"
+import { ButtonGroupStyle, Todolist } from "features/TodolistList/ui/Todolist/ToDoList"
 import { ReduxStoreProviderDecorator } from "stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"
-import { FilterValuesType, todolistsActions } from "../todolists-reducer"
-import { TaskType } from "api/tasks-api"
+import { FilterValuesType, todolistsActions } from "features/TodolistList/model/todolistsSlice"
 import { selectTasks, useAppDispatch, useAppSelector } from "common/hooks"
 import { RequestStatusType } from "app/app-reducer"
 import { TaskPriorities, TaskStatuses } from "common/enums"
+import { TaskType } from "features/TodolistList/api/tasksApi.types"
 
 export default {
     title: "TODOLISTS/Todolist",

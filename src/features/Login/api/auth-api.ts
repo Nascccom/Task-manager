@@ -1,7 +1,8 @@
 import { instance } from "common/instanceApi"
 import { AxiosResponse } from "axios"
-import { LoginDataType } from "features/Login/Login"
+import { LoginDataType } from "features/Login/ui/Login"
 import { ResponseType } from "common/types"
+import { AuthMeType } from "features/Login/api/authApi.types"
 
 export const authAPI = {
     async getAuthMeData() {
@@ -20,10 +21,4 @@ export const authAPI = {
         const res = await instance.delete<ResponseType>("auth/login")
         return res.data
     },
-}
-
-type AuthMeType = {
-    id: number
-    email: string
-    login: string
 }

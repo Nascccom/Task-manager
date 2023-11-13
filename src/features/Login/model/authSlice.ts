@@ -1,13 +1,13 @@
-import { authAPI } from "api/auth-api"
+import { authAPI } from "features/Login/api/auth-api"
 import { AppThunkDispatch } from "common/hooks"
 import { handleServerAppError, handleServerNetworkError } from "common/utils"
-import { getTodolistsTC, todolistsActions } from "../TodolistList/todolists-reducer"
+import { getTodolistsTC, todolistsActions } from "features/TodolistList/model/todolistsSlice"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { AppThunk } from "app/store"
 import { appActions } from "app/app-reducer"
 import { ResultCode } from "common/enums"
 
-export const authSlice = createSlice({
+export const slice = createSlice({
     name: "auth",
     initialState: {
         userId: null as null | number,
@@ -30,8 +30,8 @@ export const authSlice = createSlice({
         },
     },
 })
-export const authActions = authSlice.actions
-export const authReducer = authSlice.reducer
+export const authActions = slice.actions
+export const authSlice = slice.reducer
 
 //Thunks Creator
 export const getAuthMeDataTC = (): AppThunk => (dispatch: AppThunkDispatch) => {
@@ -100,7 +100,7 @@ export const logoutTC = (): AppThunk => (dispatch: AppThunkDispatch) => {
 }
 
 //types
-export type InitialAuthStateType = ReturnType<typeof authSlice.getInitialState>
+export type InitialAuthStateType = ReturnType<typeof slice.getInitialState>
 export type LoginReducerActionsType =
     | ReturnType<typeof authActions.setIsLoggedIn>
     | ReturnType<typeof authActions.setAuthData>

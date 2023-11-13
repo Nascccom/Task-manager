@@ -1,4 +1,4 @@
-import { Task } from "./Task"
+import { Task } from "features/TodolistList/ui/Todolist/Task/Task"
 import { ReduxStoreProviderDecorator } from "stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"
 import { TaskPriorities, TaskStatuses } from "common/enums"
 

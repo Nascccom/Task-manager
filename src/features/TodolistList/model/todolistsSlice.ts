@@ -1,12 +1,13 @@
-import { todolistAPI, TodolistType } from "api/todolists-api"
+import { todolistAPI } from "features/TodolistList/api/todolists-api"
 import { appActions, RequestStatusType } from "app/app-reducer"
-import { getTasks } from "./Todolist/Task/task-reducer"
+import { getTasks } from "features/TodolistList/model/taskSlice"
 import { AppThunkDispatch } from "common/hooks"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { AppThunk } from "app/store"
 import { handleServerNetworkError, handleSuccessResponse } from "common/utils"
+import { TodolistType } from "features/TodolistList/api/todolistsApi.types"
 
-const todolistsSlice = createSlice({
+const slice = createSlice({
     name: "todolists",
     initialState: [] as TodolistDomainType[],
     reducers: {
@@ -127,5 +128,5 @@ export type TodolistsReducerActionType =
     | ReturnType<typeof todolistsActions.changeEntityStatus>
     | ReturnType<typeof todolistsActions.deleteAllTodolistsWithTasks>
 
-export const todolistsActions = todolistsSlice.actions
-export const todolistsReducer = todolistsSlice.reducer
+export const todolistsActions = slice.actions
+export const todolistsSlice = slice.reducer

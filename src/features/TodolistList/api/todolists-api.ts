@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios"
 import { instance } from "common/instanceApi"
 import { ResponseType } from "common/types"
+import { TodolistType } from "features/TodolistList/api/todolistsApi.types"
 
 export const todolistAPI = {
     async getTodolists() {
@@ -19,12 +20,4 @@ export const todolistAPI = {
         const res = await instance.delete<ResponseType>(`todo-lists/${todolistId}`)
         return res.data
     },
-}
-
-//types
-export type TodolistType = {
-    id: string
-    title: string
-    addedDate: string
-    order: number
 }

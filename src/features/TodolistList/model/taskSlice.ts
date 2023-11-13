@@ -1,8 +1,9 @@
-import { DeleteTaskType, tasksAPI, TaskType, UpdateTaskModelType } from "api/tasks-api"
+import { tasksAPI } from "features/TodolistList/api/tasks-api"
 import { appActions } from "app/app-reducer"
-import { todolistsActions } from "../../todolists-reducer"
+import { todolistsActions } from "features/TodolistList/model/todolistsSlice"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { createAppAsyncThunk, handleServerNetworkError, handleSuccessResponse } from "common/utils"
+import { DeleteTaskType, TaskType, UpdateTaskModelType } from "features/TodolistList/api/tasksApi.types"
 
 const tasksSlice = createSlice({
     name: "tasks",

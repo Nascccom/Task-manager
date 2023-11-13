@@ -1,4 +1,4 @@
-import { authActions, authReducer, InitialAuthStateType } from "features/Login/auth-reducer"
+import { authActions, authSlice, InitialAuthStateType } from "features/Login/model/authSlice"
 
 let startState: InitialAuthStateType
 
@@ -13,13 +13,13 @@ beforeEach(() => {
 })
 
 test("IsLoggedIn should be changed correct", () => {
-    const endState = authReducer(startState, authActions.setIsLoggedIn({ isLoggedIn: true }))
+    const endState = authSlice(startState, authActions.setIsLoggedIn({ isLoggedIn: true }))
 
     expect(endState.isLoggedIn).toBe(true)
 })
 
 test("auth data should be added correct", () => {
-    const endState = authReducer(
+    const endState = authSlice(
         startState,
         authActions.setAuthData({
             userId: 1,

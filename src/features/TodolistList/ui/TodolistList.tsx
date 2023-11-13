@@ -1,9 +1,9 @@
 import React, { useCallback } from "react"
 import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
-import { Todolist } from "./Todolist/ToDoList"
+import { Todolist } from "features/TodolistList/ui/Todolist/ToDoList"
 import { useAppSelector, useAppDispatch, selectIsLoggedIn, selectTodolists } from "common/hooks"
-import { createTodolistTC } from "./todolists-reducer"
+import { createTodolistTC } from "features/TodolistList/model/todolistsSlice"
 import { Navigate } from "react-router-dom"
 import { InputCustom } from "common/components"
 

@@ -1,9 +1,14 @@
 import React, { memo, useCallback, useState } from "react"
 import DeleteIcon from "@mui/icons-material/Delete"
 import IconButton from "@mui/material/IconButton"
-import { FilterValuesType, removeTodolistTC, todolistsActions, updateTodolistTitleTC } from "../todolists-reducer"
-import { addTask } from "./Task/task-reducer"
-import { Task } from "./Task/Task"
+import {
+    FilterValuesType,
+    removeTodolistTC,
+    todolistsActions,
+    updateTodolistTitleTC,
+} from "features/TodolistList/model/todolistsSlice"
+import { addTask } from "features/TodolistList/model/taskSlice"
+import { Task } from "features/TodolistList/ui/Todolist/Task/Task"
 import { ButtonCustom, EditableSpan, InputCustom } from "common/components"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import { selectTasks, useAppDispatch, useAppSelector } from "common/hooks"

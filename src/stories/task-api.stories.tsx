@@ -1,10 +1,11 @@
 import React, { useState } from "react"
-import { tasksAPI, TaskType, UpdateTaskModelType } from "api/tasks-api"
+import { tasksAPI } from "features/TodolistList/api/tasks-api"
 import {
     DecoratorStateType,
     ReduxStoreProviderDecorator,
 } from "stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"
 import { useSelector } from "react-redux"
+import { TaskType, UpdateTaskModelType } from "features/TodolistList/api/tasksApi.types"
 
 export default {
     title: "API/TasksAPI",
