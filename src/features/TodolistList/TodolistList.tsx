@@ -2,12 +2,10 @@ import React, { useCallback } from "react"
 import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
 import { Todolist } from "./Todolist/ToDoList"
-import { useAppSelector } from "hooks/useSelector/useSelector"
+import { useAppSelector, useAppDispatch, selectIsLoggedIn, selectTodolists } from "hooks"
 import { createTodolistTC } from "./todolists-reducer"
-import { useAppDispatch } from "hooks/useDiapstch/useDispacth"
-import { InputLine } from "components/InputLine/InputLine"
-import { selectIsLoggedIn, selectTodolists } from "hooks/useSelector/selectors"
 import { Navigate } from "react-router-dom"
+import { InputCustom } from "components"
 
 export const TodolistList = () => {
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
@@ -28,7 +26,7 @@ export const TodolistList = () => {
     return (
         <>
             <Grid container style={{ marginTop: "25px", justifyContent: "center" }}>
-                <InputLine callBack={addTodolist} />
+                <InputCustom callBack={addTodolist} />
             </Grid>
             <Grid container spacing={2} sx={{ justifyContent: "center", marginTop: "20px" }}>
                 {todolists.map((t) => {

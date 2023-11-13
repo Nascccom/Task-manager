@@ -1,21 +1,17 @@
-import { useDispatch } from "react-redux"
 import React, { useState } from "react"
 import { Task } from "./Task/Task"
-import { EditableSpan } from "components/EditableSpan/EditableSpan"
+import { ButtonCustom, EditableSpan, InputCustom } from "components"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
-import { InputLine } from "components/InputLine/InputLine"
 import { action } from "@storybook/addon-actions"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import { tasksActions } from "./Task/task-reducer"
 import { ButtonGroupStyle, Todolist } from "./ToDoList"
 import { ReduxStoreProviderDecorator } from "stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"
-import { todolistsActions, FilterValuesType } from "../todolists-reducer"
-import { ButtonUniversal } from "components/Button/ButtonUniversal"
+import { FilterValuesType, todolistsActions } from "../todolists-reducer"
 import { TaskPriorities, TaskStatuses, TaskType } from "api/tasks-api"
-import { useAppSelector } from "hooks/useSelector/useSelector"
+import { selectTasks, useAppDispatch, useAppSelector } from "hooks"
 import { RequestStatusType } from "app/app-reducer"
-import { selectTasks } from "hooks/useSelector/selectors"
 
 export default {
     title: "TODOLISTS/Todolist",
@@ -49,7 +45,7 @@ const newTask = (todolistId: string, valueTitle: string): TaskType => {
 
 const ReduxTodolist = ({ todolistId, title, entityStatus }: ReduxTodolistType) => {
     const tasks = useAppSelector(selectTasks(todolistId))
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const [activeButton, setActiveButton] = useState<FilterValuesType>("All")
 
     const changeFilterButtonHandler = (todolistId: string, filterValue: FilterValuesType) => {
@@ -84,22 +80,22 @@ const ReduxTodolist = ({ todolistId, title, entityStatus }: ReduxTodolistType) =
                     <DeleteIcon />
                 </IconButton>
             </h3>
-            <InputLine callBack={addTaskForTodolistHandler} disabled={entityStatus === "loading"} />
+            <InputCustom callBack={addTaskForTodolistHandler} disabled={entityStatus === "loading"} />
 
             <ul>{mappedTasks}</ul>
 
             <ButtonGroup size='large' variant='text' aria-label='large outlined button group' sx={ButtonGroupStyle}>
-                <ButtonUniversal
+                <ButtonCustom
                     buttonName={"All"}
                     color={activeButton === "All" ? "success" : "secondary"}
                     callBack={() => changeFilterButtonHandler(todolistId, "All")}
                 />
-                <ButtonUniversal
+                <ButtonCustom
                     buttonName={"Active"}
                     color={activeButton === "Active" ? "success" : "secondary"}
                     callBack={() => changeFilterButtonHandler(todolistId, "Active")}
                 />
-                <ButtonUniversal
+                <ButtonCustom
                     buttonName={"Completed"}
                     color={activeButton === "Completed" ? "success" : "secondary"}
                     callBack={() => changeFilterButtonHandler(todolistId, "Completed")}

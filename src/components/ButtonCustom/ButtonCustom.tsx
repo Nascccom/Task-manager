@@ -6,19 +6,19 @@ type ButtonType = {
     buttonName: string
     /** Action which happens on click */
     callBack: () => void
-    /** Button color */
+    /** ButtonCustom color */
     color?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning"
-    /** Button size */
+    /** ButtonCustom size */
     size?: "small" | "medium" | "large"
-    /** Button appearance */
+    /** ButtonCustom appearance */
     variant?: "text" | "outlined" | "contained"
     /** Additional button styles */
     style?: object
-    /** Button is disabled or not */
+    /** ButtonCustom is disabled or not */
     disabled?: boolean
 }
 
-export const ButtonUniversal = memo((props: ButtonType) => {
+export const ButtonCustom = memo((props: ButtonType) => {
     const onclickButtonHandler = useCallback(() => {
         props.callBack()
     }, [props.callBack])

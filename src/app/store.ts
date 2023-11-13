@@ -1,5 +1,5 @@
 import { todolistsReducer, TodolistsReducerActionType } from "features/TodolistList/todolists-reducer"
-import { tasksReducer, TasksReducerActionType } from "features/TodolistList/Todolist/Task/task-reducer"
+import { TasksActionsType, tasksReducer } from "features/TodolistList/Todolist/Task/task-reducer"
 import { appReducer, AppReducerActionsType } from "./app-reducer"
 import { authReducer, LoginReducerActionsType } from "features/Login/auth-reducer"
 import { AnyAction, configureStore, ThunkAction } from "@reduxjs/toolkit"
@@ -16,7 +16,7 @@ export type AppRootStateType = ReturnType<typeof store.getState>
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AnyAction>
 
 export type ActionTypes =
-    | TasksReducerActionType
+    | TasksActionsType
     | TodolistsReducerActionType
     | AppReducerActionsType
     | LoginReducerActionsType

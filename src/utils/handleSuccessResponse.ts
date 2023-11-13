@@ -1,19 +1,19 @@
 import { appActions } from "app/app-reducer"
-import { ActionTypes } from "app/store"
 import { ResponseType, ResultCode } from "api/instance"
-import { handleServerAppError } from "./handleServerError"
-import { AppThunkDispatch } from "hooks/useDiapstch/useDispacth"
-import { ActionCreator } from "@reduxjs/toolkit"
+import { handleServerAppError } from "utils"
+import { AppThunkDispatch } from "hooks"
+import { InferThunkActionCreatorType } from "react-redux"
 
-export const handleSuccessResponse = <T, S>(
+export const handleSuccessResponse = <D, S>(
     dispatch: AppThunkDispatch,
-    actionCreator: ActionCreator<ActionTypes>,
+    actionCreator: InferThunkActionCreatorType<any>,
     serverResponse: ResponseType<S>,
-    data: T,
+    data: D,
 ) => {
     if (serverResponse.resultCode === ResultCode.SUCCESS) {
         dispatch(actionCreator(data))
         dispatch(appActions.setLoadingStatus({ status: "succeeded" }))
+        return data
     } else {
         handleServerAppError(dispatch, serverResponse)
     }

@@ -2,7 +2,7 @@ import React from "react"
 // import './App.css';
 // import {TaskType, Todolist} from './ToDoList';
 // import {v1} from 'uuid';
-// import {InputLine} from './components/InputLine/InputLine';
+// import {InputCustom} from './components/InputCustom/InputCustom';
 // import {ButtonAppBar} from './components/ButtonAppBar/ButtonAppBar';
 // import Container from '@mui/material/Container';
 // import Grid from '@mui/material/Grid';
@@ -104,7 +104,7 @@ import React from "react"
 //
 //           <Container fixed>
 //               <Grid container style={{padding: '20px'}}>
-//                   <InputLine callBack={addTodolist}/>
+//                   <InputCustom callBack={addTodolist}/>
 //               </Grid>
 //               <Grid container spacing={4}>
 //                   {

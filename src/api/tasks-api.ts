@@ -32,11 +32,8 @@ export type CreateTaskType = {
     todolistId: string
     title: string
 }
-export type UpdateTaskType = {
-    todolistId: string
-    taskId: string
-    model: UpdateTaskModelType
-}
+export type UpdateTaskType = DeleteTaskType & { model: UpdateTaskModelType }
+
 export type DeleteTaskType = {
     todolistId: string
     taskId: string
@@ -59,12 +56,14 @@ export type TaskType = {
     order: number
     addedDate: string
 }
+
 export enum TaskStatuses {
     New = 0,
     InProgress = 1,
     Completed = 2,
     Draft = 3,
 }
+
 export enum TaskPriorities {
     Low = 0,
     Middle = 1,
@@ -72,6 +71,7 @@ export enum TaskPriorities {
     Urgently = 3,
     Later = 4,
 }
+
 export type UpdateTaskModelType = {
     title: string
     description: string | null

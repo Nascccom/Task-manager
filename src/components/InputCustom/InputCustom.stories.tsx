@@ -1,22 +1,47 @@
-import React, { ChangeEvent, KeyboardEvent, memo, useState } from "react"
-import { ButtonUniversal } from "../Button/ButtonUniversal"
+import type { Meta, StoryObj } from "@storybook/react"
+import { InputCustom } from "components/InputCustom/InputCustom"
+import React, { ChangeEvent, KeyboardEvent, useState } from "react"
 import Input from "@mui/joy/Input"
+import { ButtonCustom } from "components/ButtonCustom/ButtonCustom"
 
 type PropsType = {
-    /** Optional click handler */
+    /**
+     * Optional click handler
+     */
     callBack: (valueTitle: string) => void
-    /** Input is disabled or not */
-    disabled?: boolean
 }
 
-export const InputLine = memo((props: PropsType) => {
+// More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+const meta: Meta<typeof InputCustom> = {
+    title: "TODOLISTS/InputCustom",
+    component: InputCustom,
+    // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
+    tags: ["autodocs"],
+    // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
+    argTypes: {
+        callBack: {
+            description: "ButtonCustom clicked inside form",
+            action: "ButtonCustom clicked inside form",
+        },
+    },
+}
+
+export default meta
+type Story = StoryObj<typeof InputCustom>
+
+// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+export const InputLineWithoutError: Story = {}
+
+export const InputLineWithError = (args: PropsType) => {
     let [title, setTitle] = useState<string>("")
-    let [error, setError] = useState<null | string>(null)
+    let [error, setError] = useState<null | string>("Title is required")
 
     const onChangeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setError(null)
         setTitle(event.currentTarget.value)
     }
+
     const onKeydownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
             addTaskHandler()
@@ -24,7 +49,7 @@ export const InputLine = memo((props: PropsType) => {
     }
     const addTaskHandler = () => {
         if (title.trim()) {
-            props.callBack(title.trim())
+            args.callBack(title.trim())
             setTitle("")
         } else {
             setError("Title is required")
@@ -40,8 +65,7 @@ export const InputLine = memo((props: PropsType) => {
                 variant='outlined'
                 size='md'
                 color={error ? "danger" : "primary"}
-                value={title}
-                disabled={props.disabled}
+                value={!!error ? error : title}
                 sx={{
                     "--Input-focusedThickness": "2px",
                     "--Input-radius": "19px",
@@ -53,18 +77,18 @@ export const InputLine = memo((props: PropsType) => {
                     width: "300px",
                 }}
                 endDecorator={
-                    <ButtonUniversal
+                    <ButtonCustom
                         size='medium'
+                        variant='outlined'
                         style={{
                             display: "inline-flex",
                             border: "none",
                             alignItems: "center",
                             borderRadius: "50%",
-                            backgroundColor: props.disabled ? "#ccc" : error ? "#d2194a" : "#1976d2",
+                            backgroundColor: error ? "#d2194a" : "#1976d2",
                             color: "#fff",
                             fontWeight: "600",
                         }}
-                        disabled={props.disabled}
                         buttonName={"+"}
                         callBack={addTaskHandler}
                     />
@@ -72,4 +96,4 @@ export const InputLine = memo((props: PropsType) => {
             />
         </div>
     )
-})
+}

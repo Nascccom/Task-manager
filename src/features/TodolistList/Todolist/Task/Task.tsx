@@ -1,12 +1,11 @@
 import React, { memo, useCallback } from "react"
 import styles from "../Todolist.module.css"
-import { SuperCheckBox } from "components/SuperCheckBox/SuperCheckBox"
-import { EditableSpan } from "components/EditableSpan/EditableSpan"
+import { CheckboxCustom, EditableSpan } from "components"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { removeTask, updateTask } from "./task-reducer"
 import { TaskStatuses, TaskType } from "api/tasks-api"
-import { useAppDispatch } from "hooks/useDiapstch/useDispacth"
+import { useAppDispatch } from "hooks"
 
 export type TaskPropsType = {
     task: TaskType
@@ -22,8 +21,7 @@ export const Task = memo(({ task, todolistId }: TaskPropsType) => {
 
     const updateTaskTitleHandler = useCallback(
         (newTitle: string) => {
-            const part = { title: newTitle }
-            dispatch(updateTask({ todolistId, taskId: task.id, changingPart: part }))
+            dispatch(updateTask({ todolistId, taskId: task.id, changingPart: { title: newTitle } }))
         },
         [dispatch, todolistId, task.id],
     )
@@ -38,7 +36,7 @@ export const Task = memo(({ task, todolistId }: TaskPropsType) => {
 
     return (
         <li className={task.status === TaskStatuses.Completed ? styles.isDone : ""}>
-            <SuperCheckBox
+            <CheckboxCustom
                 callBack={(checked: boolean) =>
                     changeCheckboxStatus(checked ? TaskStatuses.Completed : TaskStatuses.New)
                 }
