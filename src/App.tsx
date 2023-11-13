@@ -2,8 +2,8 @@ import React from "react"
 // import './App.css';
 // import {TaskType, Todolist} from './ToDoList';
 // import {v1} from 'uuid';
-// import {InputCustom} from './components/InputCustom/InputCustom';
-// import {ButtonAppBar} from './components/ButtonAppBar/ButtonAppBar';
+// import {InputCustom} from './common';
+// import {ButtonAppBar} from './common';
 // import Container from '@mui/material/Container';
 // import Grid from '@mui/material/Grid';
 // import Paper from '@mui/material/Paper';
@@ -12,7 +12,7 @@ import React from "react"
 //     changeFilter,
 //     changeTitleTodolist,
 //     removeTodolist,
-//     todolistsReducer,
+//     todolistsSlice,
 //     TodolistsReducerActionType
 // } from "./state/todolists-reducer";
 // import {
@@ -39,7 +39,7 @@ import React from "react"
 //     let todolistID1 = v1();
 //     let todolistID2 = v1();
 //
-//     let [todolist, dispatchTodolist] = useReducer<Reducer<TodolistType[], TodolistsReducerActionType>>(todolistsReducer, [
+//     let [todolist, dispatchTodolist] = useReducer<Reducer<TodolistType[], TodolistsReducerActionType>>(todolistsSlice, [
 //         {id: todolistID1, title: 'What to learn', filter: 'all'},
 //         {id: todolistID2, title: 'What to buy', filter: 'all'}
 //     ])
