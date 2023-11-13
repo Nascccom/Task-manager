@@ -4,7 +4,7 @@ import { SuperCheckBox } from "components/SuperCheckBox/SuperCheckBox"
 import { EditableSpan } from "components/EditableSpan/EditableSpan"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
-import { removeTaskTC, updateTaskTC } from "./task-reducer"
+import { removeTask, updateTask } from "./task-reducer"
 import { TaskStatuses, TaskType } from "api/tasks-api"
 import { useAppDispatch } from "hooks/useDiapstch/useDispacth"
 
@@ -17,13 +17,13 @@ export const Task = memo(({ task, todolistId }: TaskPropsType) => {
     const dispatch = useAppDispatch()
 
     const removeTaskHandler = useCallback(() => {
-        dispatch(removeTaskTC(todolistId, task.id))
+        dispatch(removeTask({ todolistId, taskId: task.id }))
     }, [dispatch, todolistId, task.id])
 
     const updateTaskTitleHandler = useCallback(
         (newTitle: string) => {
             const part = { title: newTitle }
-            dispatch(updateTaskTC(todolistId, task.id, part))
+            dispatch(updateTask({ todolistId, taskId: task.id, changingPart: part }))
         },
         [dispatch, todolistId, task.id],
     )
@@ -31,7 +31,7 @@ export const Task = memo(({ task, todolistId }: TaskPropsType) => {
     const changeCheckboxStatus = useCallback(
         (newStatus: TaskStatuses) => {
             const part = { status: newStatus }
-            dispatch(updateTaskTC(todolistId, task.id, part))
+            dispatch(updateTask({ todolistId, taskId: task.id, changingPart: part }))
         },
         [dispatch, todolistId, task.id],
     )
