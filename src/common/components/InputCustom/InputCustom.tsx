@@ -1,5 +1,5 @@
 import React, { ChangeEvent, KeyboardEvent, memo, useState } from "react"
-import { ButtonCustom } from "components/ButtonCustom/ButtonCustom"
+import { ButtonCustom } from "common/components"
 import Input from "@mui/joy/Input"
 
 type PropsType = {

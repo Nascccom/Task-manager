@@ -1,7 +1,7 @@
 import { TodolistDomainType, todolistsActions, todolistsReducer } from "features/TodolistList/todolists-reducer"
 import { tasksReducer, TasksStateType } from "features/TodolistList/Todolist/Task/task-reducer"
 import { TodolistType } from "api/todolists-api"
-import { TaskPriorities, TaskStatuses } from "api/tasks-api"
+import { TaskPriorities, TaskStatuses } from "common/enums"
 
 test("id should be equals", () => {
     let startTodolistState: TodolistDomainType[] = []

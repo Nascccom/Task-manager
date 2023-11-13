@@ -4,11 +4,11 @@ import IconButton from "@mui/material/IconButton"
 import { FilterValuesType, removeTodolistTC, todolistsActions, updateTodolistTitleTC } from "../todolists-reducer"
 import { addTask } from "./Task/task-reducer"
 import { Task } from "./Task/Task"
-import { ButtonCustom, EditableSpan, InputCustom } from "components"
+import { ButtonCustom, EditableSpan, InputCustom } from "common/components"
 import ButtonGroup from "@mui/material/ButtonGroup"
-import { TaskStatuses } from "api/tasks-api"
-import { selectTasks, useAppDispatch, useAppSelector } from "hooks"
+import { selectTasks, useAppDispatch, useAppSelector } from "common/hooks"
 import { RequestStatusType } from "app/app-reducer"
+import { TaskStatuses } from "common/enums"
 
 type PropsType = {
     todolistId: string

@@ -1,10 +1,10 @@
 import { todolistAPI, TodolistType } from "api/todolists-api"
 import { appActions, RequestStatusType } from "app/app-reducer"
 import { getTasks } from "./Todolist/Task/task-reducer"
-import { AppThunkDispatch } from "hooks"
+import { AppThunkDispatch } from "common/hooks"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { AppThunk } from "app/store"
-import { handleServerNetworkError, handleSuccessResponse } from "utils"
+import { handleServerNetworkError, handleSuccessResponse } from "common/utils"
 
 const todolistsSlice = createSlice({
     name: "todolists",

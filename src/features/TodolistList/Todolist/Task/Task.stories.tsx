@@ -1,6 +1,6 @@
 import { Task } from "./Task"
 import { ReduxStoreProviderDecorator } from "stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"
-import { TaskPriorities, TaskStatuses } from "api/tasks-api"
+import { TaskPriorities, TaskStatuses } from "common/enums"
 
 export default {
     title: "TODOLISTS/Task",

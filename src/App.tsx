@@ -2,8 +2,8 @@ import React from "react"
 // import './App.css';
 // import {TaskType, Todolist} from './ToDoList';
 // import {v1} from 'uuid';
-// import {InputCustom} from './components/InputCustom/InputCustom';
-// import {ButtonAppBar} from './components/ButtonAppBar/ButtonAppBar';
+// import {InputCustom} from './common';
+// import {ButtonAppBar} from './common';
 // import Container from '@mui/material/Container';
 // import Grid from '@mui/material/Grid';
 // import Paper from '@mui/material/Paper';

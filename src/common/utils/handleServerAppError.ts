@@ -1,6 +1,6 @@
 import { appActions } from "app/app-reducer"
-import { ResponseType } from "api/instance"
-import { AppThunkDispatch } from "hooks"
+import { ResponseType } from "common/types"
+import { AppThunkDispatch } from "common/hooks"
 
 export const handleServerAppError = <T>(dispatch: AppThunkDispatch, data: ResponseType<T>): void => {
     const error = data.messages[0]

@@ -3,11 +3,11 @@ import { Provider } from "react-redux"
 import { AppRootStateType } from "app/store"
 import { TodolistDomainType, todolistsReducer } from "features/TodolistList/todolists-reducer"
 import { tasksReducer, TasksStateType } from "features/TodolistList/Todolist/Task/task-reducer"
-import { TaskPriorities, TaskStatuses } from "api/tasks-api"
 import { appReducer, InitialAppStateType } from "app/app-reducer"
 import { MemoryRouter } from "react-router-dom"
 import { authReducer } from "features/Login/auth-reducer"
 import { configureStore } from "@reduxjs/toolkit"
+import { TaskPriorities, TaskStatuses } from "common/enums"
 
 const initialGlobalState: AppRootStateType = {
     app: {

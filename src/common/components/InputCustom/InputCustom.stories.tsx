@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { InputCustom } from "components/InputCustom/InputCustom"
+import { InputCustom, ButtonCustom } from "common/components"
 import React, { ChangeEvent, KeyboardEvent, useState } from "react"
 import Input from "@mui/joy/Input"
-import { ButtonCustom } from "components/ButtonCustom/ButtonCustom"
 
 type PropsType = {
     /**

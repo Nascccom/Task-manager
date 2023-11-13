@@ -2,10 +2,10 @@ import React, { useCallback } from "react"
 import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
 import { Todolist } from "./Todolist/ToDoList"
-import { useAppSelector, useAppDispatch, selectIsLoggedIn, selectTodolists } from "hooks"
+import { useAppSelector, useAppDispatch, selectIsLoggedIn, selectTodolists } from "common/hooks"
 import { createTodolistTC } from "./todolists-reducer"
 import { Navigate } from "react-router-dom"
-import { InputCustom } from "components"
+import { InputCustom } from "common/components"
 
 export const TodolistList = () => {
     const isLoggedIn = useAppSelector(selectIsLoggedIn)

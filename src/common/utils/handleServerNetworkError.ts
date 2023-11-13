@@ -1,4 +1,4 @@
-import { AppThunkDispatch } from "hooks"
+import { AppThunkDispatch } from "common/hooks"
 import axios from "axios"
 import { appActions } from "app/app-reducer"
 

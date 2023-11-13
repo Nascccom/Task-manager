@@ -1,23 +1,27 @@
-import { instance, ResponseType } from "./instance"
 import { AxiosResponse } from "axios"
+import { instance } from "common/instanceApi"
+import { ResponseType } from "common/types"
 
 export const todolistAPI = {
-    getTodolists() {
-        return instance.get<TodolistType[]>("todo-lists").then((res) => res.data)
+    async getTodolists() {
+        const res = await instance.get<TodolistType[]>("todo-lists")
+        return res.data
     },
-    createTodolist(title: string) {
-        return instance.post<ResponseType<{ item: TodolistType }>>("todo-lists", { title }).then((res) => res.data)
+    async createTodolist(title: string) {
+        const res = await instance.post<ResponseType<{ item: TodolistType }>>("todo-lists", { title })
+        return res.data
     },
-    updateTodolistTittle(todolistId: string, title: string) {
-        return instance
-            .put<ResponseType, AxiosResponse<ResponseType>>(`todo-lists/${todolistId}`, { title })
-            .then((res) => res.data)
+    async updateTodolistTittle(todolistId: string, title: string) {
+        const res = await instance.put<ResponseType, AxiosResponse<ResponseType>>(`todo-lists/${todolistId}`, { title })
+        return res.data
     },
-    deleteTodolist(todolistId: string) {
-        return instance.delete<ResponseType>(`todo-lists/${todolistId}`).then((res) => res.data)
+    async deleteTodolist(todolistId: string) {
+        const res = await instance.delete<ResponseType>(`todo-lists/${todolistId}`)
+        return res.data
     },
 }
 
+//types
 export type TodolistType = {
     id: string
     title: string

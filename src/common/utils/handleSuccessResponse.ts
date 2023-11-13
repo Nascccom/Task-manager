@@ -1,8 +1,9 @@
 import { appActions } from "app/app-reducer"
-import { ResponseType, ResultCode } from "api/instance"
-import { handleServerAppError } from "utils"
-import { AppThunkDispatch } from "hooks"
+import { ResponseType } from "common/types"
+import { handleServerAppError } from "common/utils/index"
+import { AppThunkDispatch } from "common/hooks"
 import { InferThunkActionCreatorType } from "react-redux"
+import { ResultCode } from "common/enums"
 
 export const handleSuccessResponse = <D, S>(
     dispatch: AppThunkDispatch,

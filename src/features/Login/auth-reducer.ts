@@ -1,11 +1,11 @@
 import { authAPI } from "api/auth-api"
-import { AppThunkDispatch } from "hooks"
-import { ResultCode } from "api/instance"
-import { handleServerAppError, handleServerNetworkError } from "utils"
+import { AppThunkDispatch } from "common/hooks"
+import { handleServerAppError, handleServerNetworkError } from "common/utils"
 import { getTodolistsTC, todolistsActions } from "../TodolistList/todolists-reducer"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { AppThunk } from "app/store"
 import { appActions } from "app/app-reducer"
+import { ResultCode } from "common/enums"
 
 export const authSlice = createSlice({
     name: "auth",

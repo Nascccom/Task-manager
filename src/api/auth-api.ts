@@ -1,26 +1,24 @@
-import { instance, ResponseType } from "./instance"
+import { instance } from "common/instanceApi"
 import { AxiosResponse } from "axios"
 import { LoginDataType } from "features/Login/Login"
+import { ResponseType } from "common/types"
 
 export const authAPI = {
-    getAuthMeData() {
-        return instance.get<ResponseType<AuthMeType>>("auth/me").then((res) => res.data)
+    async getAuthMeData() {
+        const res = await instance.get<ResponseType<AuthMeType>>("auth/me")
+        return res.data
     },
-    login(data: LoginDataType) {
-        return instance
-            .post<
-                ResponseType<{ userId: number }>,
-                AxiosResponse<
-                    ResponseType<{
-                        userId: number
-                    }>
-                >,
-                LoginDataType
-            >("auth/login", data)
-            .then((res) => res.data)
+    async login(data: LoginDataType) {
+        const res = await instance.post<
+            ResponseType<{ userId: number }>,
+            AxiosResponse<ResponseType<{ userId: number }>>,
+            LoginDataType
+        >("auth/login", data)
+        return res.data
     },
-    logout() {
-        return instance.delete<ResponseType>("auth/login").then((res) => res.data)
+    async logout() {
+        const res = await instance.delete<ResponseType>("auth/login")
+        return res.data
     },
 }
 

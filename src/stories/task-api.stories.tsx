@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { tasksAPI, TaskType, UpdateTaskModelType } from "./tasks-api"
+import { tasksAPI, TaskType, UpdateTaskModelType } from "api/tasks-api"
 import {
     DecoratorStateType,
     ReduxStoreProviderDecorator,
