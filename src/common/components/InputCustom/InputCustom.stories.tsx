@@ -1,13 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { InputCustom, ButtonCustom } from "common/components"
+import { ButtonCustom, InputCustom } from "common/components"
 import React, { ChangeEvent, KeyboardEvent, useState } from "react"
-import Input from "@mui/joy/Input"
+import Input from "@mui/material/Input"
 
 type PropsType = {
     /**
      * Optional click handler
      */
     callBack: (valueTitle: string) => void
+    /**
+     * Determines whether the button and input will be disabled
+     */
+    disabled: boolean
 }
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -32,7 +36,7 @@ type Story = StoryObj<typeof InputCustom>
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 export const InputLineWithoutError: Story = {}
 
-export const InputLineWithError = (args: PropsType) => {
+export const InputLineWithError = ({ callBack, disabled = false }: PropsType) => {
     let [title, setTitle] = useState<string>("")
     let [error, setError] = useState<null | string>("Title is required")
 
@@ -48,7 +52,7 @@ export const InputLineWithError = (args: PropsType) => {
     }
     const addTaskHandler = () => {
         if (title.trim()) {
-            args.callBack(title.trim())
+            callBack(title.trim())
             setTitle("")
         } else {
             setError("Title is required")
@@ -60,11 +64,6 @@ export const InputLineWithError = (args: PropsType) => {
             <Input
                 onChange={onChangeInputHandler}
                 onKeyDown={onKeydownHandler}
-                placeholder={error ? error : "Type in here…"}
-                variant='outlined'
-                size='md'
-                color={error ? "danger" : "primary"}
-                value={!!error ? error : title}
                 sx={{
                     "--Input-focusedThickness": "2px",
                     "--Input-radius": "19px",
@@ -73,26 +72,33 @@ export const InputLineWithError = (args: PropsType) => {
                     "--Input-minHeight": "40px",
                     "--Input-paddingInline": "11px",
                     "--Input-decoratorChildHeight": "35px",
-                    width: "300px",
+                    width: "250px",
                 }}
-                endDecorator={
-                    <ButtonCustom
-                        size='medium'
-                        variant='outlined'
-                        style={{
-                            display: "inline-flex",
-                            border: "none",
-                            alignItems: "center",
-                            borderRadius: "50%",
-                            backgroundColor: error ? "#d2194a" : "#1976d2",
-                            color: "#fff",
-                            fontWeight: "600",
-                        }}
-                        buttonName={"+"}
-                        callBack={addTaskHandler}
-                    />
-                }
+                placeholder={error ? error : "Type in here…"}
+                disabled={disabled}
+                value={title}
+            />
+            <ButtonCustom
+                size='medium'
+                style={{
+                    display: "inline-flex",
+                    border: "none",
+                    alignItems: "center",
+                    borderRadius: "50%",
+                    backgroundColor: error ? "#d2194a" : "#1976d2",
+                    color: "#fff",
+                    fontWeight: "600",
+                }}
+                disabled={disabled}
+                buttonName={"+"}
+                callBack={addTaskHandler}
             />
         </div>
     )
+}
+
+export const DisabledInput: Story = {
+    args: {
+        disabled: true,
+    },
 }

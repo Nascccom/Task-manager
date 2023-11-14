@@ -13,16 +13,16 @@ const meta: Meta<typeof AppWithRedux> = {
 }
 
 export default meta
-type Story = StoryObj<typeof AppWithRedux>
-
-export const Default: Story = {
-    args: {
-        demo: true,
-    },
-}
-
-export const PageWithoutInitialization: Story = {
-    args: {
-        demo: true,
-    },
-}
+// type Story = StoryObj<typeof AppWithRedux>
+//
+// export const Default: Story = {
+//     args: {
+//         demo: true,
+//     },
+// }
+//
+// export const PageWithoutInitialization: Story = {
+//     args: {
+//         demo: true,
+//     },
+// }
