@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { action } from "@storybook/addon-actions"
 import ButtonGroup from "@mui/material/ButtonGroup"
-import { tasksActions } from "features/TodolistList/model/taskSlice"
+import { tasksActions, tasksThunks } from "features/TodolistList/model/taskSlice"
 import { ButtonGroupStyle, Todolist } from "features/TodolistList/ui/Todolist/ToDoList"
 import { ReduxStoreProviderDecorator } from "stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"
 import { FilterValuesType, todolistsActions } from "features/TodolistList/model/todolistsSlice"
@@ -55,7 +55,8 @@ const ReduxTodolist = ({ todolistId, title, entityStatus }: ReduxTodolistType) =
     }
 
     const addTaskForTodolistHandler = (valueTitle: string) => {
-        dispatch(tasksActions.addTask({ todolistId: todolistId, task: newTask(todolistId, valueTitle) }))
+        //Todo
+        // dispatch(tasksThunks.addTask.fulfilled({ todolistId: todolistId, task: newTask(todolistId, valueTitle) }, '', ))
     }
 
     const filteredTasks = (): TaskType[] => {

@@ -14,7 +14,6 @@ export const handleSuccessResponse = <D, S>(
     if (serverResponse.resultCode === ResultCode.SUCCESS) {
         dispatch(actionCreator(data))
         dispatch(appActions.setLoadingStatus({ status: "succeeded" }))
-        return data
     } else {
         handleServerAppError(dispatch, serverResponse)
     }

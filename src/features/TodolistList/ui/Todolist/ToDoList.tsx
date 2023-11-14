@@ -41,7 +41,7 @@ export const Todolist = memo(({ todolistId, title, activeFilter, entityStatus }:
 
     const addTaskForTodolistHandler = useCallback(
         (valueTitle: string) => {
-            dispatch(addTask({ todolistId, textForTask: valueTitle }))
+            dispatch(addTask({ todolistId, title: valueTitle }))
         },
         [dispatch, todolistId],
     )
