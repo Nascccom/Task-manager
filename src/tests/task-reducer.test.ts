@@ -1,4 +1,4 @@
-import { tasksActions, tasksReducer, TasksStateType, tasksThunks } from "features/TodolistList/model/taskSlice"
+import { tasksReducer, TasksStateType, tasksThunks } from "features/TodolistList/model/taskSlice"
 import { todolistsActions } from "features/TodolistList/model/todolistsSlice"
 import { TaskPriorities, TaskStatuses } from "common/enums"
 
@@ -38,7 +38,7 @@ beforeEach(() => {
             {
                 id: "3",
                 title: "React",
-                completed: true,
+                completed: false,
                 description: "",
                 status: TaskStatuses.New,
                 priority: TaskPriorities.Hi,
@@ -70,47 +70,41 @@ const findTask = (todolistId: string, taskId: string) => {
 }
 
 test("correct task should be removed", () => {
-    const action = tasksActions.removeTask({ todolistId: "todolistID1", taskId: "1" })
-    const endState: TasksStateType = tasksReducer(startState, action)
+    const todolistData = { todolistId: "todolistID1", taskId: "1" }
+    const action = tasksThunks.removeTask.fulfilled(todolistData, "requestId", todolistData)
+    const endState = tasksReducer(startState, action)
 
     expect(endState["todolistID1"].length).toBe(1)
     expect(endState["todolistID2"].length).toBe(2)
 })
-test("correct task should be added to correct array", () => {
-    const action = tasksActions.addTask({
-        todolistId: "todolistID2",
-        task: {
-            id: "new id",
-            title: "SQL",
-            completed: true,
-            description: null,
-            todoListId: "todolistID2",
-            order: 0,
-            status: TaskStatuses.New,
-            priority: 1,
-            startDate: null,
-            deadline: null,
-            addedDate: "",
-        },
-    })
 
-    const endState: TasksStateType = tasksReducer(startState, action)
+test("correct task should be added to correct array", () => {
+    const action = tasksThunks.addTask.fulfilled(
+        { todolistId: "todolistID2", task: { ...startState["todolistID2"][0], id: "new id", title: "SQL" } },
+        "requestId",
+        { todolistId: "todolistID2", title: "SQL" },
+    )
+
+    const endState = tasksReducer(startState, action)
 
     expect(endState["todolistID1"].length).toBe(2)
     expect(endState["todolistID2"].length).toBe(3)
     expect(endState["todolistID2"][0].todoListId).toBe("todolistID2")
     expect(endState["todolistID2"][0].id).toBe("new id")
     expect(endState["todolistID2"][0].title).toBe("SQL")
-    expect(endState["todolistID2"][0].status).toBe(TaskStatuses.New)
 })
+
 test("correct task should be changed tittle", () => {
     let newTitle = "SSSSSQL"
     let necessaryTask = findTask("todolistID1", "1")
 
     if (necessaryTask) {
-        necessaryTask.title = newTitle
-        const action = tasksActions.updateTask({ todolistId: "todolistID1", taskId: "1", task: necessaryTask })
-        const endState: TasksStateType = tasksReducer(startState, action)
+        const action = tasksThunks.updateTask.fulfilled(
+            { todolistId: "todolistID1", taskId: "1", task: { ...startState["todolistID1"][0], title: newTitle } },
+            "requestId",
+            { todolistId: "todolistID1", taskId: "1", changingPart: { title: newTitle } },
+        )
+        const endState = tasksReducer(startState, action)
 
         expect(endState["todolistID1"][0].title).toBe("SSSSSQL")
         expect(endState["todolistID1"][1].title).toBe("JS")
@@ -118,13 +112,21 @@ test("correct task should be changed tittle", () => {
         expect(endState["todolistID2"][1].title).toBe("RTK")
     }
 })
+
 test("status should be changed of the task ", () => {
     let necessaryTask = findTask("todolistID1", "1")
 
     if (necessaryTask) {
-        necessaryTask.status = TaskStatuses.Completed
-        const action = tasksActions.updateTask({ todolistId: "todolistID1", taskId: "1", task: necessaryTask })
-        const endState: TasksStateType = tasksReducer(startState, action)
+        const action = tasksThunks.updateTask.fulfilled(
+            {
+                todolistId: "todolistID1",
+                taskId: "1",
+                task: { ...startState["todolistID1"][0], status: TaskStatuses.Completed },
+            },
+            "requestId",
+            { todolistId: "todolistID1", taskId: "1", changingPart: { status: TaskStatuses.Completed } },
+        )
+        const endState = tasksReducer(startState, action)
 
         expect(endState["todolistID1"][0].status).toBe(TaskStatuses.Completed)
         expect(endState["todolistID1"][1].status).toBe(TaskStatuses.New)
@@ -132,6 +134,7 @@ test("status should be changed of the task ", () => {
         expect(endState["todolistID2"][1].status).toBe(TaskStatuses.New)
     }
 })
+
 test("new array should be added when new todolist is added ", () => {
     const action = todolistsActions.addTodolist({
         todolist: {

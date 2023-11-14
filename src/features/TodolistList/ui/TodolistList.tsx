@@ -7,14 +7,20 @@ import { createTodolistTC } from "features/TodolistList/model/todolistsSlice"
 import { Navigate } from "react-router-dom"
 import { InputCustom } from "common/components"
 
-export const TodolistList = () => {
+type PropsType = {
+    demo: boolean
+}
+
+export const TodolistList = ({ demo }: PropsType) => {
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
     const todolists = useAppSelector(selectTodolists)
     const dispatch = useAppDispatch()
 
     const addTodolist = useCallback(
         (title: string) => {
-            dispatch(createTodolistTC(title))
+            if (!demo) {
+                dispatch(createTodolistTC(title))
+            }
         },
         [dispatch],
     )

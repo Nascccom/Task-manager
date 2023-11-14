@@ -1,31 +1,40 @@
-import React, { useEffect } from "react"
-import "./App.css"
-import { ButtonAppBar } from "features/ButtonAppBar/ButtonAppBar"
-import Container from "@mui/material/Container"
-import { TodolistList } from "features/TodolistList/ui/TodolistList"
-import LinearProgress from "@mui/material/LinearProgress"
-import { selectIsInitialized, selectIsLoadingStatus, useAppDispatch, useAppSelector } from "common/hooks"
-import { ErrorSnackbars } from "common/components"
-import { Login } from "features/Login/ui/Login"
-import { Navigate, Route, Routes } from "react-router-dom"
-import { getAuthMeDataTC } from "features/Login/model/authSlice"
+import type { Meta, StoryObj } from "@storybook/react"
+import { ReduxStoreProviderDecorator } from "stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"
+import { AppWithRedux } from "app/AppWithRedux"
+import React from "react"
 import CircularProgress from "@mui/material/CircularProgress"
+import { ButtonAppBar } from "features/ButtonAppBar/ButtonAppBar"
+import LinearProgress from "@mui/material/LinearProgress"
+import Container from "@mui/material/Container"
+import { Navigate, Route, Routes } from "react-router-dom"
+import { TodolistList } from "features/TodolistList/ui/TodolistList"
+import { Login } from "features/Login/ui/Login"
+import { ErrorSnackbars } from "common/components"
+import { RequestStatusType } from "app/app-reducer"
+
+const meta: Meta<typeof AppWithRedux> = {
+    title: "TODOLISTS/App",
+    component: AppWithRedux,
+    tags: ["autodocs"],
+    decorators: [ReduxStoreProviderDecorator],
+}
+
+export default meta
+type Story = StoryObj<typeof AppWithRedux>
 
 type PropsType = {
     demo?: boolean
+    isLoadingStatus: RequestStatusType
+    isInitialized: boolean
 }
 
-export function AppWithRedux({ demo = false }: PropsType) {
-    const isLoadingStatus = useAppSelector(selectIsLoadingStatus)
-    const isInitialized = useAppSelector(selectIsInitialized)
-    const dispatch = useAppDispatch()
+export const Default: Story = {
+    args: {
+        demo: true,
+    },
+}
 
-    useEffect(() => {
-        if (!demo) {
-            dispatch(getAuthMeDataTC())
-        }
-    }, [dispatch])
-
+export const AppLoading = ({ demo = false, isLoadingStatus = "idle", isInitialized = false }: PropsType) => {
     if (!isInitialized) {
         return (
             <div
@@ -33,7 +42,7 @@ export function AppWithRedux({ demo = false }: PropsType) {
                     position: "fixed",
                     top: "30%",
                     textAlign: "center",
-                    width: "100%",
+                    width: "99%",
                 }}>
                 <CircularProgress color='secondary' size={150} thickness={3} />
             </div>
@@ -58,4 +67,8 @@ export function AppWithRedux({ demo = false }: PropsType) {
             <ErrorSnackbars />
         </div>
     )
+}
+
+export const AppWithLinearProgress = {
+    render: () => <AppLoading isLoadingStatus={"loading"} isInitialized={true} />,
 }
