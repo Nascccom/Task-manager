@@ -42,13 +42,13 @@ export function AppWithRedux({ demo = false }: PropsType) {
 
     return (
         <div className='App'>
-            <ButtonAppBar />
+            <ButtonAppBar demo={demo} />
 
             {isLoadingStatus === "loading" && <LinearProgress color={"secondary"} />}
 
             <Container fixed maxWidth={false}>
                 <Routes>
-                    <Route path={"/"} element={<TodolistList />} />
+                    <Route path={"/"} element={<TodolistList demo={demo} />} />
                     <Route path={"/login"} element={<Login />} />
                     <Route path={"/404"} element={<h1>404: PAGE NOT FOUND</h1>} />
                     <Route path={"*"} element={<Navigate to={"/404"} />} />

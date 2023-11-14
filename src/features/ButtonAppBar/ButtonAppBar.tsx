@@ -9,12 +9,18 @@ import MenuIcon from "@mui/icons-material/Menu"
 import { useAppSelector, useAppDispatch, selectIsLoggedIn } from "common/hooks"
 import { logoutTC } from "features/Login/model/authSlice"
 
-export const ButtonAppBar = memo(() => {
+type PropsType = {
+    demo?: boolean
+}
+
+export const ButtonAppBar = memo(({ demo }: PropsType) => {
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
     const dispatch = useAppDispatch()
 
     const onclickLogoutHandler = () => {
-        dispatch(logoutTC())
+        if (!demo) {
+            dispatch(logoutTC())
+        }
     }
 
     return (
