@@ -5,7 +5,6 @@ import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { action } from "@storybook/addon-actions"
 import ButtonGroup from "@mui/material/ButtonGroup"
-import { tasksActions, tasksThunks } from "features/TodolistList/model/taskSlice"
 import { ButtonGroupStyle, Todolist } from "features/TodolistList/ui/Todolist/ToDoList"
 import { ReduxStoreProviderDecorator } from "stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"
 import { FilterValuesType, todolistsActions } from "features/TodolistList/model/todolistsSlice"
@@ -13,6 +12,7 @@ import { selectTasks, useAppDispatch, useAppSelector } from "common/hooks"
 import { RequestStatusType } from "app/app-reducer"
 import { TaskPriorities, TaskStatuses } from "common/enums"
 import { TaskType } from "features/TodolistList/api/tasksApi.types"
+import { tasksActions, tasksThunks } from "features/TodolistList/model/taskSlice"
 
 export default {
     title: "TODOLISTS/Todolist",
@@ -48,6 +48,7 @@ const ReduxTodolist = ({ todolistId, title, entityStatus }: ReduxTodolistType) =
     const tasks = useAppSelector(selectTasks(todolistId))
     const dispatch = useAppDispatch()
     const [activeButton, setActiveButton] = useState<FilterValuesType>("All")
+    const [titleTodo, setTitleTodo] = useState("")
 
     const changeFilterButtonHandler = (todolistId: string, filterValue: FilterValuesType) => {
         dispatch(todolistsActions.changeFilter({ todolistId, filter: filterValue }))
@@ -55,8 +56,12 @@ const ReduxTodolist = ({ todolistId, title, entityStatus }: ReduxTodolistType) =
     }
 
     const addTaskForTodolistHandler = (valueTitle: string) => {
-        //Todo
-        // dispatch(tasksThunks.addTask.fulfilled({ todolistId: todolistId, task: newTask(todolistId, valueTitle) }, '', ))
+        dispatch(
+            tasksThunks.addTask.fulfilled({ todolistId, task: newTask(todolistId, valueTitle) }, "requestId", {
+                todolistId,
+                title: valueTitle,
+            }),
+        )
     }
 
     const filteredTasks = (): TaskType[] => {
