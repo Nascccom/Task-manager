@@ -7,11 +7,10 @@ import FormGroup from "@mui/material/FormGroup"
 import FormLabel from "@mui/material/FormLabel"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
-import { useAppSelector, useAppDispatch } from "common/hooks"
+import { useActions, useAppSelector } from "common/hooks"
 import { useFormik } from "formik"
-import { loginTC } from "features/Auth/model/authSlice"
 import { Navigate } from "react-router-dom"
-import { authSelectors } from "features/Auth"
+import { authActions, authSelectors } from "features/Auth"
 
 type FormikErrorType = {
     email?: string
@@ -25,7 +24,7 @@ export type LoginDataType = {
 
 export const Login = memo(() => {
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
-    const dispatch = useAppDispatch()
+    const { loginTC } = useActions(authActions)
 
     const formik = useFormik({
         initialValues: {
@@ -50,7 +49,7 @@ export const Login = memo(() => {
             return errors
         },
         onSubmit: (values) => {
-            dispatch(loginTC(values.email, values.password, values.rememberMe))
+            loginTC(values.email, values.password, values.rememberMe)
             formik.resetForm()
         },
     })

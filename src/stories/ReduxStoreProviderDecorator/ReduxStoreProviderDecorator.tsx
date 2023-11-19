@@ -1,13 +1,14 @@
 import React from "react"
 import { Provider } from "react-redux"
 import { AppRootStateType } from "app/store"
-import { TodolistDomainType, todolistsSlice } from "features/TodolistList/model/todolistsSlice"
+import { TodolistDomainType } from "features/TodolistList/model/todolistsSlice"
 import { tasksReducer, TasksStateType } from "features/TodolistList/model/taskSlice"
 import { appReducer, InitialAppStateType } from "app/app-reducer"
 import { MemoryRouter } from "react-router-dom"
-import { authSlice } from "features/Auth/model/authSlice"
 import { configureStore } from "@reduxjs/toolkit"
 import { TaskPriorities, TaskStatuses } from "common/enums"
+import { authReducer } from "features/Auth"
+import { todolistsReducer } from "features/TodolistList"
 
 const initialGlobalState: AppRootStateType = {
     app: {
@@ -90,8 +91,8 @@ export type DecoratorStateType = typeof initialGlobalState
 export const storyBookStore = configureStore({
     reducer: {
         app: appReducer,
-        auth: authSlice,
-        todolists: todolistsSlice,
+        auth: authReducer,
+        todolists: todolistsReducer,
         tasks: tasksReducer,
     },
     preloadedState: initialGlobalState as AppRootStateType,

@@ -4,12 +4,11 @@ import Container from "@mui/material/Container"
 import CircularProgress from "@mui/material/CircularProgress"
 import LinearProgress from "@mui/material/LinearProgress"
 import { TodolistList } from "features/TodolistList"
-import { useAppDispatch, useAppSelector } from "common/hooks"
+import { useActions, useAppSelector } from "common/hooks"
 import { ErrorSnackbars } from "common/components"
 import { Navigate, Route, Routes } from "react-router-dom"
-import { getAuthMeDataTC } from "features/Auth/model/authSlice"
 import { selectIsInitialized, selectIsLoadingStatus } from "app/selectors"
-import { Login } from "features/Auth"
+import { authActions, Login } from "features/Auth"
 import { ButtonAppBar } from "features/ButtonAppBar"
 
 type PropsType = {
@@ -19,13 +18,13 @@ type PropsType = {
 export function AppWithRedux({ demo = false }: PropsType) {
     const isLoadingStatus = useAppSelector(selectIsLoadingStatus)
     const isInitialized = useAppSelector(selectIsInitialized)
-    const dispatch = useAppDispatch()
+    const { getAuthMeDataTC } = useActions(authActions)
 
     useEffect(() => {
         if (!demo) {
-            dispatch(getAuthMeDataTC())
+            getAuthMeDataTC()
         }
-    }, [dispatch])
+    }, [])
 
     if (!isInitialized) {
         return (

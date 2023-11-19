@@ -1,10 +1,10 @@
-import { CreateTaskType, tasksThunks, todolistAPI, TodolistType } from "features/TodolistList"
+import { CreateTaskType, tasksActions, todolistAPI, TodolistType } from "features/TodolistList"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils"
 import { ResultCode } from "common/enums"
 import { appActions, RequestStatusType } from "app/app-reducer"
 
-const slice = createSlice({
+export const slice = createSlice({
     name: "todolists",
     initialState: [] as TodolistDomainType[],
     reducers: {
@@ -69,7 +69,7 @@ const getTodolists = createAppAsyncThunk<TodolistType[], null>(`${slice.name}/ge
         dispatch(appActions.setLoadingStatus({ status: "succeeded" }))
 
         todolists.forEach((todo) => {
-            dispatch(tasksThunks.getTasks(todo.id))
+            dispatch(tasksActions.getTasks(todo.id))
         })
         return todolists
     } catch (err: any) {
@@ -156,5 +156,5 @@ export type TodolistDomainType = TodolistType & {
 export type FilterValuesType = "All" | "Active" | "Completed"
 
 export const todolistsActions = slice.actions
-export const todolistsSlice = slice.reducer
+export const todolistsReducer = slice.reducer
 export const todolistsThunks = { getTodolists, removeTodolist, addTodolist, updateTodolistTitle }

@@ -6,9 +6,8 @@ import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/icons-material/Menu"
-import { useAppSelector, useAppDispatch } from "common/hooks"
-import { logoutTC } from "features/Auth/model/authSlice"
-import { authSelectors } from "features/Auth"
+import { useActions, useAppSelector } from "common/hooks"
+import { authActions, authSelectors } from "features/Auth"
 
 type PropsType = {
     demo?: boolean
@@ -16,11 +15,11 @@ type PropsType = {
 
 export const ButtonAppBar = memo(({ demo }: PropsType) => {
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
-    const dispatch = useAppDispatch()
+    const { logoutTC } = useActions(authActions)
 
     const onclickLogoutHandler = () => {
         if (!demo) {
-            dispatch(logoutTC())
+            logoutTC()
         }
     }
 

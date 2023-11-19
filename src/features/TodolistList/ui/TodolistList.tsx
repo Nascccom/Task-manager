@@ -1,10 +1,10 @@
 import React, { useCallback } from "react"
 import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
-import { useAppDispatch, useAppSelector } from "common/hooks"
+import { useAppSelector, useActions } from "common/hooks"
 import { Navigate } from "react-router-dom"
 import { InputCustom } from "common/components"
-import { todolistsThunks, Todolist, todolistsSelectors } from "features/TodolistList"
+import { Todolist, todolistsActions, todolistsSelectors } from "features/TodolistList"
 import { authSelectors } from "features/Auth"
 
 type PropsType = {
@@ -14,16 +14,13 @@ type PropsType = {
 export const TodolistList = ({ demo }: PropsType) => {
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
     const todolists = useAppSelector(todolistsSelectors.todolists)
-    const dispatch = useAppDispatch()
+    const { addTodolist } = useActions(todolistsActions)
 
-    const addTodolist = useCallback(
-        (title: string) => {
-            if (!demo) {
-                dispatch(todolistsThunks.addTodolist(title))
-            }
-        },
-        [dispatch],
-    )
+    const addTodolistHandler = useCallback((title: string) => {
+        if (!demo) {
+            addTodolist(title)
+        }
+    }, [])
 
     if (!isLoggedIn) {
         return <Navigate to={"/login"} />
@@ -32,7 +29,7 @@ export const TodolistList = ({ demo }: PropsType) => {
     return (
         <>
             <Grid container style={{ marginTop: "25px", justifyContent: "center" }}>
-                <InputCustom callBack={addTodolist} />
+                <InputCustom callBack={addTodolistHandler} />
             </Grid>
             <Grid container spacing={2} sx={{ justifyContent: "space-evenly", marginTop: "20px" }}>
                 {todolists.map((t) => {
