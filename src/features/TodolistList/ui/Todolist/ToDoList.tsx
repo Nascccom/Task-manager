@@ -1,12 +1,17 @@
 import React, { memo, useCallback, useState } from "react"
 import DeleteIcon from "@mui/icons-material/Delete"
 import IconButton from "@mui/material/IconButton"
-import { FilterValuesType, todolistsActions, todolistsThunks } from "features/TodolistList/model/todolistsSlice"
-import { tasksThunks } from "features/TodolistList/model/taskSlice"
-import { Task } from "features/TodolistList/ui/Todolist/Task/Task"
-import { ButtonCustom, EditableSpan, InputCustom } from "common/components"
 import ButtonGroup from "@mui/material/ButtonGroup"
-import { selectTasks, useAppDispatch, useAppSelector } from "common/hooks"
+import {
+    FilterValuesType,
+    Task,
+    tasksThunks,
+    todolistsActions,
+    todolistsSelectors,
+    todolistsThunks,
+} from "features/TodolistList"
+import { ButtonCustom, EditableSpan, InputCustom } from "common/components"
+import { useAppDispatch, useAppSelector } from "common/hooks"
 import { RequestStatusType } from "app/app-reducer"
 import { TaskStatuses } from "common/enums"
 
@@ -18,7 +23,7 @@ type PropsType = {
 }
 
 export const Todolist = memo(({ todolistId, title, activeFilter, entityStatus }: PropsType) => {
-    const tasks = useAppSelector(selectTasks(todolistId))
+    const tasks = useAppSelector(todolistsSelectors.tasks(todolistId))
     const dispatch = useAppDispatch()
     const [activeButton, setActiveButton] = useState<FilterValuesType>("All")
 

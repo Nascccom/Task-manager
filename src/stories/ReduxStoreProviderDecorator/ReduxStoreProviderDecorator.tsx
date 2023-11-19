@@ -5,7 +5,7 @@ import { TodolistDomainType, todolistsSlice } from "features/TodolistList/model/
 import { tasksReducer, TasksStateType } from "features/TodolistList/model/taskSlice"
 import { appReducer, InitialAppStateType } from "app/app-reducer"
 import { MemoryRouter } from "react-router-dom"
-import { authSlice } from "features/Login/model/authSlice"
+import { authSlice } from "features/Auth/model/authSlice"
 import { configureStore } from "@reduxjs/toolkit"
 import { TaskPriorities, TaskStatuses } from "common/enums"
 

@@ -4,13 +4,7 @@ import React, { ChangeEvent, KeyboardEvent, useState } from "react"
 import Input from "@mui/material/Input"
 
 type PropsType = {
-    /**
-     * Optional click handler
-     */
     callBack: (valueTitle: string) => void
-    /**
-     * Determines whether the button and input will be disabled
-     */
     disabled: boolean
 }
 

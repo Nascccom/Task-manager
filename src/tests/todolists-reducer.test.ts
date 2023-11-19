@@ -1,9 +1,4 @@
-import {
-    TodolistDomainType,
-    todolistsActions,
-    todolistsSlice,
-    todolistsThunks,
-} from "features/TodolistList/model/todolistsSlice"
+import { TodolistDomainType, todolistsActions, todolistsSlice, todolistsThunks } from "features/TodolistList"
 
 let startState: TodolistDomainType[]
 

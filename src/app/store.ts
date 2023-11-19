@@ -1,7 +1,6 @@
-import { todolistsSlice } from "features/TodolistList/model/todolistsSlice"
-import { tasksReducer } from "features/TodolistList/model/taskSlice"
-import { appReducer } from "./app-reducer"
-import { authSlice } from "features/Login/model/authSlice"
+import { tasksReducer, todolistsSlice } from "features/TodolistList"
+import { authSlice } from "features/Auth"
+import { appReducer } from "app/app-reducer"
 import { AnyAction, configureStore, ThunkAction } from "@reduxjs/toolkit"
 
 export const store = configureStore({

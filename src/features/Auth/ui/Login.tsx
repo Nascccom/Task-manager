@@ -7,10 +7,11 @@ import FormGroup from "@mui/material/FormGroup"
 import FormLabel from "@mui/material/FormLabel"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
-import { useAppSelector, useAppDispatch, selectIsLoggedIn } from "common/hooks"
+import { useAppSelector, useAppDispatch } from "common/hooks"
 import { useFormik } from "formik"
-import { loginTC } from "features/Login/model/authSlice"
+import { loginTC } from "features/Auth/model/authSlice"
 import { Navigate } from "react-router-dom"
+import { authSelectors } from "features/Auth"
 
 type FormikErrorType = {
     email?: string
@@ -23,7 +24,7 @@ export type LoginDataType = {
 }
 
 export const Login = memo(() => {
-    const isLoggedIn = useAppSelector(selectIsLoggedIn)
+    const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
     const dispatch = useAppDispatch()
 
     const formik = useFormik({

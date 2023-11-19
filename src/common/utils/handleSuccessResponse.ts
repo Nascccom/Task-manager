@@ -1,6 +1,6 @@
 import { appActions } from "app/app-reducer"
 import { ResponseType } from "common/types"
-import { handleServerAppError } from "common/utils/index"
+import { handleServerAppError } from "common/utils"
 import { AppThunkDispatch } from "common/hooks"
 import { InferThunkActionCreatorType } from "react-redux"
 import { ResultCode } from "common/enums"

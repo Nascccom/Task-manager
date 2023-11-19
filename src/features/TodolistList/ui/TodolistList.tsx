@@ -1,19 +1,19 @@
 import React, { useCallback } from "react"
 import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
-import { Todolist } from "features/TodolistList/ui/Todolist/ToDoList"
-import { useAppSelector, useAppDispatch, selectIsLoggedIn, selectTodolists } from "common/hooks"
+import { useAppDispatch, useAppSelector } from "common/hooks"
 import { Navigate } from "react-router-dom"
 import { InputCustom } from "common/components"
-import { todolistsThunks } from "features/TodolistList/model/todolistsSlice"
+import { todolistsThunks, Todolist, todolistsSelectors } from "features/TodolistList"
+import { authSelectors } from "features/Auth"
 
 type PropsType = {
     demo: boolean
 }
 
 export const TodolistList = ({ demo }: PropsType) => {
-    const isLoggedIn = useAppSelector(selectIsLoggedIn)
-    const todolists = useAppSelector(selectTodolists)
+    const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
+    const todolists = useAppSelector(todolistsSelectors.todolists)
     const dispatch = useAppDispatch()
 
     const addTodolist = useCallback(
