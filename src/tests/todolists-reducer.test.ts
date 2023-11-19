@@ -1,4 +1,9 @@
-import { todolistsActions, TodolistDomainType, todolistsSlice } from "features/TodolistList/model/todolistsSlice"
+import {
+    TodolistDomainType,
+    todolistsActions,
+    todolistsSlice,
+    todolistsThunks,
+} from "features/TodolistList/model/todolistsSlice"
 
 let startState: TodolistDomainType[]
 
@@ -10,7 +15,10 @@ beforeEach(() => {
 })
 
 test("correct todolist should be removed", () => {
-    const endState = todolistsSlice(startState, todolistsActions.removeTodolist({ todolistId: "todolistID1" }))
+    const endState = todolistsSlice(
+        startState,
+        todolistsThunks.removeTodolist.fulfilled({ todolistId: "todolistID1" }, "requestId", "todolistID1"),
+    )
 
     expect(endState.length).toBe(1)
     expect(endState[0].id).toBe("todolistID2")
@@ -18,14 +26,11 @@ test("correct todolist should be removed", () => {
 test("correct todolist should be added", () => {
     const endState = todolistsSlice(
         startState,
-        todolistsActions.addTodolist({
-            todolist: {
-                id: "todolistID3",
-                title: "React.FC",
-                order: 0,
-                addedDate: "",
-            },
-        }),
+        todolistsThunks.addTodolist.fulfilled(
+            { todolist: { ...startState[0], id: "todolistID3", title: "React.FC" } },
+            "requiestId",
+            "React.FC",
+        ),
     )
 
     expect(endState.length).toBe(3)
@@ -35,9 +40,10 @@ test("correct todolist should be added", () => {
     expect(endState[0].title).toBe("React.FC")
 })
 test("correct todolist should be changed tittle todolist", () => {
+    const dataForCreateTodo = { todolistId: "todolistID1", title: "New Todolist" }
     const endState = todolistsSlice(
         startState,
-        todolistsActions.changeTitleTodolist({ todolistId: "todolistID1", newTitle: "New Todolist" }),
+        todolistsThunks.updateTodolistTitle.fulfilled(dataForCreateTodo, "requestId", dataForCreateTodo),
     )
 
     expect(endState.length).toBe(2)
@@ -58,7 +64,7 @@ test("correct filter of the todolist should be changed ", () => {
     expect(endState[1].filter).toBe("Completed")
 })
 test("todolists should be added", () => {
-    const endState = todolistsSlice([], todolistsActions.setTodolist({ todolists: startState }))
+    const endState = todolistsSlice([], todolistsThunks.getTodolists.fulfilled(startState, "requestId", null))
 
     expect(endState.length).toBe(2)
 })

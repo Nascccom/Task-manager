@@ -1,5 +1,5 @@
 import { tasksReducer, TasksStateType, tasksThunks } from "features/TodolistList/model/taskSlice"
-import { todolistsActions } from "features/TodolistList/model/todolistsSlice"
+import { todolistsThunks } from "features/TodolistList/model/todolistsSlice"
 import { TaskPriorities, TaskStatuses } from "common/enums"
 
 let startState: TasksStateType
@@ -136,14 +136,11 @@ test("status should be changed of the task ", () => {
 })
 
 test("new array should be added when new todolist is added ", () => {
-    const action = todolistsActions.addTodolist({
-        todolist: {
-            id: "todolistId3",
-            title: "What to buy",
-            order: 0,
-            addedDate: "",
-        },
-    })
+    const action = todolistsThunks.addTodolist.fulfilled(
+        { todolist: { id: "todolistId3", title: "What to buy", order: 0, addedDate: "" } },
+        "requestId",
+        "What to buy",
+    )
     const endState = tasksReducer(startState, action)
 
     const keys = Object.keys(endState)
@@ -156,7 +153,7 @@ test("new array should be added when new todolist is added ", () => {
     expect(endState[newKey]).toEqual([])
 })
 test("property with todolistId should be deleted ", () => {
-    const action = todolistsActions.removeTodolist({ todolistId: "todolistID2" })
+    const action = todolistsThunks.removeTodolist.fulfilled({ todolistId: "todolistID2" }, "requestId", "todolistID2")
     const endState = tasksReducer(startState, action)
 
     const keys = Object.keys(endState)
@@ -165,17 +162,19 @@ test("property with todolistId should be deleted ", () => {
     expect(endState["todolistID2"]).toBeUndefined()
 })
 test("empty arrays should be added when we set todolists", () => {
-    const action = todolistsActions.setTodolist({
-        todolists: [
+    const action = todolistsThunks.getTodolists.fulfilled(
+        [
             { id: "1", title: "title 1", order: 0, addedDate: "" },
             { id: "2", title: "title 2", order: 0, addedDate: "" },
         ],
-    })
-    const endState = tasksReducer(startState, action)
+        "requestId",
+        null,
+    )
+    const endState = tasksReducer({}, action)
 
     const keys = Object.keys(endState)
 
-    expect(keys.length).toBe(4)
+    expect(keys.length).toBe(2)
     expect(endState["1"]).toBeDefined()
     expect(endState["2"]).toBeDefined()
 })

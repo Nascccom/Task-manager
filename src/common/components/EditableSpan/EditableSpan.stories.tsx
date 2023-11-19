@@ -3,13 +3,10 @@ import React, { ChangeEvent, useState } from "react"
 import { EditableSpan, PropsType } from "common/components/EditableSpan/EditableSpan"
 import TextField from "@mui/material/TextField"
 
-// More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta: Meta<typeof EditableSpan> = {
-    title: "TODOLISTS/EditableSpan",
+    title: "COMMON/EditableSpan",
     component: EditableSpan,
-    // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
     tags: ["autodocs"],
-    // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
     argTypes: {
         callBack: {
             description: "Change title's name",
@@ -24,8 +21,6 @@ const meta: Meta<typeof EditableSpan> = {
 export default meta
 type Story = StoryObj<typeof EditableSpan>
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 export const SpanText: Story = {}
 
 export const SpanInput = (args: PropsType) => {

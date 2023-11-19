@@ -1,7 +1,7 @@
 import { authAPI } from "features/Login/api/auth-api"
 import { AppThunkDispatch } from "common/hooks"
 import { handleServerAppError, handleServerNetworkError } from "common/utils"
-import { getTodolistsTC, todolistsActions } from "features/TodolistList/model/todolistsSlice"
+import { todolistsActions, todolistsThunks } from "features/TodolistList/model/todolistsSlice"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { AppThunk } from "app/store"
 import { appActions } from "app/app-reducer"
@@ -50,7 +50,7 @@ export const getAuthMeDataTC = (): AppThunk => (dispatch: AppThunkDispatch) => {
             }
         })
         .then(() => {
-            dispatch(getTodolistsTC())
+            dispatch(todolistsThunks.getTodolists(null))
         })
         .catch((err) => {
             handleServerNetworkError(dispatch, err)

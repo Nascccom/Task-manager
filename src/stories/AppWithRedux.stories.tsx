@@ -13,7 +13,7 @@ import { ErrorSnackbars } from "common/components"
 import { RequestStatusType } from "app/app-reducer"
 
 const meta: Meta<typeof AppWithRedux> = {
-    title: "TODOLISTS/App",
+    title: "APP/App",
     component: AppWithRedux,
     tags: ["autodocs"],
     decorators: [ReduxStoreProviderDecorator],

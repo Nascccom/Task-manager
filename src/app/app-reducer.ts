@@ -25,7 +25,3 @@ export const appReducer = appSlice.reducer
 //types
 export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed"
 export type InitialAppStateType = ReturnType<typeof appSlice.getInitialState>
-export type AppReducerActionsType =
-    | ReturnType<typeof appActions.setLoadingStatus>
-    | ReturnType<typeof appActions.setErrorMessage>
-    | ReturnType<typeof appActions.setIsInitialized>
