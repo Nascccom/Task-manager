@@ -14,13 +14,10 @@ type PropsType = {
     disabled: boolean
 }
 
-// More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta: Meta<typeof InputCustom> = {
-    title: "TODOLISTS/InputCustom",
+    title: "COMMON/InputCustom",
     component: InputCustom,
-    // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
     tags: ["autodocs"],
-    // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
     argTypes: {
         callBack: {
             description: "ButtonCustom clicked inside form",
@@ -32,11 +29,9 @@ const meta: Meta<typeof InputCustom> = {
 export default meta
 type Story = StoryObj<typeof InputCustom>
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 export const InputLineWithoutError: Story = {}
 
-export const InputLineWithError = ({ callBack, disabled = false }: PropsType) => {
+export const InputWithError = ({ callBack, disabled = false }: PropsType) => {
     let [title, setTitle] = useState<string>("")
     let [error, setError] = useState<null | string>("Title is required")
 

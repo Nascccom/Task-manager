@@ -3,10 +3,10 @@ import styles from "features/TodolistList/ui/Todolist/Todolist.module.css"
 import { CheckboxCustom, EditableSpan } from "common/components"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
-import { removeTask, updateTask } from "features/TodolistList/model/taskSlice"
 import { useAppDispatch } from "common/hooks"
 import { TaskStatuses } from "common/enums"
 import { TaskType } from "features/TodolistList/api/tasksApi.types"
+import { tasksThunks } from "features/TodolistList/model/taskSlice"
 
 export type TaskPropsType = {
     task: TaskType
@@ -17,12 +17,12 @@ export const Task = memo(({ task, todolistId }: TaskPropsType) => {
     const dispatch = useAppDispatch()
 
     const removeTaskHandler = useCallback(() => {
-        dispatch(removeTask({ todolistId, taskId: task.id }))
+        dispatch(tasksThunks.removeTask({ todolistId, taskId: task.id }))
     }, [dispatch, todolistId, task.id])
 
     const updateTaskTitleHandler = useCallback(
         (newTitle: string) => {
-            dispatch(updateTask({ todolistId, taskId: task.id, changingPart: { title: newTitle } }))
+            dispatch(tasksThunks.updateTask({ todolistId, taskId: task.id, changingPart: { title: newTitle } }))
         },
         [dispatch, todolistId, task.id],
     )
@@ -30,7 +30,7 @@ export const Task = memo(({ task, todolistId }: TaskPropsType) => {
     const changeCheckboxStatus = useCallback(
         (newStatus: TaskStatuses) => {
             const part = { status: newStatus }
-            dispatch(updateTask({ todolistId, taskId: task.id, changingPart: part }))
+            dispatch(tasksThunks.updateTask({ todolistId, taskId: task.id, changingPart: part }))
         },
         [dispatch, todolistId, task.id],
     )

@@ -3,7 +3,7 @@ import { ReduxStoreProviderDecorator } from "stories/ReduxStoreProviderDecorator
 import { Meta, StoryObj } from "@storybook/react"
 
 const meta: Meta<typeof Todolist> = {
-    title: "TODOLISTS/Todolist",
+    title: "FEATURES/Todolist",
     component: Todolist,
     tags: ["autodocs"],
     decorators: [ReduxStoreProviderDecorator],

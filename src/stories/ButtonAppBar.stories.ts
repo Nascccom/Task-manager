@@ -3,7 +3,7 @@ import { ButtonAppBar } from "features/ButtonAppBar/ButtonAppBar"
 import { ReduxStoreProviderDecorator } from "stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"
 
 const meta: Meta<typeof ButtonAppBar> = {
-    title: "TODOLISTS/ButtonAppBar",
+    title: "FEATURES/ButtonAppBar",
     component: ButtonAppBar,
     tags: ["autodocs"],
     decorators: [ReduxStoreProviderDecorator],

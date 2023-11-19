@@ -1,13 +1,8 @@
 import React, { memo, useCallback, useState } from "react"
 import DeleteIcon from "@mui/icons-material/Delete"
 import IconButton from "@mui/material/IconButton"
-import {
-    FilterValuesType,
-    removeTodolistTC,
-    todolistsActions,
-    updateTodolistTitleTC,
-} from "features/TodolistList/model/todolistsSlice"
-import { addTask } from "features/TodolistList/model/taskSlice"
+import { FilterValuesType, todolistsActions, todolistsThunks } from "features/TodolistList/model/todolistsSlice"
+import { tasksThunks } from "features/TodolistList/model/taskSlice"
 import { Task } from "features/TodolistList/ui/Todolist/Task/Task"
 import { ButtonCustom, EditableSpan, InputCustom } from "common/components"
 import ButtonGroup from "@mui/material/ButtonGroup"
@@ -36,19 +31,19 @@ export const Todolist = memo(({ todolistId, title, activeFilter, entityStatus }:
     )
 
     const deleteTodolistHandler = useCallback(() => {
-        dispatch(removeTodolistTC(todolistId))
+        dispatch(todolistsThunks.removeTodolist(todolistId))
     }, [dispatch, todolistId])
 
     const addTaskForTodolistHandler = useCallback(
         (valueTitle: string) => {
-            dispatch(addTask({ todolistId, title: valueTitle }))
+            dispatch(tasksThunks.addTask({ todolistId, title: valueTitle }))
         },
         [dispatch, todolistId],
     )
 
     const updateTodolistHandler = useCallback(
         (newTitle: string) => {
-            dispatch(updateTodolistTitleTC(todolistId, newTitle))
+            dispatch(todolistsThunks.updateTodolistTitle({ todolistId, title: newTitle }))
         },
         [dispatch, todolistId],
     )

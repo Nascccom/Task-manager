@@ -3,7 +3,7 @@ import { ReduxStoreProviderDecorator } from "stories/ReduxStoreProviderDecorator
 import { TaskPriorities, TaskStatuses } from "common/enums"
 
 export default {
-    title: "TODOLISTS/Task",
+    title: "FEATURES/Task",
     component: Task,
     tags: ["autodocs"],
     decorators: [ReduxStoreProviderDecorator],
