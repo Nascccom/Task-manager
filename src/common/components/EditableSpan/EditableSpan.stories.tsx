@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React, { ChangeEvent, useState } from "react"
-import { EditableSpan, PropsType } from "common/components/EditableSpan/EditableSpan"
+import { EditableSpan } from "common/components"
 import TextField from "@mui/material/TextField"
 
 const meta: Meta<typeof EditableSpan> = {
@@ -20,6 +20,10 @@ const meta: Meta<typeof EditableSpan> = {
 
 export default meta
 type Story = StoryObj<typeof EditableSpan>
+type PropsType = {
+    title: string
+    callBack: (newTitle: string) => void
+}
 
 export const SpanText: Story = {}
 

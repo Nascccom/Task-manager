@@ -1,12 +1,11 @@
 import React, { memo, useCallback } from "react"
-import styles from "features/TodolistList/ui/Todolist/Todolist.module.css"
-import { CheckboxCustom, EditableSpan } from "common/components"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
-import { useAppDispatch } from "common/hooks"
+import styles from "features/TodolistList/ui/Todolist/Todolist.module.css"
+import { CheckboxCustom, EditableSpan } from "common/components"
+import { useActions } from "common/hooks"
 import { TaskStatuses } from "common/enums"
-import { TaskType } from "features/TodolistList/api/tasksApi.types"
-import { tasksThunks } from "features/TodolistList/model/taskSlice"
+import { tasksActions, TaskType } from "features/TodolistList"
 
 export type TaskPropsType = {
     task: TaskType
@@ -14,25 +13,25 @@ export type TaskPropsType = {
 }
 
 export const Task = memo(({ task, todolistId }: TaskPropsType) => {
-    const dispatch = useAppDispatch()
+    const { removeTask, updateTask } = useActions(tasksActions)
 
     const removeTaskHandler = useCallback(() => {
-        dispatch(tasksThunks.removeTask({ todolistId, taskId: task.id }))
-    }, [dispatch, todolistId, task.id])
+        removeTask({ todolistId, taskId: task.id })
+    }, [todolistId, task.id])
 
     const updateTaskTitleHandler = useCallback(
         (newTitle: string) => {
-            dispatch(tasksThunks.updateTask({ todolistId, taskId: task.id, changingPart: { title: newTitle } }))
+            updateTask({ todolistId, taskId: task.id, changingPart: { title: newTitle } })
         },
-        [dispatch, todolistId, task.id],
+        [todolistId, task.id],
     )
 
     const changeCheckboxStatus = useCallback(
         (newStatus: TaskStatuses) => {
             const part = { status: newStatus }
-            dispatch(tasksThunks.updateTask({ todolistId, taskId: task.id, changingPart: part }))
+            updateTask({ todolistId, taskId: task.id, changingPart: part })
         },
-        [dispatch, todolistId, task.id],
+        [todolistId, task.id],
     )
 
     return (

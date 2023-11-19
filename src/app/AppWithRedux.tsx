@@ -1,15 +1,15 @@
 import React, { useEffect } from "react"
 import "./App.css"
-import { ButtonAppBar } from "features/ButtonAppBar/ButtonAppBar"
 import Container from "@mui/material/Container"
-import { TodolistList } from "features/TodolistList/ui/TodolistList"
-import LinearProgress from "@mui/material/LinearProgress"
-import { selectIsInitialized, selectIsLoadingStatus, useAppDispatch, useAppSelector } from "common/hooks"
-import { ErrorSnackbars } from "common/components"
-import { Login } from "features/Login/ui/Login"
-import { Navigate, Route, Routes } from "react-router-dom"
-import { getAuthMeDataTC } from "features/Login/model/authSlice"
 import CircularProgress from "@mui/material/CircularProgress"
+import LinearProgress from "@mui/material/LinearProgress"
+import { TodolistList } from "features/TodolistList"
+import { useActions, useAppSelector } from "common/hooks"
+import { ErrorSnackbars } from "common/components"
+import { Navigate, Route, Routes } from "react-router-dom"
+import { selectIsInitialized, selectIsLoadingStatus } from "app/selectors"
+import { authActions, Login } from "features/Auth"
+import { ButtonAppBar } from "features/ButtonAppBar"
 
 type PropsType = {
     demo?: boolean
@@ -18,13 +18,13 @@ type PropsType = {
 export function AppWithRedux({ demo = false }: PropsType) {
     const isLoadingStatus = useAppSelector(selectIsLoadingStatus)
     const isInitialized = useAppSelector(selectIsInitialized)
-    const dispatch = useAppDispatch()
+    const { getAuthMeDataTC } = useActions(authActions)
 
     useEffect(() => {
         if (!demo) {
-            dispatch(getAuthMeDataTC())
+            getAuthMeDataTC()
         }
-    }, [dispatch])
+    }, [])
 
     if (!isInitialized) {
         return (

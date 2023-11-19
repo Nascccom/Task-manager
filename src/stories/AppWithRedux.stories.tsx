@@ -8,7 +8,7 @@ import LinearProgress from "@mui/material/LinearProgress"
 import Container from "@mui/material/Container"
 import { Navigate, Route, Routes } from "react-router-dom"
 import { TodolistList } from "features/TodolistList/ui/TodolistList"
-import { Login } from "features/Login/ui/Login"
+import { Login } from "features/Auth/ui/Login"
 import { ErrorSnackbars } from "common/components"
 import { RequestStatusType } from "app/app-reducer"
 

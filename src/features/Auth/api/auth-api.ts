@@ -1,8 +1,8 @@
 import { instance } from "common/instanceApi"
 import { AxiosResponse } from "axios"
-import { LoginDataType } from "features/Login/ui/Login"
+import { LoginDataType } from "features/Auth/ui/Login"
 import { ResponseType } from "common/types"
-import { AuthMeType } from "features/Login/api/authApi.types"
+import { AuthMeType } from "features/Auth"
 
 export const authAPI = {
     async getAuthMeData() {
