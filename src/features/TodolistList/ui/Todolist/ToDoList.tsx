@@ -1,12 +1,13 @@
 import React, { memo, useCallback, useState } from "react"
 import DeleteIcon from "@mui/icons-material/Delete"
-import IconButton from "@mui/material/IconButton"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import { FilterValuesType, Task, tasksActions, todolistsActions, todolistsSelectors } from "features/TodolistList"
-import { ButtonCustom, EditableSpan, InputCustom } from "common/components"
+import { ButtonCustom, EditableSpan, InputValidate } from "common/components"
 import { useActions, useAppSelector } from "common/hooks"
 import { RequestStatusType } from "app/app-reducer"
 import { TaskStatuses } from "common/enums"
+import Paper from "@mui/material/Paper"
+import { IconButtonCustom } from "common/components"
 
 type PropsType = {
     todolistId: string
@@ -70,15 +71,20 @@ export const Todolist = memo(({ todolistId, title, activeFilter, entityStatus }:
     }
 
     return (
-        <div>
+        <Paper style={{ padding: "30px", borderRadius: "8px", maxWidth: "300px", position: "relative" }}>
+            <IconButtonCustom
+                callback={removeTodolistHandler}
+                disabled={entityStatus === "loading"}
+                ariaLabel={"delete"}
+                style={{ position: "absolute", top: 0, right: 0 }}>
+                <DeleteIcon color={"inherit"} />
+            </IconButtonCustom>
+
             <h3>
                 <EditableSpan title={title} callBack={updateTodolistHandler} />
-
-                <IconButton aria-label='delete' onClick={removeTodolistHandler} disabled={entityStatus === "loading"}>
-                    <DeleteIcon />
-                </IconButton>
             </h3>
-            <InputCustom callBack={addTaskHandler} disabled={entityStatus === "loading"} />
+
+            <InputValidate callBack={addTaskHandler} disabled={entityStatus === "loading"} />
 
             <ul>{mappedTasks}</ul>
 
@@ -87,7 +93,7 @@ export const Todolist = memo(({ todolistId, title, activeFilter, entityStatus }:
                 {renderFilterButton(changeFilterButtonHandler, "Active")}
                 {renderFilterButton(changeFilterButtonHandler, "Completed")}
             </ButtonGroup>
-        </div>
+        </Paper>
     )
 })
 

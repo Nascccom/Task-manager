@@ -1,14 +1,12 @@
 import React from "react"
 import { Provider } from "react-redux"
 import { AppRootStateType } from "app/store"
-import { TodolistDomainType } from "features/TodolistList/model/todolistsSlice"
-import { tasksReducer, TasksStateType } from "features/TodolistList/model/taskSlice"
+import { tasksReducer, TasksStateType, TodolistDomainType, todolistsReducer } from "features/TodolistList"
 import { appReducer, InitialAppStateType } from "app/app-reducer"
 import { MemoryRouter } from "react-router-dom"
 import { configureStore } from "@reduxjs/toolkit"
 import { TaskPriorities, TaskStatuses } from "common/enums"
 import { authReducer } from "features/Auth"
-import { todolistsReducer } from "features/TodolistList"
 
 const initialGlobalState: AppRootStateType = {
     app: {
@@ -17,7 +15,14 @@ const initialGlobalState: AppRootStateType = {
         error: null,
     } as InitialAppStateType,
     todolists: [
-        { id: "todolistId1", title: "What to learn", filter: "All", addedDate: "", order: 0, entityStatus: "idle" },
+        {
+            id: "todolistId1",
+            title: "What to learn? We want to get quite long text for todolist for refactoring",
+            filter: "All",
+            addedDate: "",
+            order: 0,
+            entityStatus: "idle",
+        },
         { id: "todolistId2", title: "What to buy", filter: "All", addedDate: "", order: 0, entityStatus: "idle" },
     ] as TodolistDomainType[],
     tasks: {
