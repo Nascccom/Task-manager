@@ -14,4 +14,11 @@ code {
 ul,
 li {
     list-style: none;
+    padding: 0;
+}
+
+:root {
+    --active-color: #1976d2;
+    --error-color: #cb0b0b;
+    --disabled-color: #888888
 }

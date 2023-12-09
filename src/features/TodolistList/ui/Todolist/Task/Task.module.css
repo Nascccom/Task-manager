@@ -1,0 +1,9 @@
+.listItemIsDone {
+    position: relative;
+    opacity: 0.5;
+}
+
+.listItem {
+    position: relative;
+}
+

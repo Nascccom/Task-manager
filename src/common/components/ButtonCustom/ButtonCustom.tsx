@@ -1,7 +1,11 @@
 import React, { FC, memo, useCallback } from "react"
-import Button from "@mui/material/Button"
+import Button, { ButtonPropsColorOverrides } from "@mui/material/Button"
+import { OverridableStringUnion } from "@mui/types"
 
-export type ColorsType = "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning"
+export type ColorsType = OverridableStringUnion<
+    "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning",
+    ButtonPropsColorOverrides
+>
 
 type PropsType = {
     /** Name of the button */

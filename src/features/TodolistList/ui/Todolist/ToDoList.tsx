@@ -1,12 +1,12 @@
-import React, { memo, useCallback, useState } from "react"
+import React, { FC, memo, useCallback, useState } from "react"
 import DeleteIcon from "@mui/icons-material/Delete"
 import ButtonGroup from "@mui/material/ButtonGroup"
+import Paper from "@mui/material/Paper"
 import { FilterValuesType, Task, tasksActions, todolistsActions, todolistsSelectors } from "features/TodolistList"
 import { ButtonCustom, EditableSpan, InputValidate } from "common/components"
 import { useActions, useAppSelector } from "common/hooks"
 import { RequestStatusType } from "app/app-reducer"
 import { TaskStatuses } from "common/enums"
-import Paper from "@mui/material/Paper"
 import { IconButtonCustom } from "common/components"
 
 type PropsType = {
@@ -16,7 +16,7 @@ type PropsType = {
     entityStatus: RequestStatusType
 }
 
-export const Todolist = memo(({ todolistId, title, activeFilter, entityStatus }: PropsType) => {
+export const Todolist: FC<PropsType> = memo(({ todolistId, title, activeFilter, entityStatus }) => {
     const tasks = useAppSelector(todolistsSelectors.tasks(todolistId))
     const { removeTodolist, updateTodolistTitle, changeFilter } = useActions(todolistsActions)
     const { addTask } = useActions(tasksActions)
@@ -48,7 +48,7 @@ export const Todolist = memo(({ todolistId, title, activeFilter, entityStatus }:
     const filteredTasks = () => {
         switch (activeFilter) {
             case "Active":
-                return tasks.filter((t) => t.status === TaskStatuses.New)
+                return tasks.filter((t) => t.status !== TaskStatuses.Completed)
             case "Completed":
                 return tasks.filter((t) => t.status === TaskStatuses.Completed)
             default:
