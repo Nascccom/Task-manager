@@ -50,12 +50,12 @@ export const AppLoading = ({ demo = false, isLoadingStatus = "idle", isInitializ
     }
 
     return (
-        <div className='App'>
+        <div>
             <ButtonAppBar demo={demo} />
 
             {isLoadingStatus === "loading" && <LinearProgress color={"secondary"} />}
 
-            <Container fixed maxWidth={false}>
+            <Container fixed>
                 <Routes>
                     <Route path={"/"} element={<TodolistList demo={demo} />} />
                     <Route path={"/login"} element={<Login />} />

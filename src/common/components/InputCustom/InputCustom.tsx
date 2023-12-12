@@ -1,70 +1,58 @@
-import React, { ChangeEvent, KeyboardEvent, memo, useState } from "react"
-import { ButtonCustom } from "common/components"
+import React, { ChangeEvent, FC, KeyboardEvent, memo, useCallback } from "react"
+import SendIcon from "@mui/icons-material/Send"
 import Input from "@mui/material/Input"
+import IconButton from "@mui/material/IconButton"
 
 type PropsType = {
-    /** Optional click handler */
-    callBack: (valueTitle: string) => void
+    /** set necessary title */
+    setTitleCallback: (valueTitle: string) => void
     /** Input is disabled or not */
     disabled?: boolean
+    /** It's error for field text */
+    error: string | null
+    /** Text of title */
+    title: string
+    /** Optional click handler */
+    callback: () => void
 }
 
-export const InputCustom = memo((props: PropsType) => {
-    let [title, setTitle] = useState<string>("")
-    let [error, setError] = useState<null | string>(null)
+export const InputCustom: FC<PropsType> = memo(({ title, error, disabled, setTitleCallback, callback }) => {
+    const onChangeInputHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+        setTitleCallback(event.currentTarget.value)
+    }, [])
 
-    const onChangeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setError(null)
-        setTitle(event.currentTarget.value)
-    }
-    const onKeydownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    const onKeydownHandler = useCallback((event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
             addTaskHandler()
         }
-    }
-    const addTaskHandler = () => {
-        if (title.trim()) {
-            props.callBack(title.trim())
-            setTitle("")
-        } else {
-            setError("Title is required")
-        }
-    }
+    }, [])
+
+    const addTaskHandler = useCallback(() => {
+        callback()
+    }, [title])
 
     return (
         <div>
             <Input
                 onChange={onChangeInputHandler}
                 onKeyDown={onKeydownHandler}
-                sx={{
-                    "--Input-focusedThickness": "2px",
-                    "--Input-radius": "19px",
-                    "--Input-gap": "7px",
-                    "--Input-placeholderOpacity": 0.5,
-                    "--Input-minHeight": "40px",
-                    "--Input-paddingInline": "11px",
-                    "--Input-decoratorChildHeight": "35px",
-                    width: "250px",
-                }}
                 placeholder={error ? error : "Type in here…"}
-                disabled={props.disabled}
+                disabled={disabled}
                 value={title}
+                sx={{ color: error && "#cb0b0b" }}
             />
-            <ButtonCustom
+
+            <IconButton
+                aria-label='send'
                 size='medium'
+                onClick={addTaskHandler}
+                disabled={disabled}
                 style={{
-                    display: "inline-flex",
-                    border: "none",
-                    alignItems: "center",
-                    borderRadius: "50%",
-                    backgroundColor: props.disabled ? "#ccc" : error ? "#d2194a" : "#1976d2",
-                    color: "#fff",
-                    fontWeight: "600",
-                }}
-                disabled={props.disabled}
-                buttonName={"+"}
-                callBack={addTaskHandler}
-            />
+                    color: disabled ? "#888888" : error ? "#cb0b0b" : "#1976d2",
+                    marginLeft: "10px",
+                }}>
+                <SendIcon fontSize='inherit' />
+            </IconButton>
         </div>
     )
 })

@@ -1,6 +1,7 @@
 import { ButtonCustom } from "common/components"
+import { Meta, StoryObj } from "@storybook/react"
 
-export default {
+const meta: Meta<typeof ButtonCustom> = {
     title: "COMMON/ButtonCustom",
     component: ButtonCustom,
     tags: ["autodocs"],
@@ -13,67 +14,23 @@ export default {
         buttonName: "Button",
     },
 }
+export default meta
+type Story = StoryObj<typeof ButtonCustom>
 
-export const SecondaryColor = {
+export const SecondaryColor: Story = {
     args: {
         color: "secondary",
     },
 }
 
-export const SuccessColor = {
+export const SuccessColor: Story = {
     args: {
         color: "success",
     },
 }
 
-export const ErrorColor = {
+export const ErrorColor: Story = {
     args: {
         color: "error",
-    },
-}
-
-export const AddButton = {
-    args: {
-        size: "medium",
-        color: "error",
-        variant: "outlined",
-        style: {
-            display: "inline-flex",
-            border: "none",
-            alignItems: "center",
-            borderRadius: "50%",
-            backgroundColor: "#1976d2",
-            color: "#fff",
-            fontWeight: "600",
-        },
-        buttonName: "+",
-    },
-    argTypes: {
-        callBack: {
-            action: "Click",
-        },
-    },
-}
-
-export const AddErrorButton = {
-    args: {
-        size: "medium",
-        color: "error",
-        variant: "outlined",
-        style: {
-            display: "inline-flex",
-            border: "none",
-            alignItems: "center",
-            borderRadius: "50%",
-            backgroundColor: "#d2194a",
-            color: "#fff",
-            fontWeight: "600",
-        },
-        buttonName: "+",
-    },
-    argTypes: {
-        callBack: {
-            action: "Error",
-        },
     },
 }

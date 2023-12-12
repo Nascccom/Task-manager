@@ -1,6 +1,7 @@
 import { Task } from "features/TodolistList"
 import { ReduxStoreProviderDecorator } from "stories"
 import { TaskPriorities, TaskStatuses } from "common/enums"
+import React from "react"
 
 export default {
     title: "FEATURES/Task",
@@ -30,7 +31,17 @@ export const TaskNotDone = {
     args: {
         task: {
             ...TaskIsDone.args.task,
+            title: "React",
             status: TaskStatuses.New,
         },
     },
+}
+
+export const TasksGroup = () => {
+    return (
+        <>
+            <Task task={TaskIsDone.args.task} todolistId={TaskIsDone.args.task.todoListId} />
+            <Task task={TaskNotDone.args.task} todolistId={TaskNotDone.args.task.todoListId} />
+        </>
+    )
 }

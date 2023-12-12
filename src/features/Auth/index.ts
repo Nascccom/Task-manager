@@ -1,16 +1,13 @@
 import * as authSelectors from "features/Auth//model/selectors"
 import * as authSlice from "features/Auth//model/authSlice"
-import * as authActionsAC from "features/Auth/model/authActions"
 import { authAPI } from "./api/auth-api"
+import type { AuthMeType } from "./api/authApi.types"
+import type { InitialAuthStateType } from "./model/authSlice"
+import { Login } from "./ui/Login"
 
 const authReducer = authSlice.authReducer
 const authActions = {
-    ...authActionsAC,
     ...authSlice.authActions,
+    ...authSlice.asyncActions,
 }
-export { authSelectors, authReducer, authActions, authAPI }
-
-export type { AuthMeType } from "./api/authApi.types"
-export type { InitialAuthStateType } from "./model/authSlice"
-
-export { Login } from "./ui/Login"
+export { authSelectors, authReducer, authActions, authAPI, AuthMeType, InitialAuthStateType, Login }
