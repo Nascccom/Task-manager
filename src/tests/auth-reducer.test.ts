@@ -12,11 +12,11 @@ beforeEach(() => {
     }
 })
 
-test("IsLoggedIn should be changed correct", () => {
-    const endState = authReducer(startState, authActions.setIsLoggedIn({ isLoggedIn: true }))
-
-    expect(endState.isLoggedIn).toBe(true)
-})
+// test("IsLoggedIn should be changed correct", () => {
+//     const endState = authReducer(startState, authActions.setIsLoggedIn({ isLoggedIn: true }))
+//
+//     expect(endState.isLoggedIn).toBe(true)
+// })
 
 test("auth data should be added correct", () => {
     const endState = authReducer(

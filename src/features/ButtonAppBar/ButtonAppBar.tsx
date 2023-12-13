@@ -15,11 +15,11 @@ type PropsType = {
 
 export const ButtonAppBar = memo(({ demo }: PropsType) => {
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
-    const { logoutTC } = useActions(authActions)
+    const { logout } = useActions(authActions)
 
     const onclickLogoutHandler = () => {
         if (!demo) {
-            logoutTC()
+            logout(null)
         }
     }
 
