@@ -6,7 +6,7 @@ import {
     todolistsActions,
     UpdateTaskModelType,
 } from "features/TodolistList"
-import { appActions } from "app/app-reducer"
+import { appActions } from "app/appSlice"
 import { createSlice } from "@reduxjs/toolkit"
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils"
 import { ResultCode } from "common/enums"
@@ -62,7 +62,7 @@ export const slice = createSlice({
 //Thunks
 const getTasks = createAppAsyncThunk<{ todolistId: string; tasks: TaskType[] }, string>(
     `${slice.name}/getTasks`,
-    async (todolistId: string, thunkAPI) => {
+    async (todolistId, thunkAPI) => {
         const { dispatch, rejectWithValue } = thunkAPI
 
         try {

@@ -19,7 +19,7 @@ export const ButtonAppBar = memo(({ demo }: PropsType) => {
 
     const onclickLogoutHandler = () => {
         if (!demo) {
-            logout(null)
+            logout()
         }
     }
 

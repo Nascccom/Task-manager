@@ -1,6 +1,6 @@
 import { AppThunkDispatch } from "common/hooks"
 import axios from "axios"
-import { appActions } from "app/app-reducer"
+import { appActions } from "app/appSlice"
 
 export const handleServerNetworkError = (dispatch: AppThunkDispatch, error: unknown): void => {
     let errorMessage = "Some error occurred"

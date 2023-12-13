@@ -22,7 +22,7 @@ export function AppWithRedux({ demo = false }: PropsType) {
 
     useEffect(() => {
         if (!demo) {
-            getAuthMeData(null)
+            getAuthMeData()
         }
     }, [])
 

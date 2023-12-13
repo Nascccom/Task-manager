@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-const appSlice = createSlice({
+const slice = createSlice({
     name: "app",
     initialState: {
         isInitialized: false,
@@ -19,9 +19,9 @@ const appSlice = createSlice({
         },
     },
 })
-export const appActions = appSlice.actions
-export const appReducer = appSlice.reducer
+export const appActions = slice.actions
+export const appSlice = slice.reducer
 
 //types
 export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed"
-export type InitialAppStateType = ReturnType<typeof appSlice.getInitialState>
+export type InitialAppStateType = ReturnType<typeof slice.getInitialState>
