@@ -24,7 +24,7 @@ export type LoginDataType = {
 
 export const Login = memo(() => {
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
-    const { loginTC } = useActions(authActions)
+    const { login } = useActions(authActions)
 
     const formik = useFormik({
         initialValues: {
@@ -49,7 +49,7 @@ export const Login = memo(() => {
             return errors
         },
         onSubmit: (values) => {
-            loginTC(values.email, values.password, values.rememberMe)
+            login({ email: values.email, password: values.password, rememberMe: values.rememberMe })
             formik.resetForm()
         },
     })

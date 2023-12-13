@@ -18,11 +18,11 @@ type PropsType = {
 export function AppWithRedux({ demo = false }: PropsType) {
     const isLoadingStatus = useAppSelector(selectIsLoadingStatus)
     const isInitialized = useAppSelector(selectIsInitialized)
-    const { getAuthMeDataTC } = useActions(authActions)
+    const { getAuthMeData } = useActions(authActions)
 
     useEffect(() => {
         if (!demo) {
-            getAuthMeDataTC()
+            getAuthMeData()
         }
     }, [])
 

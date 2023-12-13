@@ -1,4 +1,4 @@
-import { appActions } from "app/app-reducer"
+import { appActions } from "app/appSlice"
 import { ResponseType } from "common/types"
 import { handleServerAppError } from "common/utils"
 import { AppThunkDispatch } from "common/hooks"

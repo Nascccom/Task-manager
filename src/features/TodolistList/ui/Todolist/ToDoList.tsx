@@ -5,7 +5,7 @@ import Paper from "@mui/material/Paper"
 import { FilterValuesType, Task, tasksActions, todolistsActions, todolistsSelectors } from "features/TodolistList"
 import { ButtonCustom, EditableSpan, InputValidate } from "common/components"
 import { useActions, useAppSelector } from "common/hooks"
-import { RequestStatusType } from "app/app-reducer"
+import { RequestStatusType } from "app/appSlice"
 import { TaskStatuses } from "common/enums"
 import { IconButtonCustom } from "common/components"
 

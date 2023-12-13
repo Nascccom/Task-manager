@@ -2,7 +2,7 @@ import { CreateTaskType, tasksActions, todolistAPI, TodolistType } from "feature
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils"
 import { ResultCode } from "common/enums"
-import { appActions, RequestStatusType } from "app/app-reducer"
+import { appActions, RequestStatusType } from "app/appSlice"
 
 export const slice = createSlice({
     name: "todolists",
@@ -60,23 +60,26 @@ export const slice = createSlice({
 })
 
 //thunks
-const getTodolists = createAppAsyncThunk<TodolistType[], null>(`${slice.name}/getTodolists`, async (arg, thunkAPI) => {
-    const { dispatch, rejectWithValue } = thunkAPI
+const getTodolists = createAppAsyncThunk<TodolistType[], undefined>(
+    `${slice.name}/getTodolists`,
+    async (_, thunkAPI) => {
+        const { dispatch, rejectWithValue } = thunkAPI
 
-    try {
-        dispatch(appActions.setLoadingStatus({ status: "loading" }))
-        const todolists = await todolistAPI.getTodolists()
-        dispatch(appActions.setLoadingStatus({ status: "succeeded" }))
+        try {
+            dispatch(appActions.setLoadingStatus({ status: "loading" }))
+            const todolists = await todolistAPI.getTodolists()
+            dispatch(appActions.setLoadingStatus({ status: "succeeded" }))
 
-        todolists.forEach((todo) => {
-            dispatch(tasksActions.getTasks(todo.id))
-        })
-        return todolists
-    } catch (err: any) {
-        handleServerNetworkError(dispatch, err.message)
-        return rejectWithValue(null)
-    }
-})
+            todolists.forEach((todo) => {
+                dispatch(tasksActions.getTasks(todo.id))
+            })
+            return todolists
+        } catch (err: any) {
+            handleServerNetworkError(dispatch, err.message)
+            return rejectWithValue(null)
+        }
+    },
+)
 
 const removeTodolist = createAppAsyncThunk<{ todolistId: string }, string>(
     `${slice.name}/removeTodolist`,

@@ -10,7 +10,7 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import { TodolistList } from "features/TodolistList/ui/TodolistList"
 import { Login } from "features/Auth/ui/Login"
 import { ErrorSnackbars } from "common/components"
-import { RequestStatusType } from "app/app-reducer"
+import { RequestStatusType } from "app/appSlice"
 
 const meta: Meta<typeof AppWithRedux> = {
     title: "APP/App",

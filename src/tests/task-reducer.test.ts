@@ -167,7 +167,7 @@ test("empty arrays should be added when we set todolists", () => {
             { id: "2", title: "title 2", order: 0, addedDate: "" },
         ],
         "requestId",
-        null,
+        undefined,
     )
     const endState = tasksReducer({}, action)
 

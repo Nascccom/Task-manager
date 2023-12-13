@@ -13,7 +13,8 @@ beforeEach(() => {
 })
 
 test("IsLoggedIn should be changed correct", () => {
-    const endState = authReducer(startState, authActions.setIsLoggedIn({ isLoggedIn: true }))
+    const params = { email: "string", password: "string", rememberMe: false }
+    const endState = authReducer(startState, authActions.login.fulfilled({ isLoggedIn: true }, "requestId", params))
 
     expect(endState.isLoggedIn).toBe(true)
 })
