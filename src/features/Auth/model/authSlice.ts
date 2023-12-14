@@ -4,7 +4,7 @@ import { authAPI } from "features/Auth"
 import { ResultCode } from "common/enums"
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils"
 import { todolistsActions } from "features/TodolistList"
-import { LoginParamsType } from "features/Auth/api/authApi.types"
+import { LoginParamsType } from "features/Auth"
 
 const slice = createSlice({
     name: "auth",
@@ -79,8 +79,9 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>(
                 dispatch(authThunks.getAuthMeData())
                 return { isLoggedIn: true }
             } else {
-                handleServerAppError(dispatch, res)
-                return rejectWithValue(null)
+                const isShowAppError = !res.fieldsErrors.length
+                handleServerAppError(dispatch, res, isShowAppError)
+                return rejectWithValue(res)
             }
         } catch (err: any) {
             handleServerNetworkError(dispatch, err.message)
