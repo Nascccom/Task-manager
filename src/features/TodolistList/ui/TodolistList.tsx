@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom"
 import { Todolist, todolistsActions, todolistsSelectors } from "features/TodolistList"
 import { authSelectors } from "features/Auth"
 import { InputValidate } from "common/components"
+import { Scrollbar } from "react-scrollbars-custom"
 
 type PropsType = {
     demo: boolean
@@ -26,11 +27,12 @@ export const TodolistList = ({ demo }: PropsType) => {
     }
 
     return (
-        <>
+        <Scrollbar style={{ width: "100%", height: "90vh", overflowY: "hidden" }}>
             <Grid container style={{ marginTop: "25px", justifyContent: "center" }}>
                 <InputValidate callBack={addTodolistHandler} />
             </Grid>
-            <Grid wrap={"nowrap"} container spacing={2} sx={{ marginTop: "20px", overflowX: "scroll" }}>
+
+            <Grid wrap={"nowrap"} container spacing={2} sx={{ marginTop: "20px" }}>
                 {todolists.map((t) => {
                     return (
                         <Grid item key={t.id}>
@@ -44,6 +46,6 @@ export const TodolistList = ({ demo }: PropsType) => {
                     )
                 })}
             </Grid>
-        </>
+        </Scrollbar>
     )
 }
