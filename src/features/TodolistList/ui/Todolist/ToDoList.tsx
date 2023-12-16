@@ -86,7 +86,7 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, title, activeFilter, 
             </div>
             <InputValidate callBack={addTaskHandler} disabled={entityStatus === "loading"} />
 
-            <ul>{mappedTasks}</ul>
+            <ul>{tasks.length ? mappedTasks : <div style={{ color: "#bdb8b8" }}>No tasks</div>}</ul>
 
             <ButtonGroup size='large' variant='text' aria-label='large outlined button group' sx={ButtonGroupStyle}>
                 {renderFilterButton(changeFilterButtonHandler, "All")}
