@@ -1,5 +1,5 @@
 import { instance } from "common/instanceApi"
-import { ResponseType } from "common/types"
+import { BaseResponseType } from "common/types"
 import { AxiosResponse } from "axios"
 import {
     CreateTaskType,
@@ -17,22 +17,22 @@ export const tasksAPI = {
     },
     async createTask(args: CreateTaskType) {
         const res = await instance.post<
-            ResponseType<{ item: TaskType }>,
-            AxiosResponse<ResponseType<{ item: TaskType }>>,
+            BaseResponseType<{ item: TaskType }>,
+            AxiosResponse<BaseResponseType<{ item: TaskType }>>,
             { title: string }
         >(`/todo-lists/${args.todolistId}/tasks`, { title: args.title })
         return res.data
     },
     async updateTask(args: UpdateTaskType) {
         const res = await instance.put<
-            ResponseType<{ item: TaskType }>,
-            AxiosResponse<ResponseType<{ item: TaskType }>>,
+            BaseResponseType<{ item: TaskType }>,
+            AxiosResponse<BaseResponseType<{ item: TaskType }>>,
             UpdateTaskModelType
         >(`/todo-lists/${args.todolistId}/tasks/${args.taskId}`, args.model)
         return res.data
     },
     async deleteTask(args: DeleteTaskType) {
-        const res = await instance.delete<ResponseType>(`/todo-lists/${args.todolistId}/tasks/${args.taskId}`)
+        const res = await instance.delete<BaseResponseType>(`/todo-lists/${args.todolistId}/tasks/${args.taskId}`)
         return res.data
     },
 }

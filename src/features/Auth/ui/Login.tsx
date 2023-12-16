@@ -7,10 +7,11 @@ import FormGroup from "@mui/material/FormGroup"
 import FormLabel from "@mui/material/FormLabel"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
-import { useActions, useAppSelector } from "common/hooks"
-import { useFormik } from "formik"
+import { useAppDispatch, useAppSelector } from "common/hooks"
+import { FormikHelpers, useFormik } from "formik"
 import { Navigate } from "react-router-dom"
 import { authActions, authSelectors } from "features/Auth"
+import { BaseResponseType } from "common/types"
 
 type FormikErrorType = {
     email?: string
@@ -24,7 +25,7 @@ export type LoginDataType = {
 
 export const Login = memo(() => {
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
-    const { login } = useActions(authActions)
+    const dispatch = useAppDispatch()
 
     const formik = useFormik({
         initialValues: {
@@ -36,20 +37,26 @@ export const Login = memo(() => {
             const errors: FormikErrorType = {}
 
             if (!values.email) {
-                errors.email = "Required"
+                errors.email = "Email is required"
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = "Invalid email address"
             }
 
             if (!values.password) {
-                errors.password = "Required"
+                errors.password = "Password is required"
             } else if (values.password.length < 4) {
                 errors.password = "Password must be more 3 symbols"
             }
             return errors
         },
-        onSubmit: (values) => {
-            login({ email: values.email, password: values.password, rememberMe: values.rememberMe })
+        onSubmit: (values, formikHelpers: FormikHelpers<LoginDataType>) => {
+            dispatch(authActions.login(values))
+                .unwrap()
+                .catch((err: BaseResponseType) => {
+                    err.fieldsErrors.forEach((fieldError) => {
+                        formikHelpers.setFieldError(fieldError.field, fieldError.error)
+                    })
+                })
             formik.resetForm()
         },
     })

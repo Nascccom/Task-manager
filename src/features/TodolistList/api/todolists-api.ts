@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios"
 import { instance } from "common/instanceApi"
-import { ResponseType } from "common/types"
+import { BaseResponseType } from "common/types"
 import { CreateTaskType, TodolistType } from "features/TodolistList"
 
 export const todolistAPI = {
@@ -9,17 +9,20 @@ export const todolistAPI = {
         return res.data
     },
     async createTodolist(title: string) {
-        const res = await instance.post<ResponseType<{ item: TodolistType }>>("todo-lists", { title })
+        const res = await instance.post<BaseResponseType<{ item: TodolistType }>>("todo-lists", { title })
         return res.data
     },
     async updateTodolistTittle(args: CreateTaskType) {
-        const res = await instance.put<ResponseType, AxiosResponse<ResponseType>>(`todo-lists/${args.todolistId}`, {
-            title: args.title,
-        })
+        const res = await instance.put<BaseResponseType, AxiosResponse<BaseResponseType>>(
+            `todo-lists/${args.todolistId}`,
+            {
+                title: args.title,
+            },
+        )
         return res.data
     },
     async deleteTodolist(todolistId: string) {
-        const res = await instance.delete<ResponseType>(`todo-lists/${todolistId}`)
+        const res = await instance.delete<BaseResponseType>(`todo-lists/${todolistId}`)
         return res.data
     },
 }
