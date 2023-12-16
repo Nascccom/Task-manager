@@ -57,7 +57,6 @@ export const Login = memo(() => {
                         formikHelpers.setFieldError(fieldError.field, fieldError.error)
                     })
                 })
-            formik.resetForm()
         },
     })
 
