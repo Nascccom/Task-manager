@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { ReduxStoreProviderDecorator } from "stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"
+import { ReduxStoreProviderDecorator } from "stories"
 import { AppWithRedux } from "app/AppWithRedux"
 import React from "react"
 import CircularProgress from "@mui/material/CircularProgress"

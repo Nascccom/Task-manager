@@ -23,11 +23,11 @@ export const InputCustom: FC<PropsType> = memo(({ title, error, disabled, setTit
 
     const onKeydownHandler = useCallback((event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
-            addTaskHandler()
+            addButtonHandler()
         }
     }, [])
 
-    const addTaskHandler = useCallback(() => {
+    const addButtonHandler = useCallback(() => {
         callback()
     }, [title])
 
@@ -45,7 +45,7 @@ export const InputCustom: FC<PropsType> = memo(({ title, error, disabled, setTit
             <IconButton
                 aria-label='send'
                 size='medium'
-                onClick={addTaskHandler}
+                onClick={addButtonHandler}
                 disabled={disabled}
                 style={{
                     color: disabled ? "#888888" : error ? "#cb0b0b" : "#1976d2",

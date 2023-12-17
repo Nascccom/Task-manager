@@ -16,7 +16,7 @@ type PropsType = {
 }
 
 export function AppWithRedux({ demo = false }: PropsType) {
-    const isLoadingStatus = useAppSelector(selectIsLoadingStatus)
+    const loadingStatus = useAppSelector(selectIsLoadingStatus)
     const isInitialized = useAppSelector(selectIsInitialized)
     const { getAuthMeData } = useActions(authActions)
 
@@ -44,7 +44,7 @@ export function AppWithRedux({ demo = false }: PropsType) {
         <div className='App'>
             <ButtonAppBar demo={demo} />
 
-            {isLoadingStatus === "loading" && <LinearProgress color={"secondary"} />}
+            {loadingStatus === "loading" && <LinearProgress color={"secondary"} />}
 
             <Container fixed maxWidth={false}>
                 <Routes>

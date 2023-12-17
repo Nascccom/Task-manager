@@ -79,14 +79,14 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, title, activeFilter, 
                 style={{ position: "absolute", top: 0, right: 0 }}>
                 <DeleteIcon color={"inherit"} />
             </IconButtonCustom>
-
-            <h3>
-                <EditableSpan title={title} callBack={updateTodolistHandler} />
-            </h3>
-
+            <div style={{ overflowWrap: "break-word" }}>
+                <h3>
+                    <EditableSpan title={title} callBack={updateTodolistHandler} />
+                </h3>
+            </div>
             <InputValidate callBack={addTaskHandler} disabled={entityStatus === "loading"} />
 
-            <ul>{mappedTasks}</ul>
+            <ul>{tasks.length ? mappedTasks : <span style={{ color: "#bdb8b8", padding: "10px" }}>No tasks</span>}</ul>
 
             <ButtonGroup size='large' variant='text' aria-label='large outlined button group' sx={ButtonGroupStyle}>
                 {renderFilterButton(changeFilterButtonHandler, "All")}

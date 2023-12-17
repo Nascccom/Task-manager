@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { ButtonAppBar } from "features/ButtonAppBar/ButtonAppBar"
-import { ReduxStoreProviderDecorator } from "stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"
+import { ButtonAppBar } from "features/ButtonAppBar"
+import { ReduxStoreProviderDecorator } from "stories"
 
 const meta: Meta<typeof ButtonAppBar> = {
     title: "FEATURES/ButtonAppBar",

@@ -6,7 +6,6 @@ import { EditableSpan } from "common/components"
 import { useActions } from "common/hooks"
 import { TaskStatuses } from "common/enums"
 import { tasksActions, TaskType } from "features/TodolistList"
-
 import style from "./Task.module.css"
 
 type PropsType = {

@@ -7,7 +7,7 @@ import FormGroup from "@mui/material/FormGroup"
 import FormLabel from "@mui/material/FormLabel"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
-import { useAppDispatch, useAppSelector } from "common/hooks"
+import { useActions, useAppSelector } from "common/hooks"
 import { FormikHelpers, useFormik } from "formik"
 import { Navigate } from "react-router-dom"
 import { authActions, authSelectors } from "features/Auth"
@@ -25,7 +25,7 @@ export type LoginDataType = {
 
 export const Login = memo(() => {
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
-    const dispatch = useAppDispatch()
+    const { login } = useActions(authActions)
 
     const formik = useFormik({
         initialValues: {
@@ -50,14 +50,13 @@ export const Login = memo(() => {
             return errors
         },
         onSubmit: (values, formikHelpers: FormikHelpers<LoginDataType>) => {
-            dispatch(authActions.login(values))
+            login(values)
                 .unwrap()
                 .catch((err: BaseResponseType) => {
                     err.fieldsErrors.forEach((fieldError) => {
                         formikHelpers.setFieldError(fieldError.field, fieldError.error)
                     })
                 })
-            formik.resetForm()
         },
     })
 
