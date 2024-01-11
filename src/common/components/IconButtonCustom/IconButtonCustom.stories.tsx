@@ -20,7 +20,14 @@ export const SendButton: Story = {
         disabled: false,
         children: <SendIcon />,
         style: {
-            color: "",
+            color: "#1976d2",
         },
+    },
+}
+
+export const DisabledButton: Story = {
+    args: {
+        disabled: true,
+        children: <SendIcon />,
     },
 }

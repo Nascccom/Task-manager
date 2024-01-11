@@ -1,5 +1,6 @@
 import React, { ChangeEvent, memo, useState } from "react"
 import TextField from "@mui/material/TextField"
+import style from "./EditableSpan.module.css"
 
 type PropsType = {
     title: string
@@ -21,14 +22,16 @@ export const EditableSpan = memo((props: PropsType) => {
 
     return edit ? (
         <TextField
-            variant='standard'
-            id='standard-basic'
+            variant="standard"
+            id="standard-basic"
             value={newTitle}
             autoFocus
             onChange={onChangeHandler}
             onBlur={transformHandler}
         />
     ) : (
-        <span onDoubleClick={transformHandler}> {props.title}</span>
+        <span onDoubleClick={transformHandler} className={style.span}>
+            {props.title}
+        </span>
     )
 })
