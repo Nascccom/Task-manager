@@ -11,7 +11,7 @@ type PropsType = {
     disabled?: boolean
 }
 
-export const InputValidate: FC<PropsType> = memo(({ callBack, disabled = true }) => {
+export const InputValidate: FC<PropsType> = memo(({ callBack, disabled }) => {
     const formik = useFormik({
         initialValues: {
             title: "",
