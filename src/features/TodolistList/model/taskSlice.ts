@@ -134,10 +134,8 @@ const updateTask = createAppAsyncThunk<DeleteTaskType & { task: TaskType }, Dele
     },
 )
 
-//types
-export type TasksStateType = {
-    [key: string]: TaskType[]
-}
-
 export const tasksReducer = slice.reducer
 export const tasksThunks = { getTasks, removeTask, addTask, updateTask }
+
+//types
+export type TasksStateType = Record<string, TaskType[]>

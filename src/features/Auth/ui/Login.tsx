@@ -10,18 +10,10 @@ import Button from "@mui/material/Button"
 import { useActions, useAppSelector } from "common/hooks"
 import { FormikHelpers, useFormik } from "formik"
 import { Navigate } from "react-router-dom"
-import { authActions, authSelectors } from "features/Auth"
+import { authActions, authSelectors, LoginParamsType } from "features/Auth"
 import { BaseResponseType } from "common/types"
 
-type FormikErrorType = {
-    email?: string
-    password?: string
-}
-export type LoginDataType = {
-    email: string
-    password: string
-    rememberMe: boolean
-}
+type FormikErrorType = Partial<Omit<LoginParamsType, "captcha">>
 
 export const Login = memo(() => {
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
@@ -49,7 +41,7 @@ export const Login = memo(() => {
             }
             return errors
         },
-        onSubmit: (values, formikHelpers: FormikHelpers<LoginDataType>) => {
+        onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
             login(values)
                 .unwrap()
                 .catch((err: BaseResponseType) => {
