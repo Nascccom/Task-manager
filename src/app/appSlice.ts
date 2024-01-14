@@ -20,7 +20,7 @@ const slice = createSlice({
     },
 })
 export const appActions = slice.actions
-export const appSlice = slice.reducer
+export const appReducer = slice.reducer
 
 //types
 export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed"

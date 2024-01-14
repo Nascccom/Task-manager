@@ -1,5 +1,6 @@
 import { appActions } from "app/appSlice"
-import { BaseResponseType, ThunkApiType } from "common/types"
+import { BaseResponseType } from "common/types"
+import { ThunkApiType } from "common/utils"
 
 /**
  * Handles server application errors, dispatches actions to update the application state,
