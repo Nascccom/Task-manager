@@ -76,6 +76,17 @@ test("correct task should be removed", () => {
     expect(endState["todolistID1"].length).toBe(1)
     expect(endState["todolistID2"].length).toBe(2)
 })
+test("task status must be changed correctly before deleting it", () => {
+    const action = tasksActions.changeTaskStatus({
+        todolistId: "todolistID1",
+        taskId: "1",
+        status: TaskStatuses.Deleted,
+    })
+    const endState = tasksReducer(startState, action)
+
+    expect(endState["todolistID1"].length).toBe(2)
+    expect(endState["todolistID1"][0].status).toBe(TaskStatuses.Deleted)
+})
 
 test("correct task should be added to correct array", () => {
     const action = tasksActions.addTask.fulfilled(

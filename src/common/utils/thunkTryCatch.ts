@@ -1,8 +1,6 @@
 import { appActions } from "app/appSlice"
 import { handleServerNetworkError } from "common/utils"
-import { BaseThunkAPI } from "@reduxjs/toolkit/dist/createAsyncThunk"
-import { AppDispatch, AppRootStateType } from "app/store"
-import { BaseResponseType } from "common/types"
+import { ThunkApiType } from "common/utils"
 
 /**
  * A utility function that wraps asynchronous logic in a Redux Thunk pattern
@@ -10,7 +8,7 @@ import { BaseResponseType } from "common/types"
  *
  * @template T - The type of the result of the asynchronous logic.
  *
- * @param {BaseThunkAPI<AppRootStateType, unknown, AppDispatch, BaseResponseType | null>} thunkAPI
+ * @param {ThunkApiType} thunkAPI
  *     The Redux Thunk API object providing dispatch and rejectWithValue functions.
  * @param {() => Promise<T>} logic
  *     The asynchronous logic to be executed within the try-catch block.
@@ -36,7 +34,7 @@ import { BaseResponseType } from "common/types"
  */
 
 export const thunkTryCatch = async <T>(
-    thunkAPI: BaseThunkAPI<AppRootStateType, unknown, AppDispatch, BaseResponseType | null>,
+    thunkAPI: ThunkApiType,
     logic: () => Promise<T>,
 ): Promise<T | ReturnType<typeof thunkAPI.rejectWithValue>> => {
     const { dispatch, rejectWithValue } = thunkAPI

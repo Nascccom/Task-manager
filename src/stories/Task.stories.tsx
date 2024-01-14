@@ -40,8 +40,12 @@ export const TaskNotDone = {
 export const TasksGroup = () => {
     return (
         <>
-            <Task task={TaskIsDone.args.task} todolistId={TaskIsDone.args.task.todoListId} />
-            <Task task={TaskNotDone.args.task} todolistId={TaskNotDone.args.task.todoListId} />
+            <Task task={TaskIsDone.args.task} todolistId={TaskIsDone.args.task.todoListId} todoEntityStatus={"idle"} />
+            <Task
+                task={TaskNotDone.args.task}
+                todolistId={TaskNotDone.args.task.todoListId}
+                todoEntityStatus={"idle"}
+            />
         </>
     )
 }

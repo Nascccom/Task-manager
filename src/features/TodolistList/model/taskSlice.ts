@@ -7,9 +7,9 @@ import {
     UpdateTaskModelType,
 } from "features/TodolistList"
 import { appActions } from "app/appSlice"
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError, thunkTryCatch } from "common/utils"
-import { ResultCode } from "common/enums"
+import { ResultCode, TaskStatuses } from "common/enums"
 
 export const slice = createSlice({
     name: "tasks",
@@ -18,7 +18,22 @@ export const slice = createSlice({
     //     startDate: '', deadline: '', todoListId: 'd6a00fdd-2582-4ddb-8f28-2b3c1022784f', order: 0, addedDate: ''
     // }]
     initialState: {} as TasksStateType,
-    reducers: {},
+    reducers: {
+        changeTaskStatus: (
+            state,
+            action: PayloadAction<{
+                todolistId: string
+                taskId: string
+                status: TaskStatuses
+            }>,
+        ) => {
+            const tasks = state[action.payload.todolistId]
+            const index = tasks.findIndex((t) => t.id === action.payload.taskId)
+            if (index > -1) {
+                tasks[index].status = action.payload.status
+            }
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getTasks.fulfilled, (state, action) => {
@@ -73,15 +88,19 @@ const getTasks = createAppAsyncThunk<{ todolistId: string; tasks: TaskType[] }, 
 const removeTask = createAppAsyncThunk<DeleteTaskType, DeleteTaskType>(
     `${slice.name}/removeTask`,
     async (args, thunkAPI) => {
-        const { dispatch, rejectWithValue } = thunkAPI
-
+        thunkAPI.dispatch(
+            tasksActions.changeTaskStatus({
+                todolistId: args.todolistId,
+                taskId: args.taskId,
+                status: TaskStatuses.Deleted,
+            }),
+        )
         return thunkTryCatch(thunkAPI, async () => {
             const res = await tasksAPI.deleteTask(args)
             if (res.resultCode === ResultCode.SUCCESS) {
                 return args
             } else {
-                handleServerAppError(dispatch, res)
-                return rejectWithValue(null)
+                return handleServerAppError(res, thunkAPI)
             }
         })
     },
@@ -90,7 +109,7 @@ const removeTask = createAppAsyncThunk<DeleteTaskType, DeleteTaskType>(
 const addTask = createAppAsyncThunk<{ todolistId: string; task: TaskType }, CreateTaskType>(
     `${slice.name}/addTask`,
     async ({ todolistId, title }, thunkAPI) => {
-        const { dispatch, rejectWithValue } = thunkAPI
+        const { dispatch } = thunkAPI
 
         return thunkTryCatch(thunkAPI, async () => {
             const res = await tasksAPI.createTask({ todolistId, title })
@@ -98,8 +117,7 @@ const addTask = createAppAsyncThunk<{ todolistId: string; task: TaskType }, Crea
                 dispatch(appActions.setLoadingStatus({ status: "succeeded" }))
                 return { todolistId, task: res.data.item }
             } else {
-                handleServerAppError(dispatch, res)
-                return rejectWithValue(null)
+                return handleServerAppError(res, thunkAPI)
             }
         })
     },
@@ -128,8 +146,7 @@ const updateTask = createAppAsyncThunk<DeleteTaskType & { task: TaskType }, Dele
                 if (res.resultCode === ResultCode.SUCCESS) {
                     return { todolistId: arg.todolistId, taskId: arg.taskId, task: res.data.item }
                 } else {
-                    handleServerAppError(dispatch, res)
-                    return rejectWithValue(null)
+                    return handleServerAppError(res, thunkAPI)
                 }
             })
         } else {
@@ -139,10 +156,9 @@ const updateTask = createAppAsyncThunk<DeleteTaskType & { task: TaskType }, Dele
     },
 )
 
-//types
-export type TasksStateType = {
-    [key: string]: TaskType[]
-}
-
 export const tasksReducer = slice.reducer
+export const tasksActions = slice.actions
 export const tasksThunks = { getTasks, removeTask, addTask, updateTask }
+
+//types
+export type TasksStateType = Record<string, TaskType[]>

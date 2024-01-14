@@ -1,19 +1,18 @@
 import { instance } from "common/instanceApi"
 import { AxiosResponse } from "axios"
-import { LoginDataType } from "features/Auth/ui/Login"
 import { BaseResponseType } from "common/types"
-import { AuthMeType } from "features/Auth"
+import { AuthMeType, LoginParamsType } from "features/Auth"
 
 export const authAPI = {
     async getAuthMeData() {
         const res = await instance.get<BaseResponseType<AuthMeType>>("auth/me")
         return res.data
     },
-    async login(data: LoginDataType) {
+    async login(data: LoginParamsType) {
         const res = await instance.post<
             BaseResponseType<{ userId: number }>,
             AxiosResponse<BaseResponseType<{ userId: number }>>,
-            LoginDataType
+            LoginParamsType
         >("auth/login", data)
         return res.data
     },

@@ -2,7 +2,7 @@ import React from "react"
 import { Provider } from "react-redux"
 import { AppRootStateType } from "app/store"
 import { tasksReducer, TasksStateType, TodolistDomainType, todolistsReducer } from "features/TodolistList"
-import { appSlice, InitialAppStateType } from "app/appSlice"
+import { appReducer, InitialAppStateType } from "app/appSlice"
 import { MemoryRouter } from "react-router-dom"
 import { configureStore } from "@reduxjs/toolkit"
 import { TaskPriorities, TaskStatuses } from "common/enums"
@@ -95,7 +95,7 @@ export type DecoratorStateType = typeof initialGlobalState
 
 export const storyBookStore = configureStore({
     reducer: {
-        app: appSlice,
+        app: appReducer,
         auth: authReducer,
         todolists: todolistsReducer,
         tasks: tasksReducer,
