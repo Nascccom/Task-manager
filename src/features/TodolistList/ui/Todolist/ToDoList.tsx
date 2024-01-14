@@ -56,7 +56,9 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, title, activeFilter, 
         }
     }
 
-    const mappedTasks = filteredTasks().map((t) => <Task key={t.id} task={t} todolistId={todolistId} />)
+    const mappedTasks = filteredTasks().map((t) => (
+        <Task key={t.id} task={t} todolistId={todolistId} todoEntityStatus={entityStatus} />
+    ))
     const renderFilterButton = (
         onClick: (todolistId: string, filter: FilterValuesType) => void,
         buttonFilter: FilterValuesType,
