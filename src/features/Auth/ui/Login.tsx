@@ -7,50 +7,11 @@ import FormGroup from "@mui/material/FormGroup"
 import FormLabel from "@mui/material/FormLabel"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
-import { useActions, useAppSelector } from "common/hooks"
-import { FormikHelpers, useFormik } from "formik"
 import { Navigate } from "react-router-dom"
-import { authActions, authSelectors, LoginParamsType } from "features/Auth"
-import { BaseResponseType } from "common/types"
-
-type FormikErrorType = Partial<Omit<LoginParamsType, "captcha">>
+import { useLogin } from "features/Auth"
 
 export const Login = memo(() => {
-    const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
-    const { login } = useActions(authActions)
-
-    const formik = useFormik({
-        initialValues: {
-            email: "",
-            password: "",
-            rememberMe: false,
-        },
-        validate: (values) => {
-            const errors: FormikErrorType = {}
-
-            if (!values.email) {
-                errors.email = "Email is required"
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = "Invalid email address"
-            }
-
-            if (!values.password) {
-                errors.password = "Password is required"
-            } else if (values.password.length < 4) {
-                errors.password = "Password must be more 3 symbols"
-            }
-            return errors
-        },
-        onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
-            login(values)
-                .unwrap()
-                .catch((err: BaseResponseType) => {
-                    err.fieldsErrors?.forEach((fieldError) => {
-                        formikHelpers.setFieldError(fieldError.field, fieldError.error)
-                    })
-                })
-        },
-    })
+    const { formik, isLoggedIn } = useLogin()
 
     if (isLoggedIn) {
         return <Navigate to={"/"} />

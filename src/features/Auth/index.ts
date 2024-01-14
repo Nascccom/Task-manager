@@ -4,6 +4,7 @@ import { authAPI } from "./api/auth-api"
 import type { AuthMeType, AuthParamsType, LoginParamsType } from "./api/authApi.types"
 import type { InitialAuthStateType } from "./model/authSlice"
 import { Login } from "./ui/Login"
+import { useLogin } from "./lib/useLogin"
 
 const authReducer = authSlice.authReducer
 const authActions = {
@@ -20,4 +21,5 @@ export {
     LoginParamsType,
     InitialAuthStateType,
     Login,
+    useLogin,
 }
