@@ -1,30 +1,40 @@
 import { appActions } from "app/appSlice"
-import { BaseResponseType } from "common/types"
-import { AppThunkDispatch } from "common/hooks"
+import { BaseResponseType, ThunkApiType } from "common/types"
 
 /**
- * Handles server application errors and updates the application state accordingly.
+ * Handles server application errors, dispatches actions to update the application state,
+ * and returns a rejected Promise with the provided value (null by default).
  *
- * @template T - The type of data expected in the server response.
- * @param {AppThunkDispatch} dispatch - The Redux dispatch function with AppThunkDispatch type.
- * @param {BaseResponseType<T>} data - The server response data containing error messages and other information.
- * @param {boolean} [isShowError=true] - A flag indicating whether to display the error message. Default is true.
- * @returns {void}
- *
- * @example
- * // Usage example
- * handleServerAppError(dispatch, responseData);
+ * @template T - The type of data in the response.
+ * @param {BaseResponseType<T>} data - The response data containing error messages.
+ * @param {ThunkApiType} thunkAPI - The Redux Thunk API object.
+ * @param {boolean} [isShowError=true] - A flag indicating whether to display the error message (default: true).
+ * @returns {ReturnType<ThunkApiType["rejectWithValue"]>} - A rejected Promise with the provided value.
  */
 
+// export const handleServerAppError = <T>(
+//     dispatch: AppThunkDispatch,
+//     data: BaseResponseType<T>,
+//     isShowError: boolean = true,
+// ): void => {
+//     if (isShowError) {
+//         const error = data.messages[0]
+//         dispatch(appActions.setErrorMessage({ error: error ? error : "Some error occurred" }))
+//     }
+//
+//     dispatch(appActions.setLoadingStatus({ status: "failed" }))
+// }
+
 export const handleServerAppError = <T>(
-    dispatch: AppThunkDispatch,
     data: BaseResponseType<T>,
+    thunkAPI: ThunkApiType,
     isShowError: boolean = true,
-): void => {
+): ReturnType<ThunkApiType["rejectWithValue"]> => {
     if (isShowError) {
         const error = data.messages[0]
-        dispatch(appActions.setErrorMessage({ error: error ? error : "Some error occurred" }))
+        thunkAPI.dispatch(appActions.setErrorMessage({ error: error ? error : "Some error occurred" }))
     }
 
-    dispatch(appActions.setLoadingStatus({ status: "failed" }))
+    thunkAPI.dispatch(appActions.setLoadingStatus({ status: "failed" }))
+    return thunkAPI.rejectWithValue(null)
 }

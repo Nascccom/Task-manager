@@ -73,15 +73,12 @@ const getTasks = createAppAsyncThunk<{ todolistId: string; tasks: TaskType[] }, 
 const removeTask = createAppAsyncThunk<DeleteTaskType, DeleteTaskType>(
     `${slice.name}/removeTask`,
     async (args, thunkAPI) => {
-        const { dispatch, rejectWithValue } = thunkAPI
-
         return thunkTryCatch(thunkAPI, async () => {
             const res = await tasksAPI.deleteTask(args)
             if (res.resultCode === ResultCode.SUCCESS) {
                 return args
             } else {
-                handleServerAppError(dispatch, res)
-                return rejectWithValue(null)
+                return handleServerAppError(res, thunkAPI)
             }
         })
     },
@@ -90,7 +87,7 @@ const removeTask = createAppAsyncThunk<DeleteTaskType, DeleteTaskType>(
 const addTask = createAppAsyncThunk<{ todolistId: string; task: TaskType }, CreateTaskType>(
     `${slice.name}/addTask`,
     async ({ todolistId, title }, thunkAPI) => {
-        const { dispatch, rejectWithValue } = thunkAPI
+        const { dispatch } = thunkAPI
 
         return thunkTryCatch(thunkAPI, async () => {
             const res = await tasksAPI.createTask({ todolistId, title })
@@ -98,8 +95,7 @@ const addTask = createAppAsyncThunk<{ todolistId: string; task: TaskType }, Crea
                 dispatch(appActions.setLoadingStatus({ status: "succeeded" }))
                 return { todolistId, task: res.data.item }
             } else {
-                handleServerAppError(dispatch, res)
-                return rejectWithValue(null)
+                return handleServerAppError(res, thunkAPI)
             }
         })
     },
@@ -128,8 +124,7 @@ const updateTask = createAppAsyncThunk<DeleteTaskType & { task: TaskType }, Dele
                 if (res.resultCode === ResultCode.SUCCESS) {
                     return { todolistId: arg.todolistId, taskId: arg.taskId, task: res.data.item }
                 } else {
-                    handleServerAppError(dispatch, res)
-                    return rejectWithValue(null)
+                    return handleServerAppError(res, thunkAPI)
                 }
             })
         } else {

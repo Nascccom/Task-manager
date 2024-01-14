@@ -41,7 +41,7 @@ const slice = createSlice({
 const getAuthMeData = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
     `${slice.name}/getAuthMeData`,
     async (_, thunkAPI) => {
-        const { dispatch, rejectWithValue } = thunkAPI
+        const { dispatch } = thunkAPI
 
         return thunkTryCatch(thunkAPI, async () => {
             const res = await authAPI.getAuthMeData()
@@ -51,8 +51,7 @@ const getAuthMeData = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
                 dispatch(todolistsActions.getTodolists())
                 return { isLoggedIn: true }
             } else {
-                handleServerAppError(dispatch, res, false)
-                return rejectWithValue(null)
+                return handleServerAppError(res, thunkAPI, false)
             }
         }).finally(() => {
             dispatch(appActions.setIsInitialized({ isInitialized: true }))
@@ -63,7 +62,7 @@ const getAuthMeData = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
 const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>(
     `${slice.name}/login`,
     async (args, thunkAPI) => {
-        const { dispatch, rejectWithValue } = thunkAPI
+        const { dispatch } = thunkAPI
 
         return thunkTryCatch(thunkAPI, async () => {
             const res = await authAPI.login(args)
@@ -72,15 +71,14 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>(
                 return { isLoggedIn: true }
             } else {
                 const isShowAppError = !res.fieldsErrors.length
-                handleServerAppError(dispatch, res, isShowAppError)
-                return rejectWithValue(res)
+                return handleServerAppError(res, thunkAPI, isShowAppError)
             }
         })
     },
 )
 
 const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(`${slice.name}/logout`, async (_, thunkApi) => {
-    const { dispatch, rejectWithValue } = thunkApi
+    const { dispatch } = thunkApi
 
     return thunkTryCatch(thunkApi, async () => {
         const res = await authAPI.logout()
@@ -89,8 +87,7 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(`${slice.
             dispatch(authActions.setAuthData({ userId: null, email: null, login: null }))
             return { isLoggedIn: false }
         } else {
-            handleServerAppError(dispatch, res)
-            return rejectWithValue(null)
+            return handleServerAppError(res, thunkApi)
         }
     })
 })
