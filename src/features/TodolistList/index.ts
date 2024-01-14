@@ -27,6 +27,7 @@ const todolistsActions = {
 }
 const tasksActions = {
     ...tasksSlice.tasksThunks,
+    ...tasksSlice.tasksActions,
 }
 
 export {
