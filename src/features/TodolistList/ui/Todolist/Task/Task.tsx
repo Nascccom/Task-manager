@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, memo, useCallback } from "react"
+import React, { ChangeEvent, FC, memo } from "react"
 import DeleteIcon from "@mui/icons-material/Delete"
 import Checkbox from "@mui/material/Checkbox"
 import { EditableSpan, IconButtonCustom } from "common/components"
@@ -17,24 +17,18 @@ type PropsType = {
 export const Task: FC<PropsType> = memo(({ task, todolistId, todoEntityStatus }) => {
     const { removeTask, updateTask } = useActions(tasksActions)
 
-    const removeTaskHandler = useCallback(() => {
+    const removeTaskHandler = () => {
         removeTask({ todolistId, taskId: task.id })
-    }, [todolistId, task.id])
+    }
 
-    const updateTaskTitleHandler = useCallback(
-        (newTitle: string) => {
-            updateTask({ todolistId, taskId: task.id, changingPart: { title: newTitle } })
-        },
-        [todolistId, task.id],
-    )
+    const updateTaskTitleHandler = (newTitle: string) => {
+        updateTask({ todolistId, taskId: task.id, changingPart: { title: newTitle } })
+    }
 
-    const changeCheckboxStatus = useCallback(
-        (e: ChangeEvent<HTMLInputElement>) => {
-            const status = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.InProgress
-            updateTask({ todolistId, taskId: task.id, changingPart: { status } })
-        },
-        [todolistId, task.id],
-    )
+    const changeCheckboxStatus = (e: ChangeEvent<HTMLInputElement>) => {
+        const status = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.InProgress
+        updateTask({ todolistId, taskId: task.id, changingPart: { status } })
+    }
 
     return (
         <li className={task.status === TaskStatuses.Completed ? style.listItemIsDone : style.listItem}>
