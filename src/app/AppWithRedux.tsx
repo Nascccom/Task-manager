@@ -11,11 +11,11 @@ import { selectIsInitialized, selectIsLoadingStatus } from "app/selectors"
 import { authActions, Login } from "features/Auth"
 import { ButtonAppBar } from "features/ButtonAppBar"
 
-type PropsType = {
+type Props = {
     demo?: boolean
 }
 
-export function AppWithRedux({ demo = false }: PropsType) {
+export function AppWithRedux({ demo = false }: Props) {
     const loadingStatus = useAppSelector(selectIsLoadingStatus)
     const isInitialized = useAppSelector(selectIsInitialized)
     const { getAuthMeData } = useActions(authActions)

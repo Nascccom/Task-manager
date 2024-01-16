@@ -6,23 +6,23 @@ import { useActions } from "common/hooks"
 import { TaskStatuses } from "common/enums"
 import { tasksActions, TaskType } from "features/TodolistList"
 import style from "./Task.module.css"
-import { RequestStatusType } from "app/appSlice"
+import { RequestStatus } from "app/appSlice"
 
-type PropsType = {
+type Props = {
     task: TaskType
     todolistId: string
-    todoEntityStatus: RequestStatusType
+    todoEntityStatus: RequestStatus
 }
 
-export const Task: FC<PropsType> = memo(({ task, todolistId, todoEntityStatus }) => {
+export const Task: FC<Props> = memo(({ task, todolistId, todoEntityStatus }) => {
     const { removeTask, updateTask } = useActions(tasksActions)
 
     const removeTaskHandler = () => {
         removeTask({ todolistId, taskId: task.id })
     }
 
-    const updateTaskTitleHandler = (newTitle: string) => {
-        updateTask({ todolistId, taskId: task.id, changingPart: { title: newTitle } })
+    const updateTaskTitleHandler = (title: string) => {
+        updateTask({ todolistId, taskId: task.id, changingPart: { title } })
     }
 
     const changeCheckboxStatus = (e: ChangeEvent<HTMLInputElement>) => {

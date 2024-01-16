@@ -1,6 +1,5 @@
 export { ButtonCustom } from "common/components/ButtonCustom/ButtonCustom"
 export { EditableSpan } from "common/components/EditableSpan/EditableSpan"
 export { ErrorSnackbars } from "common/components/ErrorSnackbar/ErrorSnackbar"
-export { InputCustom } from "common/components/InputCustom/InputCustom"
-export { InputValidate } from "common/components/InputValidate/InputValidate"
+export { EntryField } from "common/components/EntryField/EntryField"
 export { IconButtonCustom } from "common/components/IconButtonCustom//IconButtonCustom"

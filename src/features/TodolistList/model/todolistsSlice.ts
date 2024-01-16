@@ -1,18 +1,18 @@
-import { CreateTaskType, tasksActions, todolistAPI, TodolistType } from "features/TodolistList"
+import { CreateTask, tasksActions, todolistAPI, TodolistType } from "features/TodolistList"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { createAppAsyncThunk, handleServerAppError, thunkTryCatch } from "common/utils"
 import { ResultCode } from "common/enums"
-import { RequestStatusType } from "app/appSlice"
+import { RequestStatus } from "app/appSlice"
 
 export const slice = createSlice({
     name: "todolists",
-    initialState: [] as TodolistDomainType[],
+    initialState: [] as TodolistDomain[],
     reducers: {
         changeFilter: (
             state,
             action: PayloadAction<{
                 todolistId: string
-                filter: FilterValuesType
+                filter: FilterValues
             }>,
         ) => {
             const index = state.findIndex((t) => t.id === action.payload.todolistId)
@@ -24,7 +24,7 @@ export const slice = createSlice({
             state,
             action: PayloadAction<{
                 todolistId: string
-                entityStatus: RequestStatusType
+                entityStatus: RequestStatus
             }>,
         ) => {
             const index = state.findIndex((t) => t.id === action.payload.todolistId)
@@ -107,7 +107,7 @@ const addTodolist = createAppAsyncThunk<{ todolist: TodolistType }, string>(
     },
 )
 
-const updateTodolistTitle = createAppAsyncThunk<CreateTaskType, CreateTaskType>(
+const updateTodolistTitle = createAppAsyncThunk<CreateTask, CreateTask>(
     `${slice.name}/updateTodolistTitle`,
     async (args, thunkAPI) => {
         return thunkTryCatch(thunkAPI, async () => {
@@ -122,11 +122,11 @@ const updateTodolistTitle = createAppAsyncThunk<CreateTaskType, CreateTaskType>(
 )
 
 //types
-export type TodolistDomainType = TodolistType & {
-    filter: FilterValuesType
-    entityStatus: RequestStatusType
+export type TodolistDomain = TodolistType & {
+    filter: FilterValues
+    entityStatus: RequestStatus
 }
-export type FilterValuesType = "All" | "Active" | "Completed"
+export type FilterValues = "All" | "Active" | "Completed"
 
 export const todolistsActions = slice.actions
 export const todolistsReducer = slice.reducer

@@ -1,19 +1,19 @@
 import React from "react"
 import { Provider } from "react-redux"
-import { AppRootStateType } from "app/store"
-import { tasksReducer, TasksStateType, TodolistDomainType, todolistsReducer } from "features/TodolistList"
-import { appReducer, InitialAppStateType } from "app/appSlice"
+import { AppRootState } from "app/store"
+import { tasksReducer, todolistsReducer } from "features/TodolistList"
+import { appReducer } from "app/appSlice"
 import { MemoryRouter } from "react-router-dom"
 import { configureStore } from "@reduxjs/toolkit"
 import { TaskPriorities, TaskStatuses } from "common/enums"
 import { authReducer } from "features/Auth"
 
-const initialGlobalState: AppRootStateType = {
+const initialGlobalState: AppRootState = {
     app: {
         isInitialized: true,
         status: "succeeded",
         error: null,
-    } as InitialAppStateType,
+    },
     todolists: [
         {
             id: "todolistId1",
@@ -24,7 +24,7 @@ const initialGlobalState: AppRootStateType = {
             entityStatus: "idle",
         },
         { id: "todolistId2", title: "What to buy", filter: "All", addedDate: "", order: 0, entityStatus: "idle" },
-    ] as TodolistDomainType[],
+    ],
     tasks: {
         ["todolistId1"]: [
             {
@@ -82,7 +82,7 @@ const initialGlobalState: AppRootStateType = {
                 addedDate: "",
             },
         ],
-    } as TasksStateType,
+    },
     auth: {
         userId: 1,
         email: "BlaBla@mail.ru",
@@ -91,7 +91,7 @@ const initialGlobalState: AppRootStateType = {
         rememberMe: false,
     },
 }
-export type DecoratorStateType = typeof initialGlobalState
+export type DecoratorState = typeof initialGlobalState
 
 export const storyBookStore = configureStore({
     reducer: {
@@ -100,7 +100,7 @@ export const storyBookStore = configureStore({
         todolists: todolistsReducer,
         tasks: tasksReducer,
     },
-    preloadedState: initialGlobalState as AppRootStateType,
+    preloadedState: initialGlobalState as AppRootState,
 })
 
 export const ReduxStoreProviderDecorator = (storyFn: () => React.ReactNode) => {

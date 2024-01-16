@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { AppRootStateType } from "app/store"
+import { AppRootState } from "app/store"
 import { AppThunkDispatch } from "common/hooks"
-import { BaseResponseType } from "common/types"
+import { BaseResponse } from "common/types"
 
 export const createAppAsyncThunk = createAsyncThunk.withTypes<{
-    state: AppRootStateType
+    state: AppRootState
     dispatch: AppThunkDispatch
-    rejectValue: null | BaseResponseType
+    rejectValue: null | BaseResponse
 }>()

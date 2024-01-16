@@ -2,27 +2,27 @@ import React, { FC, memo, useCallback, useState } from "react"
 import DeleteIcon from "@mui/icons-material/Delete"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Paper from "@mui/material/Paper"
-import { FilterValuesType, Task, tasksActions, todolistsActions, todolistsSelectors } from "features/TodolistList"
-import { ButtonCustom, EditableSpan, InputValidate } from "common/components"
+import { FilterValues, Task, tasksActions, todolistsActions, todolistsSelectors } from "features/TodolistList"
+import { ButtonCustom, EditableSpan, EntryField } from "common/components"
 import { useActions, useAppSelector } from "common/hooks"
-import { RequestStatusType } from "app/appSlice"
+import { RequestStatus } from "app/appSlice"
 import { TaskStatuses } from "common/enums"
 import { IconButtonCustom } from "common/components"
 
-type PropsType = {
+type Props = {
     todolistId: string
     title: string
-    activeFilter: FilterValuesType
-    entityStatus: RequestStatusType
+    activeFilter: FilterValues
+    entityStatus: RequestStatus
 }
 
-export const Todolist: FC<PropsType> = memo(({ todolistId, title, activeFilter, entityStatus }) => {
+export const Todolist: FC<Props> = memo(({ todolistId, title, activeFilter, entityStatus }) => {
     const tasks = useAppSelector(todolistsSelectors.tasks(todolistId))
     const { removeTodolist, updateTodolistTitle, changeFilter } = useActions(todolistsActions)
     const { addTask } = useActions(tasksActions)
-    const [activeButton, setActiveButton] = useState<FilterValuesType>("All")
+    const [activeButton, setActiveButton] = useState<FilterValues>("All")
 
-    const changeFilterButtonHandler = useCallback((todolistId: string, filterValue: FilterValuesType) => {
+    const changeFilterButtonHandler = useCallback((todolistId: string, filterValue: FilterValues) => {
         changeFilter({ todolistId, filter: filterValue })
         setActiveButton(filterValue)
     }, [])
@@ -60,8 +60,8 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, title, activeFilter, 
         <Task key={t.id} task={t} todolistId={todolistId} todoEntityStatus={entityStatus} />
     ))
     const renderFilterButton = (
-        onClick: (todolistId: string, filter: FilterValuesType) => void,
-        buttonFilter: FilterValuesType,
+        onClick: (todolistId: string, filter: FilterValues) => void,
+        buttonFilter: FilterValues,
     ) => {
         return (
             <ButtonCustom
@@ -73,7 +73,7 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, title, activeFilter, 
     }
 
     return (
-        <Paper style={{ padding: "30px", borderRadius: "8px", maxWidth: "300px", position: "relative" }}>
+        <Paper style={{ padding: "30px", borderRadius: "8px", width: "300px", position: "relative" }}>
             <IconButtonCustom
                 callback={removeTodolistHandler}
                 disabled={entityStatus === "loading"}
@@ -86,7 +86,7 @@ export const Todolist: FC<PropsType> = memo(({ todolistId, title, activeFilter, 
                     <EditableSpan title={title} callBack={updateTodolistHandler} />
                 </h3>
             </div>
-            <InputValidate callBack={addTaskHandler} disabled={entityStatus === "loading"} />
+            <EntryField callBack={addTaskHandler} disabled={entityStatus === "loading"} />
 
             <ul>{tasks.length ? mappedTasks : <span style={{ color: "#bdb8b8", padding: "10px" }}>No tasks</span>}</ul>
 

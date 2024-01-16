@@ -1,19 +1,19 @@
-import React, { ChangeEvent, memo, useState } from "react"
+import React, { ChangeEvent, FC, memo, useState } from "react"
 import TextField from "@mui/material/TextField"
 import style from "./EditableSpan.module.css"
 
-type PropsType = {
+type Props = {
     title: string
     callBack: (newTitle: string) => void
 }
 
-export const EditableSpan = memo((props: PropsType) => {
-    const [newTitle, setNewTitle] = useState(props.title)
+export const EditableSpan: FC<Props> = memo(({ title, callBack }) => {
+    const [newTitle, setNewTitle] = useState(title)
     const [edit, setEdit] = useState(false)
 
     const transformHandler = () => {
         setEdit(!edit)
-        props.callBack(newTitle)
+        callBack(newTitle)
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -22,8 +22,8 @@ export const EditableSpan = memo((props: PropsType) => {
 
     return edit ? (
         <TextField
-            variant="standard"
-            id="standard-basic"
+            variant='standard'
+            id='standard-basic'
             value={newTitle}
             autoFocus
             onChange={onChangeHandler}
@@ -31,7 +31,7 @@ export const EditableSpan = memo((props: PropsType) => {
         />
     ) : (
         <span onDoubleClick={transformHandler} className={style.span}>
-            {props.title}
+            {title}
         </span>
     )
 })

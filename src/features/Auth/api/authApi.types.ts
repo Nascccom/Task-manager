@@ -1,16 +1,16 @@
-export type AuthMeType = {
+export type AuthMe = {
     id: number
     email: string
     login: string
 }
 
-export type AuthParamsType = {
+export type AuthParams = {
     userId: number | null
     email: string | null
     login: string | null
 }
 
-export type LoginParamsType = {
+export type LoginParams = {
     email: string
     password: string
     rememberMe: boolean

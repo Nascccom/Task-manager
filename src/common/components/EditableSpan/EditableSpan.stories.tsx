@@ -20,14 +20,14 @@ const meta: Meta<typeof EditableSpan> = {
 
 export default meta
 type Story = StoryObj<typeof EditableSpan>
-type PropsType = {
+type Props = {
     title: string
     callBack: (newTitle: string) => void
 }
 
 export const SpanText: Story = {}
 
-export const SpanInput = (args: PropsType) => {
+export const SpanInput = (args: Props) => {
     const [newTitle, setNewTitle] = useState<string>(args.title)
     const [edit, setEdit] = useState(true)
     const transformHandler = () => {

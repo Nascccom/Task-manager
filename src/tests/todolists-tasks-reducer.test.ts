@@ -1,9 +1,9 @@
-import { tasksReducer, TodolistDomainType, todolistsReducer, todolistsActions } from "features/TodolistList"
+import { tasksReducer, TodolistDomain, todolistsReducer, todolistsActions } from "features/TodolistList"
 import { TaskPriorities, TaskStatuses } from "common/enums"
-import { TasksStateType } from "features/TodolistList/model/taskSlice"
+import { TasksState } from "features/TodolistList/model/taskSlice"
 
-let startTodolistsState: TodolistDomainType[]
-let startTasksState: TasksStateType
+let startTodolistsState: TodolistDomain[]
+let startTasksState: TasksState
 
 beforeEach(() => {
     startTodolistsState = [
@@ -63,8 +63,8 @@ test("id should be equals", () => {
 test("tasks should be removed when todolist removed", () => {
     const action = todolistsActions.removeTodolist.fulfilled({ todolistId: "todolist1" }, "requestId", "todolist1")
 
-    const endTodolistState: TodolistDomainType[] = todolistsReducer(startTodolistsState, action)
-    const endTasksState: TasksStateType = tasksReducer(startTasksState, action)
+    const endTodolistState: TodolistDomain[] = todolistsReducer(startTodolistsState, action)
+    const endTasksState: TasksState = tasksReducer(startTasksState, action)
 
     const key = Object.keys(endTasksState)
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import { tasksAPI, TaskType, UpdateTaskModelType } from "features/TodolistList"
-import { DecoratorStateType, ReduxStoreProviderDecorator } from "stories"
+import { tasksAPI, TaskType, UpdateTaskModel } from "features/TodolistList"
+import { DecoratorState, ReduxStoreProviderDecorator } from "stories"
 import { useSelector } from "react-redux"
 
 export default {
@@ -51,12 +51,12 @@ export const UpdateTaskTitle = () => {
     const [newTitle, setNewTitle] = useState("")
 
     const TaskUpdater = () => {
-        const task = useSelector<DecoratorStateType, TaskType | undefined>(
+        const task = useSelector<DecoratorState, TaskType | undefined>(
             (state) => state.tasks[todolistId]?.find((t) => t.id === taskId),
         )
 
         if (task) {
-            const newModel: UpdateTaskModelType = {
+            const newModel: UpdateTaskModel = {
                 title: newTitle,
                 completed: task.completed,
                 description: task.description,

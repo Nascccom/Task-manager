@@ -1,6 +1,6 @@
-import { authReducer, InitialAuthStateType, authActions } from "features/Auth"
+import { authReducer, InitialAuthState, authActions } from "features/Auth"
 
-let startState: InitialAuthStateType
+let startState: InitialAuthState
 
 beforeEach(() => {
     startState = {

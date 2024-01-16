@@ -5,15 +5,15 @@ import { todolistAPI } from "./api/todolists-api"
 import { tasksAPI } from "./api/tasks-api"
 import type { TodolistType } from "./api/todolistsApi.types"
 import type {
-    CreateTaskType,
-    DeleteTaskType,
-    UpdateTaskType,
-    UpdateTaskModelType,
+    CreateTask,
+    DeleteTask,
+    UpdateTask,
+    UpdateTaskModel,
     TaskType,
-    GetTasksResponseType,
+    GetTasksResponse,
 } from "./api/tasksApi.types"
-import type { TasksStateType } from "./model/taskSlice"
-import type { TodolistDomainType, FilterValuesType } from "./model/todolistsSlice"
+import type { TasksState } from "./model/taskSlice"
+import type { TodolistDomain, FilterValues } from "./model/todolistsSlice"
 import { TodolistList } from "./ui/TodolistList"
 import { Todolist } from "./ui/Todolist/ToDoList"
 import { Task } from "./ui/Todolist/Task/Task"
@@ -39,15 +39,15 @@ export {
     tasksReducer,
     todolistsReducer,
     TodolistType,
-    CreateTaskType,
-    DeleteTaskType,
-    UpdateTaskType,
-    UpdateTaskModelType,
+    CreateTask,
+    DeleteTask,
+    UpdateTask,
+    UpdateTaskModel,
     TaskType,
-    GetTasksResponseType,
-    TasksStateType,
-    TodolistDomainType,
-    FilterValuesType,
+    GetTasksResponse,
+    TasksState,
+    TodolistDomain,
+    FilterValues,
     Task,
     Todolist,
     TodolistList,

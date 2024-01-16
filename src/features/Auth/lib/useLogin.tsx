@@ -1,9 +1,9 @@
 import { useActions, useAppSelector } from "common/hooks"
-import { authActions, authSelectors, LoginParamsType } from "features/Auth"
+import { authActions, authSelectors, LoginParams } from "features/Auth"
 import { FormikHelpers, useFormik } from "formik"
-import { BaseResponseType } from "common/types"
+import { BaseResponse } from "common/types"
 
-type FormikErrorType = Partial<Omit<LoginParamsType, "captcha">>
+type FormikError = Partial<Omit<LoginParams, "captcha">>
 
 export const useLogin = () => {
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
@@ -16,7 +16,7 @@ export const useLogin = () => {
             rememberMe: false,
         },
         validate: (values) => {
-            const errors: FormikErrorType = {}
+            const errors: FormikError = {}
 
             if (!values.email) {
                 errors.email = "Email is required"
@@ -31,10 +31,10 @@ export const useLogin = () => {
             }
             return errors
         },
-        onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
+        onSubmit: (values, formikHelpers: FormikHelpers<LoginParams>) => {
             login(values)
                 .unwrap()
-                .catch((err: BaseResponseType) => {
+                .catch((err: BaseResponse) => {
                     err.fieldsErrors?.forEach((fieldError) => {
                         formikHelpers.setFieldError(fieldError.field, fieldError.error)
                     })

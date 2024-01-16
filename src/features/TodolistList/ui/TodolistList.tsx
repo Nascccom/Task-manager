@@ -1,17 +1,17 @@
-import React, { useCallback } from "react"
+import React, { FC, useCallback } from "react"
 import Grid from "@mui/material/Grid"
 import { useActions, useAppSelector } from "common/hooks"
 import { Navigate } from "react-router-dom"
 import { Todolist, todolistsActions, todolistsSelectors } from "features/TodolistList"
 import { authSelectors } from "features/Auth"
-import { InputValidate } from "common/components"
+import { EntryField } from "common/components"
 import { Scrollbar } from "react-scrollbars-custom"
 
-type PropsType = {
+type Props = {
     demo: boolean
 }
 
-export const TodolistList = ({ demo }: PropsType) => {
+export const TodolistList: FC<Props> = ({ demo }) => {
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
     const todolists = useAppSelector(todolistsSelectors.todolists)
     const { addTodolist } = useActions(todolistsActions)
@@ -29,7 +29,7 @@ export const TodolistList = ({ demo }: PropsType) => {
     return (
         <Scrollbar style={{ width: "100%", height: "90vh", overflowY: "hidden" }}>
             <Grid container style={{ marginTop: "25px", justifyContent: "center" }}>
-                <InputValidate callBack={addTodolistHandler} />
+                <EntryField callBack={addTodolistHandler} />
             </Grid>
 
             <Grid wrap={"nowrap"} container spacing={2} sx={{ marginTop: "20px" }}>

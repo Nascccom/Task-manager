@@ -1,16 +1,16 @@
 import { TaskPriorities, TaskStatuses } from "common/enums"
 
-export type CreateTaskType = {
+export type CreateTask = {
     todolistId: string
     title: string
 }
-export type UpdateTaskType = DeleteTaskType & { model: UpdateTaskModelType }
+export type UpdateTask = DeleteTask & { model: UpdateTaskModel }
 
-export type DeleteTaskType = {
+export type DeleteTask = {
     todolistId: string
     taskId: string
 }
-export type GetTasksResponseType = {
+export type GetTasksResponse = {
     items: TaskType[]
     totalCount: number
     error: null | string
@@ -29,7 +29,7 @@ export type TaskType = {
     addedDate: string
 }
 
-export type UpdateTaskModelType = {
+export type UpdateTaskModel = {
     title: string
     description: string | null
     completed: boolean

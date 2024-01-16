@@ -1,4 +1,5 @@
-export { useAppDispatch } from "common/hooks/useDiapstch/useDispacth"
-export type { AppThunkDispatch } from "common/hooks/useDiapstch/useDispacth"
+export { useAppDispatch } from "common/hooks/useDispatch/useDispatch"
+export type { AppThunkDispatch } from "common/hooks/useDispatch/useDispatch"
 export { useAppSelector } from "common/hooks/useSelector/useSelector"
 export { useActions } from "common/hooks//useActions/useActions"
+export { useEntryField } from "./useEntryField/useEntryField"

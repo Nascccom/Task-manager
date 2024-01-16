@@ -1,6 +1,6 @@
 import { appActions } from "app/appSlice"
 import { handleServerNetworkError } from "common/utils"
-import { ThunkApiType } from "common/utils"
+import { ThunkApiType } from "common/types"
 
 /**
  * A utility function that wraps asynchronous logic in a Redux Thunk pattern
