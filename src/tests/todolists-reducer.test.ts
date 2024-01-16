@@ -1,6 +1,6 @@
-import { TodolistDomainType, todolistsActions, todolistsReducer } from "features/TodolistList"
+import { TodolistDomain, todolistsActions, todolistsReducer } from "features/TodolistList"
 
-let startState: TodolistDomainType[]
+let startState: TodolistDomain[]
 
 beforeEach(() => {
     startState = [

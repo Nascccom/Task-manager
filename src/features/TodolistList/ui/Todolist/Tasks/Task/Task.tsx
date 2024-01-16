@@ -1,28 +1,27 @@
-import React, { ChangeEvent, FC, memo } from "react"
-import DeleteIcon from "@mui/icons-material/Delete"
+import React, { ChangeEvent, memo } from "react"
 import Checkbox from "@mui/material/Checkbox"
-import { EditableSpan, IconButtonCustom } from "common/components"
+import { DeleteIconButtonCustom, EditableSpan } from "common/components"
 import { useActions } from "common/hooks"
 import { TaskStatuses } from "common/enums"
 import { tasksActions, TaskType } from "features/TodolistList"
-import style from "./Task.module.css"
-import { RequestStatusType } from "app/appSlice"
+import style from "features/TodolistList/ui/Todolist/Tasks/Task/Task.module.css"
+import { RequestStatus } from "app/appSlice"
 
-type PropsType = {
+type Props = {
     task: TaskType
     todolistId: string
-    todoEntityStatus: RequestStatusType
+    todoEntityStatus: RequestStatus
 }
 
-export const Task: FC<PropsType> = memo(({ task, todolistId, todoEntityStatus }) => {
+export const Task = memo(({ task, todolistId, todoEntityStatus }: Props) => {
     const { removeTask, updateTask } = useActions(tasksActions)
 
     const removeTaskHandler = () => {
         removeTask({ todolistId, taskId: task.id })
     }
 
-    const updateTaskTitleHandler = (newTitle: string) => {
-        updateTask({ todolistId, taskId: task.id, changingPart: { title: newTitle } })
+    const updateTaskTitleHandler = (title: string) => {
+        updateTask({ todolistId, taskId: task.id, changingPart: { title } })
     }
 
     const changeCheckboxStatus = (e: ChangeEvent<HTMLInputElement>) => {
@@ -41,14 +40,11 @@ export const Task: FC<PropsType> = memo(({ task, todolistId, todoEntityStatus })
 
             <EditableSpan title={task.title} callBack={updateTaskTitleHandler} />
 
-            <IconButtonCustom
+            <DeleteIconButtonCustom
                 size={"small"}
-                aria-label='delete'
-                style={{ position: "absolute", top: "3px", right: "-25px" }}
                 callback={removeTaskHandler}
-                disabled={todoEntityStatus === "loading" || task.status === TaskStatuses.Deleted}>
-                <DeleteIcon fontSize={"small"} />
-            </IconButtonCustom>
+                disabled={todoEntityStatus === "loading" || task.status === TaskStatuses.Deleted}
+            />
         </li>
     )
 })

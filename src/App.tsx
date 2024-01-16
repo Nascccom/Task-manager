@@ -1,6 +1,6 @@
 import React from "react"
 // import './App.css';
-// import {TaskType, Todolist} from './ToDoList';
+// import {Task, Todolist} from './ToDoList';
 // import {v1} from 'uuid';
 // import {InputCustom} from './common';
 // import {ButtonAppBar} from './common';
@@ -24,27 +24,27 @@ import React from "react"
 //     updateTask
 // } from "./state/task-reducer";
 //
-// export type FilterValuesType = 'All' | 'all' | 'Active' | 'Completed';
-// export type TodolistType = {
+// export type FilterValues = 'All' | 'all' | 'Active' | 'Completed';
+// export type Todolist = {
 //     id: string
 //     title: string
-//     filter: FilterValuesType
+//     filter: FilterValues
 // }
 //
-// export type TasksStateType = {
-//     [key: string]: TaskType[]
+// export type TasksState = {
+//     [key: string]: Task[]
 // }
 //
 // export function App() {
 //     let todolistID1 = v1();
 //     let todolistID2 = v1();
 //
-//     let [todolist, dispatchTodolist] = useReducer<Reducer<TodolistType[], TodolistsReducerActionType>>(todolistsSlice, [
+//     let [todolist, dispatchTodolist] = useReducer<Reducer<Todolist[], TodolistsReducerActionType>>(todolistsSlice, [
 //         {id: todolistID1, title: 'What to learn', filter: 'all'},
 //         {id: todolistID2, title: 'What to buy', filter: 'all'}
 //     ])
 //
-//     let [tasks, dispatchTasks] = useReducer<Reducer<TasksStateType, TasksReducerActionType>>(tasksReducer, {
+//     let [tasks, dispatchTasks] = useReducer<Reducer<TasksState, TasksReducerActionType>>(tasksReducer, {
 //         [todolistID1]: [
 //             {id: v1(), title: 'HTML&CSS', isDone: true},
 //             {id: v1(), title: 'JS', isDone: true},
@@ -77,7 +77,7 @@ import React from "react"
 //         dispatchTasks(action)
 //     }
 //
-//     function changeFilter(todolistID: string, value: FilterValuesType) {
+//     function changeFilter(todolistID: string, value: FilterValues) {
 //         dispatchTodolist(changeFilter(todolistID, value))
 //     }
 //

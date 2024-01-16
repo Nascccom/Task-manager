@@ -3,14 +3,14 @@ import { ReduxStoreProviderDecorator } from "stories"
 import { AppWithRedux } from "app/AppWithRedux"
 import React from "react"
 import CircularProgress from "@mui/material/CircularProgress"
-import { ButtonAppBar } from "features/ButtonAppBar/ButtonAppBar"
+import { ButtonAppBar } from "features/ButtonAppBar/ui/ButtonAppBar"
 import LinearProgress from "@mui/material/LinearProgress"
 import Container from "@mui/material/Container"
 import { Navigate, Route, Routes } from "react-router-dom"
 import { TodolistList } from "features/TodolistList/ui/TodolistList"
 import { Login } from "features/Auth/ui/Login"
 import { ErrorSnackbars } from "common/components"
-import { RequestStatusType } from "app/appSlice"
+import { RequestStatus } from "app/appSlice"
 
 const meta: Meta<typeof AppWithRedux> = {
     title: "APP/App",
@@ -22,9 +22,9 @@ const meta: Meta<typeof AppWithRedux> = {
 export default meta
 type Story = StoryObj<typeof AppWithRedux>
 
-type PropsType = {
+type Props = {
     demo?: boolean
-    isLoadingStatus: RequestStatusType
+    isLoadingStatus: RequestStatus
     isInitialized: boolean
 }
 
@@ -34,7 +34,7 @@ export const Default: Story = {
     },
 }
 
-export const AppLoading = ({ demo = false, isLoadingStatus = "idle", isInitialized = false }: PropsType) => {
+export const AppLoading = ({ demo = false, isLoadingStatus = "idle", isInitialized = false }: Props) => {
     if (!isInitialized) {
         return (
             <div

@@ -9,15 +9,15 @@ import MenuIcon from "@mui/icons-material/Menu"
 import { useActions, useAppSelector } from "common/hooks"
 import { authActions, authSelectors } from "features/Auth"
 
-type PropsType = {
+type Props = {
     demo?: boolean
 }
 
-export const ButtonAppBar = memo(({ demo }: PropsType) => {
+export const ButtonAppBar = memo(({ demo }: Props) => {
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
     const { logout } = useActions(authActions)
 
-    const onclickLogoutHandler = () => {
+    const logoutHandler = () => {
         if (!demo) {
             logout()
         }
@@ -34,7 +34,7 @@ export const ButtonAppBar = memo(({ demo }: PropsType) => {
                         News
                     </Typography>
                     {isLoggedIn && (
-                        <Button color='inherit' onClick={onclickLogoutHandler}>
+                        <Button color='inherit' onClick={logoutHandler}>
                             Logout
                         </Button>
                     )}

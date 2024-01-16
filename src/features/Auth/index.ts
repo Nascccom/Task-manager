@@ -1,8 +1,8 @@
 import * as authSelectors from "features/Auth//model/selectors"
 import * as authSlice from "features/Auth//model/authSlice"
 import { authAPI } from "./api/auth-api"
-import type { AuthMeType, AuthParamsType, LoginParamsType } from "./api/authApi.types"
-import type { InitialAuthStateType } from "./model/authSlice"
+import type { AuthMe, AuthParams, LoginParams } from "./api/authApi.types"
+import type { InitialAuthState } from "./model/authSlice"
 import { Login } from "./ui/Login"
 import { useLogin } from "./lib/useLogin"
 
@@ -16,10 +16,10 @@ export {
     authReducer,
     authActions,
     authAPI,
-    AuthMeType,
-    AuthParamsType,
-    LoginParamsType,
-    InitialAuthStateType,
+    AuthMe,
+    AuthParams,
+    LoginParams,
+    InitialAuthState,
     Login,
     useLogin,
 }

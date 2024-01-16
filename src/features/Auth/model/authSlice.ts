@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { appActions } from "app/appSlice"
-import { authAPI, LoginParamsType } from "features/Auth"
+import { authAPI, LoginParams } from "features/Auth"
 import { ResultCode } from "common/enums"
 import { createAppAsyncThunk, handleServerAppError, thunkTryCatch } from "common/utils"
 import { todolistsActions } from "features/TodolistList"
@@ -59,7 +59,7 @@ const getAuthMeData = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
     },
 )
 
-const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>(
+const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParams>(
     `${slice.name}/login`,
     async (args, thunkAPI) => {
         const { dispatch } = thunkAPI
@@ -93,7 +93,7 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(`${slice.
 })
 
 //types
-export type InitialAuthStateType = ReturnType<typeof slice.getInitialState>
+export type InitialAuthState = ReturnType<typeof slice.getInitialState>
 
 export const authActions = slice.actions
 export const authReducer = slice.reducer

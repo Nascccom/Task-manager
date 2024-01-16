@@ -1,38 +1,18 @@
-import React, { FC, memo, useCallback } from "react"
-import { FormikHelpers, useFormik } from "formik"
+import React, { memo, useCallback } from "react"
 import SendIcon from "@mui/icons-material/Send"
 import IconButton from "@mui/material/IconButton"
 import Input from "@mui/material/Input"
+import { useEntryField } from "common/hooks"
 
-type PropsType = {
+type Props = {
     /** Optional click handler */
-    callBack: (valueTitle: string) => void
+    callBack: (title: string) => void
     /** Input is disabled or not */
     disabled?: boolean
 }
 
-export const InputValidate: FC<PropsType> = memo(({ callBack, disabled }) => {
-    const formik = useFormik({
-        initialValues: {
-            title: "",
-        },
-        validate: (values) => {
-            const errors: { title?: string } = {}
-
-            if (values.title.trim().length > 100) {
-                errors.title = "The field Title must be a string or array type with a maximum length of '100'. (Title)"
-            }
-            return errors
-        },
-        onSubmit: (values, formikHelpers: FormikHelpers<{ title: string }>) => {
-            if (!values.title.trim()) {
-                formikHelpers.setFieldError("title", "Title cannot be empty")
-            } else {
-                callBack(values.title)
-                formik.resetForm()
-            }
-        },
-    })
+export const EntryField = memo(({ callBack, disabled }: Props) => {
+    const { formik } = useEntryField(callBack)
 
     const handleBlur = useCallback(() => {
         formik.setFieldTouched("title", true)
