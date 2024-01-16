@@ -16,8 +16,10 @@ import type { TasksState } from "./model/taskSlice"
 import type { TodolistDomain, FilterValues } from "./model/todolistsSlice"
 import { TodolistList } from "./ui/TodolistList"
 import { Todolist } from "./ui/Todolist/ToDoList"
-import { Task } from "./ui/Todolist/Task/Task"
+import { Task } from "features/TodolistList/ui/Todolist/Tasks/Task/Task"
 import { FilterTasksButtons } from "features/TodolistList/ui/Todolist/FilterTaskButtons/FilterTasksButtons"
+import { Tasks } from "./ui/Todolist/Tasks/Tasks"
+import { TodolistTitle } from "features/TodolistList/ui/Todolist/TodolistTitle/TodolistTitle"
 
 const tasksReducer = tasksSlice.tasksReducer
 const todolistsReducer = todolistsSlice.todolistsReducer
@@ -50,7 +52,9 @@ export {
     TodolistDomain,
     FilterValues,
     Task,
+    Tasks,
     Todolist,
     TodolistList,
     FilterTasksButtons,
+    TodolistTitle,
 }
