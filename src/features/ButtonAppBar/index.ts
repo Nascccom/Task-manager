@@ -1,1 +1,1 @@
-export { ButtonAppBar } from "./ButtonAppBar"
+export { ButtonAppBar } from "features/ButtonAppBar/ui/ButtonAppBar"

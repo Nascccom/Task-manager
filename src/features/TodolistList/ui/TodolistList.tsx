@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from "react"
+import React, { useCallback } from "react"
 import Grid from "@mui/material/Grid"
 import { useActions, useAppSelector } from "common/hooks"
 import { Navigate } from "react-router-dom"
@@ -11,7 +11,7 @@ type Props = {
     demo: boolean
 }
 
-export const TodolistList: FC<Props> = ({ demo }) => {
+export const TodolistList = ({ demo }: Props) => {
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
     const todolists = useAppSelector(todolistsSelectors.todolists)
     const { addTodolist } = useActions(todolistsActions)

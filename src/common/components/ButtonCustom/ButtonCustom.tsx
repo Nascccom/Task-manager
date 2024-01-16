@@ -1,4 +1,4 @@
-import React, { FC, memo, useCallback } from "react"
+import React, { memo, useCallback } from "react"
 import Button, { ButtonPropsColorOverrides } from "@mui/material/Button"
 import { OverridableStringUnion } from "@mui/types"
 
@@ -24,7 +24,7 @@ type Props = {
     disabled?: boolean
 }
 
-export const ButtonCustom: FC<Props> = memo(({ callBack, color, style, buttonName, disabled, size, variant }) => {
+export const ButtonCustom = memo(({ callBack, color, style, buttonName, disabled, size, variant }: Props) => {
     const onClickButton = useCallback(() => {
         callBack()
     }, [callBack])

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, memo, useState } from "react"
+import React, { ChangeEvent, memo, useState } from "react"
 import TextField from "@mui/material/TextField"
 import style from "./EditableSpan.module.css"
 
@@ -7,7 +7,7 @@ type Props = {
     callBack: (newTitle: string) => void
 }
 
-export const EditableSpan: FC<Props> = memo(({ title, callBack }) => {
+export const EditableSpan = memo(({ title, callBack }: Props) => {
     const [newTitle, setNewTitle] = useState(title)
     const [edit, setEdit] = useState(false)
 

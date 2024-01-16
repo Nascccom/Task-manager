@@ -1,4 +1,4 @@
-import React, { FC, memo, useCallback } from "react"
+import React, { memo, useCallback } from "react"
 import SendIcon from "@mui/icons-material/Send"
 import IconButton from "@mui/material/IconButton"
 import Input from "@mui/material/Input"
@@ -11,7 +11,7 @@ type Props = {
     disabled?: boolean
 }
 
-export const EntryField: FC<Props> = memo(({ callBack, disabled }) => {
+export const EntryField = memo(({ callBack, disabled }: Props) => {
     const { formik } = useEntryField(callBack)
 
     const handleBlur = useCallback(() => {

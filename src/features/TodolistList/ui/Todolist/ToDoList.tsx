@@ -1,13 +1,12 @@
-import React, { FC, memo, useCallback, useState } from "react"
+import React, { memo, useCallback, useState } from "react"
 import DeleteIcon from "@mui/icons-material/Delete"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Paper from "@mui/material/Paper"
 import { FilterValues, Task, tasksActions, todolistsActions, todolistsSelectors } from "features/TodolistList"
-import { ButtonCustom, EditableSpan, EntryField } from "common/components"
+import { ButtonCustom, EditableSpan, EntryField, IconButtonCustom } from "common/components"
 import { useActions, useAppSelector } from "common/hooks"
 import { RequestStatus } from "app/appSlice"
 import { TaskStatuses } from "common/enums"
-import { IconButtonCustom } from "common/components"
 
 type Props = {
     todolistId: string
@@ -16,7 +15,7 @@ type Props = {
     entityStatus: RequestStatus
 }
 
-export const Todolist: FC<Props> = memo(({ todolistId, title, activeFilter, entityStatus }) => {
+export const Todolist = memo(({ todolistId, title, activeFilter, entityStatus }: Props) => {
     const tasks = useAppSelector(todolistsSelectors.tasks(todolistId))
     const { removeTodolist, updateTodolistTitle, changeFilter } = useActions(todolistsActions)
     const { addTask } = useActions(tasksActions)
