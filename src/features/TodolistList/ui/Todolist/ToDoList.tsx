@@ -1,9 +1,8 @@
 import React, { memo, useCallback, useState } from "react"
-import DeleteIcon from "@mui/icons-material/Delete"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Paper from "@mui/material/Paper"
 import { FilterValues, Task, tasksActions, todolistsActions, todolistsSelectors } from "features/TodolistList"
-import { ButtonCustom, EditableSpan, EntryField, IconButtonCustom } from "common/components"
+import { ButtonCustom, DeleteIconButtonCustom, EditableSpan, EntryField } from "common/components"
 import { useActions, useAppSelector } from "common/hooks"
 import { RequestStatus } from "app/appSlice"
 import { TaskStatuses } from "common/enums"
@@ -26,13 +25,13 @@ export const Todolist = memo(({ todolistId, title, activeFilter, entityStatus }:
         setActiveButton(filterValue)
     }, [])
 
-    const removeTodolistHandler = useCallback(() => {
+    const removeTodolistCallback = useCallback(() => {
         removeTodolist(todolistId)
     }, [todolistId])
 
-    const addTaskHandler = useCallback(
-        (valueTitle: string) => {
-            addTask({ todolistId, title: valueTitle })
+    const addTaskCallback = useCallback(
+        (title: string) => {
+            addTask({ todolistId, title })
         },
         [todolistId],
     )
@@ -73,19 +72,14 @@ export const Todolist = memo(({ todolistId, title, activeFilter, entityStatus }:
 
     return (
         <Paper style={{ padding: "30px", borderRadius: "8px", width: "300px", position: "relative" }}>
-            <IconButtonCustom
-                callback={removeTodolistHandler}
-                disabled={entityStatus === "loading"}
-                ariaLabel={"delete"}
-                style={{ position: "absolute", top: 0, right: 0 }}>
-                <DeleteIcon color={"inherit"} />
-            </IconButtonCustom>
+            <DeleteIconButtonCustom callback={removeTodolistCallback} disabled={entityStatus === "loading"} />
+
             <div style={{ overflowWrap: "break-word" }}>
                 <h3>
                     <EditableSpan title={title} callBack={updateTodolistHandler} />
                 </h3>
             </div>
-            <EntryField callBack={addTaskHandler} disabled={entityStatus === "loading"} />
+            <EntryField callBack={addTaskCallback} disabled={entityStatus === "loading"} />
 
             <ul>{tasks.length ? mappedTasks : <span style={{ color: "#bdb8b8", padding: "10px" }}>No tasks</span>}</ul>
 

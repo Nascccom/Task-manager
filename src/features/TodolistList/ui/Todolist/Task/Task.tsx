@@ -1,7 +1,6 @@
 import React, { ChangeEvent, memo } from "react"
-import DeleteIcon from "@mui/icons-material/Delete"
 import Checkbox from "@mui/material/Checkbox"
-import { EditableSpan, IconButtonCustom } from "common/components"
+import { DeleteIconButtonCustom, EditableSpan } from "common/components"
 import { useActions } from "common/hooks"
 import { TaskStatuses } from "common/enums"
 import { tasksActions, TaskType } from "features/TodolistList"
@@ -41,14 +40,11 @@ export const Task = memo(({ task, todolistId, todoEntityStatus }: Props) => {
 
             <EditableSpan title={task.title} callBack={updateTaskTitleHandler} />
 
-            <IconButtonCustom
+            <DeleteIconButtonCustom
                 size={"small"}
-                aria-label='delete'
-                style={{ position: "absolute", top: "3px", right: "-25px" }}
                 callback={removeTaskHandler}
-                disabled={todoEntityStatus === "loading" || task.status === TaskStatuses.Deleted}>
-                <DeleteIcon fontSize={"small"} />
-            </IconButtonCustom>
+                disabled={todoEntityStatus === "loading" || task.status === TaskStatuses.Deleted}
+            />
         </li>
     )
 })
