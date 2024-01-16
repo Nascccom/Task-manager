@@ -17,6 +17,7 @@ import type { TodolistDomain, FilterValues } from "./model/todolistsSlice"
 import { TodolistList } from "./ui/TodolistList"
 import { Todolist } from "./ui/Todolist/ToDoList"
 import { Task } from "./ui/Todolist/Task/Task"
+import { FilterTasksButtons } from "features/TodolistList/ui/Todolist/FilterTaskButtons/FilterTasksButtons"
 
 const tasksReducer = tasksSlice.tasksReducer
 const todolistsReducer = todolistsSlice.todolistsReducer
@@ -51,4 +52,5 @@ export {
     Task,
     Todolist,
     TodolistList,
+    FilterTasksButtons,
 }
