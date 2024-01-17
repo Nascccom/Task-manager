@@ -1,0 +1,10 @@
+.todolist {
+    padding: 30px;
+    width: 300px;
+    position: relative
+}
+
+.buttonsGroup {
+    display: flex;
+    justify-content: center;
+}
