@@ -1,7 +1,5 @@
 import React, { useEffect } from "react"
-import "./App.css"
 import Container from "@mui/material/Container"
-import CircularProgress from "@mui/material/CircularProgress"
 import LinearProgress from "@mui/material/LinearProgress"
 import { TodolistList } from "features/TodolistList"
 import { useActions, useAppSelector } from "common/hooks"
@@ -10,12 +8,13 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import { selectIsInitialized, selectIsLoadingStatus } from "app/selectors"
 import { authActions, Login } from "features/Auth"
 import { ButtonAppBar } from "features/ButtonAppBar"
+import { Preloader } from "common/components"
 
 type Props = {
     demo?: boolean
 }
 
-export function AppWithRedux({ demo = false }: Props) {
+export function App({ demo = false }: Props) {
     const loadingStatus = useAppSelector(selectIsLoadingStatus)
     const isInitialized = useAppSelector(selectIsInitialized)
     const { getAuthMeData } = useActions(authActions)
@@ -27,21 +26,11 @@ export function AppWithRedux({ demo = false }: Props) {
     }, [])
 
     if (!isInitialized) {
-        return (
-            <div
-                style={{
-                    position: "fixed",
-                    top: "30%",
-                    textAlign: "center",
-                    width: "100%",
-                }}>
-                <CircularProgress color='secondary' size={150} thickness={3} />
-            </div>
-        )
+        return <Preloader />
     }
 
     return (
-        <div className='App'>
+        <div>
             <ButtonAppBar demo={demo} />
 
             {loadingStatus === "loading" && <LinearProgress color={"secondary"} />}
