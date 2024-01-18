@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/icons-material/Menu"
 import { useActions, useAppSelector } from "common/hooks"
 import { authActions, authSelectors } from "features/Auth"
+import s from "./ButtonAppBar.module.css"
 
 type Props = {
     demo?: boolean
@@ -24,13 +25,13 @@ export const ButtonAppBar = memo(({ demo }: Props) => {
     }
 
     return (
-        <Box sx={{ flexGrow: 1 }} position='static'>
+        <Box className={s.header} position='static'>
             <AppBar position='static'>
                 <Toolbar>
                     <IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2 }}>
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+                    <Typography variant='h6' component='div' className={s.header}>
                         News
                     </Typography>
                     {isLoggedIn && (

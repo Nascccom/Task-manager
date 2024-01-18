@@ -1,8 +1,10 @@
-import React, { memo, useCallback } from "react"
+import React, { memo } from "react"
 import SendIcon from "@mui/icons-material/Send"
 import IconButton from "@mui/material/IconButton"
 import Input from "@mui/material/Input"
 import { useEntryField } from "common/hooks"
+import s from "./EntryField.module.css"
+import { style } from "./style"
 
 type Props = {
     /** Optional click handler */
@@ -14,12 +16,12 @@ type Props = {
 export const EntryField = memo(({ callBack, disabled }: Props) => {
     const { formik } = useEntryField(callBack)
 
-    const handleBlur = useCallback(() => {
+    const handleBlur = () => {
         formik.setFieldTouched("title", true)
         if (!formik.values.title.trim()) {
             formik.setFieldError("title", "Title cannot be empty")
         }
-    }, [])
+    }
 
     return (
         <form onSubmit={formik.handleSubmit}>
@@ -29,11 +31,7 @@ export const EntryField = memo(({ callBack, disabled }: Props) => {
                 {...formik.getFieldProps("title")}
                 onBlur={handleBlur}
                 error={formik.touched.title && !!formik.errors.title}
-                sx={{
-                    borderBottomColor:
-                        formik.touched.title && formik.errors.title ? "#cb0b0b" : disabled ? "#888888" : "#1976d2",
-                    color: formik.errors.title && "#cb0b0b",
-                }}
+                sx={style.inputField(formik)}
             />
 
             <IconButton
@@ -41,16 +39,13 @@ export const EntryField = memo(({ callBack, disabled }: Props) => {
                 aria-label='send'
                 size='medium'
                 disabled={disabled}
-                style={{
-                    color: disabled ? "#888888" : formik.errors.title ? "#cb0b0b" : "#1976d2",
-                    marginLeft: "10px",
-                }}
+                sx={style.button(formik, disabled)}
                 onBlur={handleBlur}>
                 <SendIcon fontSize='inherit' />
             </IconButton>
 
             {formik.touched.title && formik.errors.title ? (
-                <div style={{ color: "red", fontSize: "11px" }}>{formik.errors.title}</div>
+                <div className={s.errorText}>{formik.errors.title}</div>
             ) : null}
         </form>
     )

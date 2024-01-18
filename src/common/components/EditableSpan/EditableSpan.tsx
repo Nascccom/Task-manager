@@ -1,6 +1,6 @@
 import React, { ChangeEvent, memo, useState } from "react"
 import TextField from "@mui/material/TextField"
-import style from "./EditableSpan.module.css"
+import s from "./EditableSpan.module.css"
 
 type Props = {
     title: string
@@ -30,7 +30,7 @@ export const EditableSpan = memo(({ title, callBack }: Props) => {
             onBlur={transformHandler}
         />
     ) : (
-        <span onDoubleClick={transformHandler} className={style.span}>
+        <span onDoubleClick={transformHandler} className={s.title}>
             {title}
         </span>
     )

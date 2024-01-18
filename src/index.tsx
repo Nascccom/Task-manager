@@ -3,7 +3,7 @@ import "./index.css"
 import * as serviceWorker from "./serviceWorker"
 import { createRoot } from "react-dom/client"
 import { Provider } from "react-redux"
-import { AppWithRedux } from "app/AppWithRedux"
+import { App } from "app/App"
 import { BrowserRouter } from "react-router-dom"
 import { store } from "app/store"
 
@@ -12,7 +12,7 @@ const root = createRoot(container)
 root.render(
     <BrowserRouter>
         <Provider store={store}>
-            <AppWithRedux />
+            <App />
         </Provider>
         ,
     </BrowserRouter>,

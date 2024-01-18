@@ -1,7 +1,6 @@
 import React from "react"
 import { FilterValues, todolistsActions } from "features/TodolistList"
 import { ButtonCustom } from "common/components"
-import s from "features/TodolistList/ui/Todolist/Todolist.module.css"
 import { useActions } from "common/hooks"
 
 type Props = {
@@ -21,7 +20,6 @@ export const FilterTasksButtons = ({ activeFilter, todolistId }: Props) => {
                 buttonName={buttonFilter}
                 color={activeFilter === buttonFilter ? "success" : "secondary"}
                 callBack={() => onClick(buttonFilter)}
-                style={s.button}
             />
         )
     }

@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { ReduxStoreProviderDecorator } from "stories"
-import { AppWithRedux } from "app/AppWithRedux"
+import { App } from "app/App"
 import React from "react"
-import CircularProgress from "@mui/material/CircularProgress"
 import { ButtonAppBar } from "features/ButtonAppBar/ui/ButtonAppBar"
 import LinearProgress from "@mui/material/LinearProgress"
 import Container from "@mui/material/Container"
@@ -12,20 +11,19 @@ import { Login } from "features/Auth/ui/Login"
 import { ErrorSnackbars } from "common/components"
 import { RequestStatus } from "app/appSlice"
 
-const meta: Meta<typeof AppWithRedux> = {
+const meta: Meta<typeof App> = {
     title: "APP/App",
-    component: AppWithRedux,
+    component: App,
     tags: ["autodocs"],
     decorators: [ReduxStoreProviderDecorator],
 }
 
 export default meta
-type Story = StoryObj<typeof AppWithRedux>
+type Story = StoryObj<typeof App>
 
 type Props = {
     demo?: boolean
     isLoadingStatus: RequestStatus
-    isInitialized: boolean
 }
 
 export const Default: Story = {
@@ -34,21 +32,7 @@ export const Default: Story = {
     },
 }
 
-export const AppLoading = ({ demo = false, isLoadingStatus = "idle", isInitialized = false }: Props) => {
-    if (!isInitialized) {
-        return (
-            <div
-                style={{
-                    position: "fixed",
-                    top: "30%",
-                    textAlign: "center",
-                    width: "99%",
-                }}>
-                <CircularProgress color='secondary' size={150} thickness={3} />
-            </div>
-        )
-    }
-
+export const AppLoading = ({ demo = false, isLoadingStatus = "loading" }: Props) => {
     return (
         <div>
             <ButtonAppBar demo={demo} />
@@ -67,8 +51,4 @@ export const AppLoading = ({ demo = false, isLoadingStatus = "idle", isInitializ
             <ErrorSnackbars />
         </div>
     )
-}
-
-export const AppWithLinearProgress = {
-    render: () => <AppLoading isLoadingStatus={"loading"} isInitialized={true} />,
 }
