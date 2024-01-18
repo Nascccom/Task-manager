@@ -1,6 +1,6 @@
 import { CSSProperties } from "react"
 
-const style = {
+export const style = {
     scrollbar: {
         width: "100%",
         height: "90vh",
@@ -16,5 +16,3 @@ const style = {
         marginTop: "20px",
     } as CSSProperties,
 }
-
-export default style

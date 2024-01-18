@@ -6,7 +6,7 @@ import { Todolist, todolistsActions, todolistsSelectors } from "features/Todolis
 import { authSelectors } from "features/Auth"
 import { EntryField } from "common/components"
 import { Scrollbar } from "react-scrollbars-custom"
-import defaultStyle from "./style"
+import { style } from "./style"
 
 type Props = {
     demo: boolean
@@ -28,12 +28,12 @@ export const TodolistList = ({ demo }: Props) => {
     }
 
     return (
-        <Scrollbar style={defaultStyle.scrollbar}>
-            <Grid container style={defaultStyle.fieldContainer}>
+        <Scrollbar style={style.scrollbar}>
+            <Grid container sx={style.fieldContainer}>
                 <EntryField callBack={addTodolistHandler} />
             </Grid>
 
-            <Grid container spacing={2} style={defaultStyle.todolistsContainer}>
+            <Grid container spacing={2} sx={style.todolistsContainer}>
                 {todolists.map((t) => {
                     return (
                         <Grid item key={t.id}>
