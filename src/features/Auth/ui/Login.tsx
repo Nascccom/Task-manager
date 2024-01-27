@@ -60,7 +60,7 @@ export const Login = memo(() => {
                                 }
                             />
 
-                            <Button type={"submit"} variant={"contained"} color={"primary"}>
+                            <Button type={"submit"} variant={"contained"} color={"primary"} disabled={!formik.isValid}>
                                 Login
                             </Button>
                         </FormGroup>
