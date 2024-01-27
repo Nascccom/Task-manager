@@ -1,5 +1,5 @@
-import * as authSelectors from "features/Auth//model/selectors"
-import * as authSlice from "features/Auth//model/authSlice"
+import * as authSelectors from "features/Auth/model/selectors"
+import * as authSlice from "features/Auth/model/authSlice"
 import { authAPI } from "./api/auth-api"
 import type { AuthMe, AuthParams, LoginParams } from "./api/authApi.types"
 import type { InitialAuthState } from "./model/authSlice"
@@ -13,8 +13,8 @@ const authActions = {
 }
 export {
     authSelectors,
-    authReducer,
     authActions,
+    authReducer,
     authAPI,
     AuthMe,
     AuthParams,

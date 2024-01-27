@@ -1,9 +1,9 @@
-.listItemIsDone {
-    position: relative;
-    opacity: 0.5;
+.task {
+    display: flex;
+    align-items: start;
 }
 
-.listItem {
-    position: relative;
+.text {
+    padding-top: 8px;
+    overflow-wrap: break-word
 }
-

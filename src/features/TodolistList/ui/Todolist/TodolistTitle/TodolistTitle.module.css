@@ -1,3 +1,9 @@
 .title {
     overflow-wrap: break-word
 }
+
+.icon {
+    position: absolute !important;
+    top: 0;
+    right: 0;
+}
