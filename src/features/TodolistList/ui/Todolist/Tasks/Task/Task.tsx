@@ -4,8 +4,10 @@ import { DeleteIconButtonCustom, EditableSpan } from "common/components"
 import { useActions } from "common/hooks"
 import { TaskStatuses } from "common/enums"
 import { tasksActions, TaskType } from "features/TodolistList"
-import style from "features/TodolistList/ui/Todolist/Tasks/Task/Task.module.css"
+import s from "./Task.module.css"
 import { RequestStatus } from "app/appSlice"
+import { ListItem } from "@mui/material"
+import { style } from "./style"
 
 type Props = {
     task: TaskType
@@ -30,21 +32,26 @@ export const Task = memo(({ task, todolistId, todoEntityStatus }: Props) => {
     }
 
     return (
-        <li className={task.status === TaskStatuses.Completed ? style.listItemIsDone : style.listItem}>
-            <Checkbox
-                checked={task.status === TaskStatuses.Completed}
-                onChange={changeCheckboxStatus}
-                color='success'
-                disabled={todoEntityStatus === "loading" || task.status === TaskStatuses.Deleted}
-            />
+        <ListItem disablePadding sx={style.listItem}>
+            <div className={s.task}>
+                <Checkbox
+                    checked={task.status === TaskStatuses.Completed}
+                    onChange={changeCheckboxStatus}
+                    color={"primary"}
+                    disabled={todoEntityStatus === "loading" || task.status === TaskStatuses.Deleted}
+                />
 
-            <EditableSpan title={task.title} callBack={updateTaskTitleHandler} />
+                <div className={s.text}>
+                    <EditableSpan title={task.title} callBack={updateTaskTitleHandler} />
+                </div>
+            </div>
 
             <DeleteIconButtonCustom
                 size={"small"}
                 callback={removeTaskHandler}
                 disabled={todoEntityStatus === "loading" || task.status === TaskStatuses.Deleted}
+                style={s.button}
             />
-        </li>
+        </ListItem>
     )
 })

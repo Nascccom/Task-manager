@@ -9,15 +9,21 @@ type Props = {
     callback: () => void
     disabled: boolean
     size?: OverridableStringUnion<"small" | "medium" | "large", IconButtonPropsSizeOverrides>
+    style?: string
 }
 
-export const DeleteIconButtonCustom = memo(({ callback, disabled, size = "medium" }: Props) => {
+export const DeleteIconButtonCustom = memo(({ callback, disabled, size = "medium", style }: Props) => {
     const onClickButton = () => {
         callback()
     }
 
     return (
-        <IconButton aria-label={"delete"} size={size} onClick={onClickButton} disabled={disabled} className={s.icon}>
+        <IconButton
+            aria-label={"delete"}
+            size={size}
+            onClick={onClickButton}
+            disabled={disabled}
+            className={s.icon + " " + style}>
             <DeleteIcon fontSize={size} />
         </IconButton>
     )

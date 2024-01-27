@@ -8,11 +8,10 @@ export const style = {
     } as CSSProperties,
     fieldContainer: {
         marginTop: "25px",
-        justifyContent: "center",
+        minHeight: "55px",
     } as CSSProperties,
     todolistsContainer: {
-        display: "flex",
         flexWrap: "nowrap",
-        marginTop: "20px",
+        marginTop: "15px",
     } as CSSProperties,
 }

@@ -24,7 +24,11 @@ export const TodolistTitle = memo(({ todolist }: Props) => {
     return (
         <h3 className={s.title}>
             <EditableSpan title={title} callBack={updateTodolistHandler} />
-            <DeleteIconButtonCustom callback={removeTodolistCallback} disabled={entityStatus === "loading"} />
+            <DeleteIconButtonCustom
+                callback={removeTodolistCallback}
+                disabled={entityStatus === "loading"}
+                style={s.icon}
+            />
         </h3>
     )
 })

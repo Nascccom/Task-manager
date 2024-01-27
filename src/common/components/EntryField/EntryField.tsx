@@ -24,7 +24,7 @@ export const EntryField = memo(({ callBack, disabled }: Props) => {
     }
 
     return (
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={formik.handleSubmit} className={s.form}>
             <Input
                 type={"text"}
                 placeholder={formik.errors.title ? formik.errors.title : "Type in here…"}

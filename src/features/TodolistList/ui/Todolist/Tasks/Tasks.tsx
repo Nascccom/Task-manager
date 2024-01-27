@@ -4,6 +4,7 @@ import { FilterValues, Task, todolistsSelectors } from "features/TodolistList"
 import s from "./Tasks.module.css"
 import { RequestStatus } from "app/appSlice"
 import { useAppSelector } from "common/hooks"
+import { List } from "@mui/material"
 
 type Props = {
     activeFilter: FilterValues
@@ -29,5 +30,5 @@ export const Tasks = ({ activeFilter, todolistId, todoEntityStatus }: Props) => 
         <Task key={t.id} task={t} todolistId={todolistId} todoEntityStatus={todoEntityStatus} />
     ))
 
-    return <ul>{tasks.length ? mappedTasks : <span className={s.noTasks}>No tasks</span>}</ul>
+    return <List>{tasks.length ? mappedTasks : <span className={s.noTasks}>No tasks</span>}</List>
 }
