@@ -1,4 +1,3 @@
-import { appActions } from "app/appSlice"
 import { handleServerNetworkError } from "common/utils"
 import { ThunkApiType } from "common/types"
 
@@ -38,13 +37,11 @@ export const thunkTryCatch = async <T>(
     logic: () => Promise<T>,
 ): Promise<T | ReturnType<typeof thunkAPI.rejectWithValue>> => {
     const { dispatch, rejectWithValue } = thunkAPI
-    dispatch(appActions.setLoadingStatus({ status: "loading" }))
+
     try {
         return await logic()
     } catch (err: any) {
         handleServerNetworkError(dispatch, err.message)
         return rejectWithValue(null)
-    } finally {
-        dispatch(appActions.setLoadingStatus({ status: "idle" }))
     }
 }

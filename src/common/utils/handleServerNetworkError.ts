@@ -22,5 +22,4 @@ export const handleServerNetworkError = (dispatch: AppThunkDispatch, error: unkn
     }
 
     dispatch(appActions.setErrorMessage({ error: errorMessage }))
-    dispatch(appActions.setLoadingStatus({ status: "failed" }))
 }

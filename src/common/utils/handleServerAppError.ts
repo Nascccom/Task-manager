@@ -12,19 +12,6 @@ import { BaseResponse, ThunkApiType } from "common/types"
  * @returns {ReturnType<ThunkApiType["rejectWithValue"]>} - A rejected Promise with the provided value.
  */
 
-// export const handleServerAppError = <T>(
-//     dispatch: AppThunkDispatch,
-//     data: BaseResponse<T>,
-//     isShowError: boolean = true,
-// ): void => {
-//     if (isShowError) {
-//         const error = data.messages[0]
-//         dispatch(appActions.setErrorMessage({ error: error ? error : "Some error occurred" }))
-//     }
-//
-//     dispatch(appActions.setLoadingStatus({ status: "failed" }))
-// }
-
 export const handleServerAppError = <T>(
     data: BaseResponse<T>,
     thunkAPI: ThunkApiType,
@@ -35,6 +22,5 @@ export const handleServerAppError = <T>(
         thunkAPI.dispatch(appActions.setErrorMessage({ error: error ? error : "Some error occurred" }))
     }
 
-    thunkAPI.dispatch(appActions.setLoadingStatus({ status: "failed" }))
     return thunkAPI.rejectWithValue(null)
 }
