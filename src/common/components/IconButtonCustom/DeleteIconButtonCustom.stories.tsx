@@ -3,8 +3,7 @@ import { Meta, StoryObj } from "@storybook/react"
 import DeleteIcon from "@mui/icons-material/Delete"
 import IconButton from "@mui/material/IconButton"
 import React from "react"
-import { OverridableStringUnion } from "@mui/types"
-import { IconButtonPropsSizeOverrides } from "@mui/material/IconButton/IconButton"
+import { SizeIconButton } from "common/types"
 
 const meta: Meta<typeof DeleteIconButtonCustom> = {
     title: "COMMON/DeleteIconButtonCustom",
@@ -21,10 +20,11 @@ type Story = StoryObj<typeof DeleteIconButtonCustom>
 const stylesButton = {
     position: "relative",
 }
+
 type Props = {
     callback: () => void
     disabled: boolean
-    size?: OverridableStringUnion<"small" | "medium" | "large", IconButtonPropsSizeOverrides>
+    size?: SizeIconButton
 }
 
 export const DeleteButton = ({ size, callback, disabled = false }: Props) => {

@@ -1,5 +1,5 @@
 import { useActions, useAppSelector } from "common/hooks"
-import { authActions, authSelectors, LoginParams } from "features/Auth"
+import { authAsyncActions, authSelectors, LoginParams } from "features/Auth"
 import { FormikHelpers, useFormik } from "formik"
 import { BaseResponse } from "common/types"
 
@@ -7,7 +7,7 @@ type FormikError = Partial<Omit<LoginParams, "captcha">>
 
 export const useLogin = () => {
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
-    const { login } = useActions(authActions)
+    const { login } = useActions(authAsyncActions)
 
     const formik = useFormik({
         initialValues: {

@@ -1,25 +1,14 @@
 import * as authSelectors from "features/Auth/model/selectors"
 import * as authSlice from "features/Auth/model/authSlice"
 import { authAPI } from "./api/auth-api"
-import type { AuthMe, AuthParams, LoginParams } from "./api/authApi.types"
 import type { InitialAuthState } from "./model/authSlice"
 import { Login } from "./ui/Login"
 import { useLogin } from "./lib/useLogin"
 
 const authReducer = authSlice.authReducer
-const authActions = {
+const authAsyncActions = {
     ...authSlice.authActions,
     ...authSlice.authThunks,
 }
-export {
-    authSelectors,
-    authActions,
-    authReducer,
-    authAPI,
-    AuthMe,
-    AuthParams,
-    LoginParams,
-    InitialAuthState,
-    Login,
-    useLogin,
-}
+export { authSelectors, authAsyncActions, authReducer, authAPI, InitialAuthState, Login, useLogin }
+export * from "./api/authApi.types"

@@ -1,5 +1,5 @@
-import { BaseThunkAPI } from "@reduxjs/toolkit/dist/createAsyncThunk"
-import { AppDispatch, AppRootState } from "app/store"
+import { OverridableStringUnion } from "@mui/types"
+import { IconButtonPropsSizeOverrides } from "@mui/material/IconButton/IconButton"
 
 export type BaseResponse<T = {}> = {
     resultCode: number
@@ -13,4 +13,4 @@ type FieldError = {
     field: string
 }
 
-export type ThunkApiType = BaseThunkAPI<AppRootState, unknown, AppDispatch, BaseResponse | null>
+export type SizeIconButton = OverridableStringUnion<"small" | "medium" | "large", IconButtonPropsSizeOverrides>

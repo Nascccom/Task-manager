@@ -1,5 +1,5 @@
 import { Task } from "features/TodolistList"
-import { ReduxStoreProviderDecorator } from "stories"
+import { ReduxStoreProviderDecorator } from "stories/index"
 import { TaskPriorities, TaskStatuses } from "common/enums"
 import React from "react"
 

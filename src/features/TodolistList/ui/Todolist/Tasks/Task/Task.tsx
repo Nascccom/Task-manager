@@ -3,11 +3,11 @@ import Checkbox from "@mui/material/Checkbox"
 import { DeleteIconButtonCustom, EditableSpan } from "common/components"
 import { useActions } from "common/hooks"
 import { TaskStatuses } from "common/enums"
-import { tasksActions, TaskType } from "features/TodolistList"
+import { tasksAsyncActions, TaskType } from "features/TodolistList"
 import s from "./Task.module.css"
-import { RequestStatus } from "app/appSlice"
 import { ListItem } from "@mui/material"
 import { style } from "./style"
+import { RequestStatus } from "app/appSlice"
 
 type Props = {
     task: TaskType
@@ -16,7 +16,7 @@ type Props = {
 }
 
 export const Task = memo(({ task, todolistId, todoEntityStatus }: Props) => {
-    const { removeTask, updateTask } = useActions(tasksActions)
+    const { removeTask, updateTask } = useActions(tasksAsyncActions)
 
     const removeTaskHandler = () => {
         removeTask({ todolistId, taskId: task.id })

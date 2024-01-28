@@ -27,7 +27,6 @@ const slice = createSlice({
                 state.status = "idle"
             })
             .addMatcher(isRejected, (state, action: AnyAction) => {
-                debugger
                 state.status = "failed"
                 if (action.payload) {
                     if (
@@ -43,7 +42,7 @@ const slice = createSlice({
                 }
             }),
 })
-export const appActions = slice.actions
+export const appAsyncActions = slice.actions
 export const appReducer = slice.reducer
 
 //types

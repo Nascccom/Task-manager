@@ -1,4 +1,11 @@
-import { CreateTask, DeleteTask, tasksAPI, TaskType, todolistsActions, UpdateTaskModel } from "features/TodolistList"
+import {
+    CreateTask,
+    DeleteTask,
+    tasksAPI,
+    TaskType,
+    todolistsAsyncActions,
+    UpdateTaskModel,
+} from "features/TodolistList"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { createAppAsyncThunk } from "common/utils"
 import { ResultCode, TaskStatuses } from "common/enums"
@@ -49,18 +56,18 @@ export const slice = createSlice({
                     tasks[index] = action.payload.task
                 }
             })
-            .addCase(todolistsActions.addTodolist.fulfilled, (state, action) => {
+            .addCase(todolistsAsyncActions.addTodolist.fulfilled, (state, action) => {
                 state[action.payload.todolist.id] = []
             })
-            .addCase(todolistsActions.removeTodolist.fulfilled, (state, action) => {
+            .addCase(todolistsAsyncActions.removeTodolist.fulfilled, (state, action) => {
                 delete state[action.payload.todolistId]
             })
-            .addCase(todolistsActions.getTodolists.fulfilled, (state, action) => {
+            .addCase(todolistsAsyncActions.getTodolists.fulfilled, (state, action) => {
                 action.payload.forEach((tl) => {
                     state[tl.id] = []
                 })
             })
-            .addCase(todolistsActions.deleteAllTodolistsWithTasks, () => {
+            .addCase(todolistsAsyncActions.deleteAllTodolistsWithTasks, () => {
                 return {}
             })
     },

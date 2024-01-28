@@ -4,12 +4,6 @@ export type AuthMe = {
     login: string
 }
 
-export type AuthParams = {
-    userId: number | null
-    email: string | null
-    login: string | null
-}
-
 export type LoginParams = {
     email: string
     password: string

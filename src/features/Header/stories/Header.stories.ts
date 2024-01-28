@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { ButtonAppBar } from "features/Header"
+import { Header } from "features/Header"
 import { ReduxStoreProviderDecorator } from "stories"
 
-const meta: Meta<typeof ButtonAppBar> = {
+const meta: Meta<typeof Header> = {
     title: "FEATURES/Header",
-    component: ButtonAppBar,
+    component: Header,
     tags: ["autodocs"],
     decorators: [ReduxStoreProviderDecorator],
 }
 export default meta
-type Story = StoryObj<typeof ButtonAppBar>
+type Story = StoryObj<typeof Header>
 
-export const ButtonAppBarDefault: Story = {
+export const HeaderDefault: Story = {
     args: {
         demo: true,
     },

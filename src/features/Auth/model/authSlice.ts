@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { appActions } from "app/appSlice"
+import { appAsyncActions } from "app/appSlice"
 import { authAPI, LoginParams } from "features/Auth"
 import { ResultCode } from "common/enums"
 import { createAppAsyncThunk } from "common/utils"
-import { todolistsActions } from "features/TodolistList"
+import { todolistsAsyncActions } from "features/TodolistList"
 
 const slice = createSlice({
     name: "auth",
@@ -43,12 +43,12 @@ const getAuthMeData = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
     `${slice.name}/getAuthMeData`,
     async (_, { dispatch, rejectWithValue }) => {
         const res = await authAPI.getAuthMeData().finally(() => {
-            dispatch(appActions.setIsInitialized({ isInitialized: true }))
+            dispatch(appAsyncActions.setIsInitialized({ isInitialized: true }))
         })
         if (res.resultCode === ResultCode.SUCCESS) {
             const { id, email, login } = res.data
             dispatch(authActions.setAuthData({ userId: id, email, login }))
-            dispatch(todolistsActions.getTodolists())
+            dispatch(todolistsAsyncActions.getTodolists())
             return { isLoggedIn: true }
         } else {
             return rejectWithValue(res)
@@ -58,13 +58,13 @@ const getAuthMeData = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
 
 const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParams>(
     `${slice.name}/login`,
-    async (args, thunkAPI) => {
+    async (args, { dispatch, rejectWithValue }) => {
         const res = await authAPI.login(args)
         if (res.resultCode === ResultCode.SUCCESS) {
-            thunkAPI.dispatch(authThunks.getAuthMeData())
+            dispatch(authThunks.getAuthMeData())
             return { isLoggedIn: true }
         } else {
-            return thunkAPI.rejectWithValue(res)
+            return rejectWithValue(res)
         }
     },
 )
@@ -74,7 +74,7 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
     async (_, { dispatch, rejectWithValue }) => {
         const res = await authAPI.logout()
         if (res.resultCode === ResultCode.SUCCESS) {
-            dispatch(todolistsActions.deleteAllTodolistsWithTasks())
+            dispatch(todolistsAsyncActions.deleteAllTodolistsWithTasks())
             dispatch(authActions.setAuthData({ userId: null, email: null, login: null }))
             return { isLoggedIn: false }
         } else {
@@ -83,9 +83,9 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
     },
 )
 
+export const authActions = slice.actions
+export const authThunks = { getAuthMeData, login, logout }
+export const authReducer = slice.reducer
+
 //types
 export type InitialAuthState = ReturnType<typeof slice.getInitialState>
-
-export const authActions = slice.actions
-export const authReducer = slice.reducer
-export const authThunks = { getAuthMeData, login, logout }

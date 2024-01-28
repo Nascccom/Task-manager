@@ -7,16 +7,16 @@ import Button from "@mui/material/Button"
 import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/icons-material/Menu"
 import { useActions, useAppSelector } from "common/hooks"
-import { authActions, authSelectors } from "features/Auth"
-import s from "./ButtonAppBar.module.css"
+import { authAsyncActions, authSelectors } from "features/Auth"
+import s from "./Header.module.css"
 
 type Props = {
     demo?: boolean
 }
 
-export const ButtonAppBar = memo(({ demo }: Props) => {
+export const Header = memo(({ demo }: Props) => {
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
-    const { logout } = useActions(authActions)
+    const { logout } = useActions(authAsyncActions)
 
     const logoutHandler = () => {
         if (!demo) {

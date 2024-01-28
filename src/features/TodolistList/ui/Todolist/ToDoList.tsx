@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from "react"
 import s from "./Todolist.module.css"
 import Paper from "@mui/material/Paper"
-import { FilterTasksButtons, Tasks, tasksActions, TodolistDomain, TodolistTitle } from "features/TodolistList"
+import { FilterTasksButtons, Tasks, tasksAsyncActions, TodolistDomain, TodolistTitle } from "features/TodolistList"
 import { EntryField } from "common/components"
 import { useActions } from "common/hooks"
 
@@ -11,7 +11,7 @@ type Props = {
 
 export const Todolist = memo(({ todolist }: Props) => {
     const { id: todolistId, entityStatus, filter: activeFilter } = todolist
-    const { addTask } = useActions(tasksActions)
+    const { addTask } = useActions(tasksAsyncActions)
 
     const addTaskCallback = useCallback(
         (title: string) => {
