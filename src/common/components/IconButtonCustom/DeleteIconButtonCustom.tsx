@@ -1,14 +1,13 @@
 import React, { memo } from "react"
 import IconButton from "@mui/material/IconButton"
-import { OverridableStringUnion } from "@mui/types"
-import { IconButtonPropsSizeOverrides } from "@mui/material/IconButton/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
 import s from "./DeleteIconButtonCustom.module.css"
+import { SizeIconButton } from "common/types"
 
 type Props = {
     callback: () => void
     disabled: boolean
-    size?: OverridableStringUnion<"small" | "medium" | "large", IconButtonPropsSizeOverrides>
+    size?: SizeIconButton
     style?: string
 }
 

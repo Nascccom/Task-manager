@@ -3,15 +3,6 @@ import * as tasksSlice from "./model/taskSlice"
 import * as todolistsSlice from "./model/todolistsSlice"
 import { todolistAPI } from "./api/todolists-api"
 import { tasksAPI } from "./api/tasks-api"
-import type { TodolistType } from "./api/todolistsApi.types"
-import type {
-    CreateTask,
-    DeleteTask,
-    UpdateTask,
-    UpdateTaskModel,
-    TaskType,
-    GetTasksResponse,
-} from "./api/tasksApi.types"
 import type { TasksState } from "./model/taskSlice"
 import type { TodolistDomain, FilterValues } from "./model/todolistsSlice"
 import { TodolistList } from "./ui/TodolistList"
@@ -24,30 +15,23 @@ import { TodolistTitle } from "features/TodolistList/ui/Todolist/TodolistTitle/T
 const tasksReducer = tasksSlice.tasksReducer
 const todolistsReducer = todolistsSlice.todolistsReducer
 
-const todolistsActions = {
+const todolistsAsyncActions = {
     ...todolistsSlice.todolistsActions,
     ...todolistsSlice.todolistsThunks,
 }
-const tasksActions = {
+const tasksAsyncActions = {
     ...tasksSlice.tasksThunks,
     ...tasksSlice.tasksActions,
 }
 
 export {
     todolistsSelectors,
-    todolistsActions,
+    todolistsAsyncActions,
     todolistAPI,
     tasksAPI,
-    tasksActions,
+    tasksAsyncActions,
     tasksReducer,
     todolistsReducer,
-    TodolistType,
-    CreateTask,
-    DeleteTask,
-    UpdateTask,
-    UpdateTaskModel,
-    TaskType,
-    GetTasksResponse,
     TasksState,
     TodolistDomain,
     FilterValues,
@@ -58,3 +42,5 @@ export {
     FilterTasksButtons,
     TodolistTitle,
 }
+export * from "./api/todolistsApi.types"
+export * from "./api/tasksApi.types"

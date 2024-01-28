@@ -1,10 +1,9 @@
 import React, { useEffect } from "react"
-import LinearProgress from "@mui/material/LinearProgress"
 import { useActions, useAppSelector } from "common/hooks"
-import { ErrorSnackbars, Preloader } from "common/components"
-import { selectIsInitialized, selectIsLoadingStatus } from "app/selectors"
-import { authActions } from "features/Auth"
-import { ButtonAppBar } from "features/Header"
+import { ErrorSnackbars, LinearProgressComponent, Preloader } from "common/components"
+import { selectIsInitialized } from "app/selectors"
+import { authAsyncActions } from "features/Auth"
+import { Header } from "features/Header"
 import { Routing } from "features/Routing"
 
 type Props = {
@@ -12,9 +11,8 @@ type Props = {
 }
 
 export function App({ demo = false }: Props) {
-    const loadingStatus = useAppSelector(selectIsLoadingStatus)
     const isInitialized = useAppSelector(selectIsInitialized)
-    const { getAuthMeData } = useActions(authActions)
+    const { getAuthMeData } = useActions(authAsyncActions)
 
     useEffect(() => {
         if (!demo) {
@@ -28,9 +26,9 @@ export function App({ demo = false }: Props) {
 
     return (
         <div>
-            <ButtonAppBar demo={demo} />
+            <Header demo={demo} />
 
-            {loadingStatus === "loading" && <LinearProgress color={"secondary"} />}
+            <LinearProgressComponent />
 
             <Routing demo={demo} />
 

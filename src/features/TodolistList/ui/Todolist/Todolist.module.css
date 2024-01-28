@@ -1,7 +1,8 @@
 .todolist {
     padding: 30px;
     width: 250px;
-    position: relative
+    position: relative;
+    overflow: hidden;
 }
 
 .buttonsGroup {

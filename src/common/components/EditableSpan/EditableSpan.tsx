@@ -28,6 +28,8 @@ export const EditableSpan = memo(({ title, callBack }: Props) => {
             autoFocus
             onChange={onChangeHandler}
             onBlur={transformHandler}
+            multiline
+            rows={2}
         />
     ) : (
         <span onDoubleClick={transformHandler} className={s.title}>

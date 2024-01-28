@@ -1,8 +1,8 @@
 import * as React from "react"
 import Snackbar from "@mui/material/Snackbar"
 import MuiAlert, { AlertProps } from "@mui/material/Alert"
-import { useAppDispatch, useAppSelector } from "common/hooks"
-import { appActions } from "app/appSlice"
+import { useActions, useAppSelector } from "common/hooks"
+import { appAsyncActions } from "app/appSlice"
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
@@ -10,13 +10,13 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 
 export const ErrorSnackbars = () => {
     const error = useAppSelector<string | null>((state) => state.app.error)
-    const dispatch = useAppDispatch()
+    const { setErrorMessage } = useActions(appAsyncActions)
 
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === "clickaway") {
             return
         }
-        dispatch(appActions.setErrorMessage({ error: null }))
+        setErrorMessage({ error: null })
     }
 
     return (

@@ -1,5 +1,5 @@
 import { Todolist } from "features/TodolistList"
-import { ReduxStoreProviderDecorator } from "stories"
+import { ReduxStoreProviderDecorator } from "stories/index"
 import { Meta, StoryObj } from "@storybook/react"
 
 const meta: Meta<typeof Todolist> = {

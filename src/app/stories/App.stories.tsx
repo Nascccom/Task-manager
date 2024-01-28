@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { ReduxStoreProviderDecorator } from "stories"
-import { App } from "app/App"
 import React from "react"
-import { ButtonAppBar } from "features/ButtonAppBar/ui/ButtonAppBar"
+import { Header } from "features/Header"
 import LinearProgress from "@mui/material/LinearProgress"
 import Container from "@mui/material/Container"
 import { Navigate, Route, Routes } from "react-router-dom"
-import { TodolistList } from "features/TodolistList/ui/TodolistList"
-import { Login } from "features/Auth/ui/Login"
+import { TodolistList } from "features/TodolistList"
+import { Login } from "features/Auth"
 import { ErrorSnackbars } from "common/components"
+import { App } from "app/App"
 import { RequestStatus } from "app/appSlice"
 
 const meta: Meta<typeof App> = {
@@ -35,7 +35,7 @@ export const Default: Story = {
 export const AppLoading = ({ demo = false, isLoadingStatus = "loading" }: Props) => {
     return (
         <div>
-            <ButtonAppBar demo={demo} />
+            <Header demo={demo} />
 
             {isLoadingStatus === "loading" && <LinearProgress color={"secondary"} />}
 

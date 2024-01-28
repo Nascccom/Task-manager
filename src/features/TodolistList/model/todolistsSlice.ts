@@ -1,4 +1,4 @@
-import { CreateTask, tasksActions, todolistAPI, TodolistType } from "features/TodolistList"
+import { CreateTask, tasksAsyncActions, todolistAPI, TodolistType } from "features/TodolistList"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { createAppAsyncThunk } from "common/utils"
 import { ResultCode } from "common/enums"
@@ -65,7 +65,7 @@ const getTodolists = createAppAsyncThunk<TodolistType[], undefined>(
     async (_, { dispatch }) => {
         const todolists = await todolistAPI.getTodolists()
         todolists.forEach((todo) => {
-            dispatch(tasksActions.getTasks(todo.id))
+            dispatch(tasksAsyncActions.getTasks(todo.id))
         })
         return todolists
     },
