@@ -3,9 +3,9 @@ import { GetTasksResponse } from "features/TodolistList"
 
 export const testRequestError = async <T>(
     requestFn: () => Promise<T>,
-    expectedError: string,
-    expectedStatus: number,
     errorMockResponse: BaseResponse | GetTasksResponse,
+    expectedError: string = "Request failed with status code 500",
+    expectedStatus: number = 500,
 ) => {
     await expect(requestFn()).rejects.toThrow(expectedError)
     await expect(requestFn()).rejects.toEqual(

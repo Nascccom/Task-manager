@@ -44,12 +44,7 @@ describe("todolistsAPI", () => {
         it("should handle errors during get todolists", async () => {
             onGetMock.reply(500, errorMockResponse)
 
-            await testRequestError(
-                () => todolistAPI.getTodolists(),
-                "Request failed with status code 500",
-                500,
-                errorMockResponse,
-            )
+            await testRequestError(() => todolistAPI.getTodolists(), errorMockResponse)
             await todolistAPI.getTodolists().catch((err) => {
                 expect(err.response.data.messages[0]).toBe(errorMockResponse.messages[0])
             })
@@ -82,12 +77,7 @@ describe("todolistsAPI", () => {
         it("should handle errors during todolist creation", async () => {
             onPostMock.reply(500, errorMockResponse)
 
-            await testRequestError(
-                () => todolistAPI.createTodolist(title),
-                "Request failed with status code 500",
-                500,
-                errorMockResponse,
-            )
+            await testRequestError(() => todolistAPI.createTodolist(title), errorMockResponse)
             await todolistAPI.createTodolist(title).catch((err) => {
                 expect(err.response.data.messages[0]).toBe(errorMockResponse.messages[0])
             })
@@ -113,12 +103,7 @@ describe("todolistsAPI", () => {
         it("should handle errors during task update", async () => {
             onPutMock.reply(500, errorMockResponse)
 
-            await testRequestError(
-                () => todolistAPI.updateTodolistTitle(args),
-                "Request failed with status code 500",
-                500,
-                errorMockResponse,
-            )
+            await testRequestError(() => todolistAPI.updateTodolistTitle(args), errorMockResponse)
         })
 
         it("should handle network error during update tasks without internet", async () => {
@@ -139,12 +124,7 @@ describe("todolistsAPI", () => {
         it("should handle errors during task delete", async () => {
             onDeleteMock.reply(500, errorMockResponse)
 
-            await testRequestError(
-                () => todolistAPI.deleteTodolist(todolistId),
-                "Request failed with status code 500",
-                500,
-                errorMockResponse,
-            )
+            await testRequestError(() => todolistAPI.deleteTodolist(todolistId), errorMockResponse)
             await todolistAPI.deleteTodolist(todolistId).catch((res) => {
                 expect(res.response.data.messages[0]).toEqual(errorMockResponse.messages[0])
             })

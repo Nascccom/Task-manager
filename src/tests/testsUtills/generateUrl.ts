@@ -1,4 +1,4 @@
-export const generateUrl = (determinant: "todolist" | "task" | "auth", todolistId?: string, taskId?: string) => {
+export const generateUrl = (determinant: "todolist" | "task", todolistId?: string, taskId?: string) => {
     if (determinant === "task") {
         return `/todo-lists/${todolistId}/tasks${taskId ? `/${taskId}` : ""}`
     }

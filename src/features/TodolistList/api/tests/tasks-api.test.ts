@@ -67,12 +67,7 @@ describe("tasksAPI", () => {
             const errorMockResponse = { ...getMockResponse, items: [], error: "Something wrong" }
             onGetMock.reply(500, errorMockResponse)
 
-            await testRequestError(
-                () => tasksAPI.getTasks(todolistId),
-                "Request failed with status code 500",
-                500,
-                errorMockResponse,
-            )
+            await testRequestError(() => tasksAPI.getTasks(todolistId), errorMockResponse)
         })
 
         it("should handle network error during get tasks without internet", async () => {
@@ -107,12 +102,7 @@ describe("tasksAPI", () => {
         it("should handle errors during task creation", async () => {
             onPostMock.reply(500, errorMockResponse)
 
-            await testRequestError(
-                () => tasksAPI.createTask(createTaskArgs),
-                "Request failed with status code 500",
-                500,
-                errorMockResponse,
-            )
+            await testRequestError(() => tasksAPI.createTask(createTaskArgs), errorMockResponse)
         })
 
         it("should handle network error during create tasks without internet", async () => {
@@ -160,12 +150,7 @@ describe("tasksAPI", () => {
         it("should handle errors during task update", async () => {
             onPutMock.reply(500, errorMockResponse)
 
-            await testRequestError(
-                () => tasksAPI.updateTask(updateTaskArgs),
-                "Request failed with status code 500",
-                500,
-                errorMockResponse,
-            )
+            await testRequestError(() => tasksAPI.updateTask(updateTaskArgs), errorMockResponse)
         })
 
         it("should handle network error during update tasks without internet", async () => {
@@ -192,12 +177,7 @@ describe("tasksAPI", () => {
         it("should handle errors during task delete", async () => {
             onDeleteMock.reply(500, errorMockResponse)
 
-            await testRequestError(
-                () => tasksAPI.deleteTask(deleteTaskArgs),
-                "Request failed with status code 500",
-                500,
-                errorMockResponse,
-            )
+            await testRequestError(() => tasksAPI.deleteTask(deleteTaskArgs), errorMockResponse)
             await tasksAPI.deleteTask(deleteTaskArgs).catch((res) => {
                 expect(res.response.data.messages[0]).toEqual(errorMockResponse.messages[0])
             })
