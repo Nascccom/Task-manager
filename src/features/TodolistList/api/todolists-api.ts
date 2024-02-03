@@ -12,7 +12,7 @@ export const todolistAPI = {
         const res = await instance.post<BaseResponse<{ item: TodolistType }>>("todo-lists", { title })
         return res.data
     },
-    async updateTodolistTittle(args: CreateTask) {
+    async updateTodolistTitle(args: CreateTask) {
         const res = await instance.put<BaseResponse, AxiosResponse<BaseResponse>>(`todo-lists/${args.todolistId}`, {
             title: args.title,
         })
