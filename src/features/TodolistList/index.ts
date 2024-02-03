@@ -3,7 +3,7 @@ import * as tasksSlice from "./model/taskSlice"
 import * as todolistsSlice from "./model/todolistsSlice"
 import { todolistAPI } from "./api/todolists-api"
 import { tasksAPI } from "./api/tasks-api"
-import type { TasksState } from "./model/taskSlice"
+import type { TasksState, TasksRootActions } from "./model/taskSlice"
 import type { TodolistDomain, FilterValues } from "./model/todolistsSlice"
 import { TodolistList } from "./ui/TodolistList"
 import { Todolist } from "./ui/Todolist/ToDoList"
@@ -35,6 +35,7 @@ export {
     TasksState,
     TodolistDomain,
     FilterValues,
+    TasksRootActions,
     Task,
     Tasks,
     Todolist,

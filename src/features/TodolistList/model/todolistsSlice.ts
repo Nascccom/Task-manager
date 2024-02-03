@@ -102,7 +102,7 @@ const addTodolist = createAppAsyncThunk<{ todolist: TodolistType }, string>(
 const updateTodolistTitle = createAppAsyncThunk<CreateTask, CreateTask>(
     `${slice.name}/updateTodolistTitle`,
     async (args, { rejectWithValue }) => {
-        const res = await todolistAPI.updateTodolistTittle(args)
+        const res = await todolistAPI.updateTodolistTitle(args)
         if (res.resultCode === ResultCode.SUCCESS) {
             return args
         } else {
