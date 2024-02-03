@@ -10,7 +10,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { createAppAsyncThunk } from "common/utils"
 import { ResultCode, TaskStatuses } from "common/enums"
 
-export const slice = createSlice({
+const slice = createSlice({
     name: "tasks",
     // 'todolistId': [{
     //     description: '', id: v1(), title: 'Night', completed: false, status: 0, priority: 0,
@@ -149,3 +149,4 @@ export const tasksThunks = { getTasks, removeTask, addTask, updateTask }
 
 //types
 export type TasksState = Record<string, TaskType[]>
+export type TasksRootActions = ReturnType<(typeof tasksActions)[keyof typeof tasksActions]>
