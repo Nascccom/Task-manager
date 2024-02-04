@@ -2,6 +2,7 @@ import { authReducer } from "features/Auth"
 import { appReducer } from "app/appSlice"
 import { configureStore } from "@reduxjs/toolkit"
 import { tasksReducer, todolistsReducer } from "features/TodolistList"
+import { captchaReducer } from "features/Captcha"
 
 export const store = configureStore({
     reducer: {
@@ -9,6 +10,7 @@ export const store = configureStore({
         auth: authReducer,
         todolists: todolistsReducer,
         tasks: tasksReducer,
+        captcha: captchaReducer,
     },
 })
 export type AppRootState = ReturnType<typeof store.getState>

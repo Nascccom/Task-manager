@@ -4,6 +4,7 @@ import { authAPI, LoginParams } from "features/Auth"
 import { ResultCode } from "common/enums"
 import { createAppAsyncThunk } from "common/utils"
 import { todolistsAsyncActions } from "features/TodolistList"
+import { captchaAsyncActions } from "features/Captcha"
 
 const slice = createSlice({
     name: "auth",
@@ -64,6 +65,9 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParams>(
             dispatch(authThunks.getAuthMeData())
             return { isLoggedIn: true }
         } else {
+            if (res.resultCode === ResultCode.ERROR_CAPTCHA) {
+                dispatch(captchaAsyncActions.getCaptchaUrl())
+            }
             return rejectWithValue(res)
         }
     },

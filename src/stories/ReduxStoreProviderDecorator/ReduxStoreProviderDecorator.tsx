@@ -90,6 +90,9 @@ const initialGlobalState: AppRootState = {
         isLoggedIn: true,
         rememberMe: false,
     },
+    captcha: {
+        captchaUrl: null,
+    },
 }
 export type DecoratorState = typeof initialGlobalState
 

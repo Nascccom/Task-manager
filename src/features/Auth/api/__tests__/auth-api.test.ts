@@ -31,14 +31,14 @@ describe("authAPI", () => {
             data: { id: 1, email: "test@bk.ru", login: "Test" },
         }
 
-        it("should get authentication data correctly", async () => {
+        test("should get authentication data correctly", async () => {
             onGetAuthMock.reply(200, successMockResponse)
             const result = await authAPI.getAuthMeData()
 
             expect(result).toStrictEqual(successMockResponse)
         })
 
-        it("should handle errors when receiving authentication data", async () => {
+        test("should handle errors when receiving authentication data", async () => {
             onGetAuthMock.reply(500, errorMockResponse)
 
             await testRequestError(() => authAPI.getAuthMeData(), errorMockResponse)
@@ -47,7 +47,7 @@ describe("authAPI", () => {
             })
         })
 
-        it("should handle network error during get authentication data without internet", async () => {
+        test("should handle network error during get authentication data without internet", async () => {
             onGetAuthMock.networkError()
 
             await testNetworkError(() => authAPI.getAuthMeData())
@@ -61,14 +61,14 @@ describe("authAPI", () => {
         }
         const args: LoginParams = { email: "test@bk.ru", rememberMe: false, password: "1111" }
 
-        it("should be logged in correctly", async () => {
+        test("should be logged in correctly", async () => {
             onLoginMock.reply(200, successMockResponse)
             const result = await authAPI.login(args)
 
             expect(result).toEqual(successMockResponse)
         })
 
-        it("should handle errors during login attempt", async () => {
+        test("should handle errors during login attempt", async () => {
             onLoginMock.reply(500, errorMockResponse)
 
             await testRequestError(() => authAPI.login(args), errorMockResponse)
@@ -77,7 +77,7 @@ describe("authAPI", () => {
             })
         })
 
-        it("should handle network error during login without internet", async () => {
+        test("should handle network error during login without internet", async () => {
             onLoginMock.networkError()
 
             await testNetworkError(() => authAPI.login(args))
@@ -85,20 +85,20 @@ describe("authAPI", () => {
     })
 
     describe("logout", () => {
-        it("should be logout correctly", async () => {
+        test("should be logout correctly", async () => {
             onLogoutMock.reply(200, mockResponse)
             const result = await authAPI.logout()
 
             expect(result).toEqual(mockResponse)
         })
 
-        it("should handle errors during logout attempt", async () => {
+        test("should handle errors during logout attempt", async () => {
             onLogoutMock.reply(500, errorMockResponse)
 
             await testRequestError(() => authAPI.logout(), errorMockResponse)
         })
 
-        it("should handle network error during logout without internet", async () => {
+        test("should handle network error during logout without internet", async () => {
             onLogoutMock.networkError()
 
             await testNetworkError(() => authAPI.logout())
