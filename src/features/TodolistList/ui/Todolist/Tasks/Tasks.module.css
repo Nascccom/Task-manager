@@ -1,4 +1,4 @@
 .noTasks {
-    color: #bdb8b8;
+    color: var(--disabledColor);
     padding: 10px
 }
