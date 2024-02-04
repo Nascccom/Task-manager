@@ -5,7 +5,7 @@ export const style = {
         justifyContent: "space-between",
         alignItems: "baseline",
         ":hover": {
-            backgroundColor: "#ececec",
+            backgroundColor: "var(--focusColor)",
             cursor: "default",
             borderRadius: "5px",
         },
