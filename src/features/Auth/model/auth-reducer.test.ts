@@ -1,4 +1,4 @@
-import { authReducer, InitialAuthState, authActions } from "features/Auth"
+import { authReducer, InitialAuthState, authAsyncActions } from "features/Auth"
 
 let startState: InitialAuthState
 
@@ -14,7 +14,10 @@ beforeEach(() => {
 
 test("IsLoggedIn should be changed correct", () => {
     const params = { email: "string", password: "string", rememberMe: false }
-    const endState = authReducer(startState, authActions.login.fulfilled({ isLoggedIn: true }, "requestId", params))
+    const endState = authReducer(
+        startState,
+        authAsyncActions.login.fulfilled({ isLoggedIn: true }, "requestId", params),
+    )
 
     expect(endState.isLoggedIn).toBe(true)
 })
@@ -22,7 +25,7 @@ test("IsLoggedIn should be changed correct", () => {
 test("auth data should be added correct", () => {
     const endState = authReducer(
         startState,
-        authActions.setAuthData({
+        authAsyncActions.setAuthData({
             userId: 1,
             email: "blaBla@mail.com",
             login: "BlaBla",
