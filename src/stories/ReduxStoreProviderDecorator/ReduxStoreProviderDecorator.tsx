@@ -1,15 +1,17 @@
 import React from "react"
 import { Provider } from "react-redux"
 import { AppRootState } from "app/store"
-import { tasksReducer, todolistsReducer } from "features/TodolistList"
+import { tasksReducer, TodolistDomain, todolistsReducer } from "features/TodolistList"
 import { appReducer } from "app/appSlice"
 import { MemoryRouter } from "react-router-dom"
 import { configureStore } from "@reduxjs/toolkit"
 import { TaskPriorities, TaskStatuses } from "common/enums"
 import { authReducer } from "features/Auth"
+import { captchaReducer } from "features/Captcha"
 
 const todolistId1 = "todolistId1"
 const todolistId2 = "todolistId2"
+
 const initialGlobalState: AppRootState = {
     app: {
         isInitialized: true,
@@ -33,7 +35,7 @@ const initialGlobalState: AppRootState = {
             order: 0,
             entityStatus: "idle",
         },
-    ],
+    ] as TodolistDomain[],
     tasks: {
         [todolistId1]: [
             {
@@ -111,6 +113,7 @@ export const storyBookStore = configureStore({
         auth: authReducer,
         todolists: todolistsReducer,
         tasks: tasksReducer,
+        captcha: captchaReducer,
     },
     preloadedState: initialGlobalState as AppRootState,
 })

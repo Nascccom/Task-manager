@@ -1,5 +1,5 @@
 import { Todolist } from "features/TodolistList"
-import { ReduxStoreProviderDecorator } from "stories/index"
+import { ReduxStoreProviderDecorator } from "stories"
 import { Meta, StoryObj } from "@storybook/react"
 
 const meta: Meta<typeof Todolist> = {
@@ -7,7 +7,6 @@ const meta: Meta<typeof Todolist> = {
     component: Todolist,
     tags: ["autodocs"],
     decorators: [ReduxStoreProviderDecorator],
-    excludeStories: /.*initialGlobalState$/,
 }
 export default meta
 type Story = StoryObj<typeof Todolist>
@@ -19,20 +18,22 @@ export const DefaultTodolist: Story = {
             filter: "All",
             entityStatus: "idle",
             order: 0,
-            title: "New Todolist",
+            title: "Todolist 1.0",
             addedDate: "",
         },
     },
 }
 
-export const TodolistInProcess: Story = {
-    // args: { ...DefaultTodolist.args, todolist: { ...DefaultTodolist.args?.todolist, entityStatus: "loading" } },
+export const TodolistDuringRemovalProcess: Story = {
+    args: {
+        ...DefaultTodolist.args,
+        todolist: {
+            id: "todolistId2",
+            filter: "All",
+            entityStatus: "loading",
+            order: 0,
+            title: "Todolist 2.0",
+            addedDate: "",
+        },
+    },
 }
-//
-// export const TodolistWithActiveTask: Story = {
-//     args: { ...DefaultTodolist.args, activeFilter: "Active" },
-// }
-//
-// export const TodolistWithCompletedTask: Story = {
-//     args: { ...DefaultTodolist.args, activeFilter: "Completed" },
-// }

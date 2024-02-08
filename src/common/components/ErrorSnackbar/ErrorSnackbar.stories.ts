@@ -11,7 +11,7 @@ const meta: Meta<typeof ErrorSnackbars> = {
         error: { defaultValue: "Some Error", type: "string" },
     },
     args: {
-        setErrorMessage: (e) => {},
+        setErrorMessage: () => {},
     },
 }
 
