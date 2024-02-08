@@ -1,8 +1,8 @@
 import { CreateTask, DeleteTask, GetTasksResponse, tasksAPI, TaskType, UpdateTask } from "features/TodolistList"
 import { ResultCode, TaskPriorities, TaskStatuses } from "common/enums"
-import { mockAdapter } from "tests/mockStore"
+import { mockAdapter } from "common/testsUtils/mockStore"
 import { BaseResponse } from "common/types"
-import { generateUrl, testNetworkError, testRequestError } from "tests/testsUtills"
+import { generateUrl, testNetworkError, testRequestError } from "common/testsUtils"
 
 describe("tasksAPI", () => {
     const todolistId = "someTodolistId"

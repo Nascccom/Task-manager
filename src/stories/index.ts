@@ -1,2 +1,2 @@
-export { ReduxStoreProviderDecorator } from "./ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"
-export type { DecoratorState } from "./ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"
+export { ReduxStoreProviderDecorator } from "stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"
+export type { DecoratorState } from "stories/ReduxStoreProviderDecorator/ReduxStoreProviderDecorator"

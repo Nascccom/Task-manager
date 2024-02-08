@@ -1,4 +1,4 @@
-import { mockStore, MockStoreType } from "tests/mockStore"
+import { mockStore, MockStoreType } from "common/testsUtils/mockStore"
 import { ResultCode, TaskPriorities, TaskStatuses } from "common/enums"
 import { tasksAPI, tasksAsyncActions } from "features/TodolistList"
 

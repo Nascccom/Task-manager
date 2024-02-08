@@ -32,6 +32,7 @@ export const EntryField = memo(({ callBack, disabled }: Props) => {
                 onBlur={handleBlur}
                 error={formik.touched.title && !!formik.errors.title}
                 sx={style.inputField(formik)}
+                disabled={disabled}
             />
 
             <IconButton

@@ -34,3 +34,10 @@ export const ErrorColor: Story = {
         color: "error",
     },
 }
+
+export const DisabledButton: Story = {
+    args: {
+        variant: "contained",
+        disabled: true,
+    },
+}

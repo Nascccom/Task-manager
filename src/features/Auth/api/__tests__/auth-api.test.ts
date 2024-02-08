@@ -1,8 +1,8 @@
-import { mockAdapter } from "tests/mockStore"
+import { mockAdapter } from "common/testsUtils/mockStore"
 import { BaseResponse } from "common/types"
 import { ResultCode } from "common/enums"
 import { authAPI, AuthMe, LoginParams } from "features/Auth"
-import { testNetworkError, testRequestError } from "tests/testsUtills"
+import { testNetworkError, testRequestError } from "common/testsUtils"
 
 describe("authAPI", () => {
     const mockResponse: BaseResponse = {

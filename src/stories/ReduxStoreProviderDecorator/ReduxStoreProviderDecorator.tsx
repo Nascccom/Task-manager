@@ -8,6 +8,8 @@ import { configureStore } from "@reduxjs/toolkit"
 import { TaskPriorities, TaskStatuses } from "common/enums"
 import { authReducer } from "features/Auth"
 
+const todolistId1 = "todolistId1"
+const todolistId2 = "todolistId2"
 const initialGlobalState: AppRootState = {
     app: {
         isInitialized: true,
@@ -16,17 +18,24 @@ const initialGlobalState: AppRootState = {
     },
     todolists: [
         {
-            id: "todolistId1",
+            id: todolistId1,
             title: "What to learn? We want to get quite long text for todolist for refactoring",
             filter: "All",
             addedDate: "",
             order: 0,
             entityStatus: "idle",
         },
-        { id: "todolistId2", title: "What to buy", filter: "All", addedDate: "", order: 0, entityStatus: "idle" },
+        {
+            id: todolistId2,
+            title: "What to buy",
+            filter: "All",
+            addedDate: "",
+            order: 0,
+            entityStatus: "idle",
+        },
     ],
     tasks: {
-        ["todolistId1"]: [
+        [todolistId1]: [
             {
                 id: "1",
                 title: "HTML&CSS",
@@ -36,7 +45,7 @@ const initialGlobalState: AppRootState = {
                 priority: TaskPriorities.Hi,
                 startDate: "",
                 deadline: "",
-                todoListId: "todolistId1",
+                todoListId: todolistId1,
                 order: 0,
                 addedDate: "",
             },
@@ -49,12 +58,12 @@ const initialGlobalState: AppRootState = {
                 priority: TaskPriorities.Hi,
                 startDate: "",
                 deadline: "",
-                todoListId: "todolistId1",
+                todoListId: todolistId1,
                 order: 0,
                 addedDate: "",
             },
         ],
-        ["todolistId2"]: [
+        [todolistId2]: [
             {
                 id: "3",
                 title: "Milk",
@@ -64,7 +73,7 @@ const initialGlobalState: AppRootState = {
                 priority: TaskPriorities.Hi,
                 startDate: "",
                 deadline: "",
-                todoListId: "todolistId2",
+                todoListId: todolistId2,
                 order: 0,
                 addedDate: "",
             },
@@ -77,7 +86,7 @@ const initialGlobalState: AppRootState = {
                 priority: TaskPriorities.Hi,
                 startDate: "",
                 deadline: "",
-                todoListId: "todolistId2",
+                todoListId: todolistId2,
                 order: 0,
                 addedDate: "",
             },
