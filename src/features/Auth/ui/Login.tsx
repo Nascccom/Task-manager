@@ -1,10 +1,11 @@
 import React, { memo } from "react"
 import Grid from "@mui/material/Grid"
 import { Navigate } from "react-router-dom"
-import { LoginForm, useLogin } from "features/Auth"
+import { authSelectors, LoginForm } from "features/Auth"
+import { useAppSelector } from "common/hooks"
 
 export const Login = memo(() => {
-    const { formik, isLoggedIn, captchaUrl } = useLogin()
+    const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
 
     if (isLoggedIn) {
         return <Navigate to={"/"} />
@@ -12,17 +13,7 @@ export const Login = memo(() => {
 
     return (
         <Grid container justifyContent={"center"}>
-            <Grid item>
-                <LoginForm
-                    handleSubmit={formik.handleSubmit}
-                    getFieldProps={formik.getFieldProps}
-                    values={formik.values}
-                    touched={formik.touched}
-                    errors={formik.errors}
-                    isValid={formik.isValid}
-                    captchaUrl={captchaUrl}
-                />
-            </Grid>
+            <LoginForm />
         </Grid>
     )
 })

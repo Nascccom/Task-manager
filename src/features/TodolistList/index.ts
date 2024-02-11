@@ -6,11 +6,11 @@ import { tasksAPI } from "./api/tasks-api"
 import type { TasksState, TasksRootActions } from "./model/taskSlice"
 import type { TodolistDomain, FilterValues } from "./model/todolistsSlice"
 import { TodolistList } from "./ui/TodolistList"
-import { Todolist } from "./ui/Todolist/ToDoList"
-import { Task } from "features/TodolistList/ui/Todolist/Tasks/Task/Task"
-import { FilterTasksButtons } from "features/TodolistList/ui/Todolist/FilterTaskButtons/FilterTasksButtons"
+import { Todolist } from "./ui/Todolist/Todolist"
+import { Task } from "./ui/Todolist/Tasks/Task/Task"
+import { FilterTasksButtons } from "./ui/Todolist/FilterTaskButtons/FilterTasksButtons"
 import { Tasks } from "./ui/Todolist/Tasks/Tasks"
-import { TodolistTitle } from "features/TodolistList/ui/Todolist/TodolistTitle/TodolistTitle"
+import { TodolistTitle } from "./ui/Todolist/TodolistTitle/TodolistTitle"
 
 const tasksReducer = tasksSlice.tasksReducer
 const todolistsReducer = todolistsSlice.todolistsReducer

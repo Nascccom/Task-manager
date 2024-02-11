@@ -1,17 +1,16 @@
 import * as React from "react"
 import Snackbar from "@mui/material/Snackbar"
 import MuiAlert, { AlertProps } from "@mui/material/Alert"
-import { useActions, useAppSelector } from "common/hooks"
-import { appAsyncActions } from "app/appSlice"
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
 })
 
-export const ErrorSnackbars = () => {
-    const error = useAppSelector<string | null>((state) => state.app.error)
-    const { setErrorMessage } = useActions(appAsyncActions)
-
+type Props = {
+    error: string | null
+    setErrorMessage: (p: { error: null }) => void
+}
+export const ErrorSnackbars = ({ error, setErrorMessage }: Props) => {
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === "clickaway") {
             return

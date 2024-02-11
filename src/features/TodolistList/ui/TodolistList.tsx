@@ -9,7 +9,7 @@ import { Scrollbar } from "react-scrollbars-custom"
 import { style } from "./style"
 
 type Props = {
-    demo: boolean
+    demo?: boolean
 }
 
 export const TodolistList = ({ demo }: Props) => {

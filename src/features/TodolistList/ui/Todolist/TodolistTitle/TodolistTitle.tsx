@@ -2,13 +2,15 @@ import React, { memo, useCallback } from "react"
 import { DeleteIconButtonCustom, EditableSpan } from "common/components"
 import s from "./TodolistTitle.module.css"
 import { useActions } from "common/hooks"
-import { TodolistDomain, todolistsAsyncActions } from "features/TodolistList"
+import { todolistsAsyncActions } from "features/TodolistList"
+import { RequestStatus } from "app/appSlice"
 
 type Props = {
-    todolist: TodolistDomain
+    todolistId: string
+    title: string
+    entityStatus: RequestStatus
 }
-export const TodolistTitle = memo(({ todolist }: Props) => {
-    const { id: todolistId, title, entityStatus } = todolist
+export const TodolistTitle = memo(({ todolistId, title, entityStatus }: Props) => {
     const { removeTodolist, updateTodolistTitle } = useActions(todolistsAsyncActions)
 
     const removeTodolistCallback = useCallback(() => {

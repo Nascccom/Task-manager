@@ -1,6 +1,6 @@
 import { CreateTask, todolistAPI, TodolistType } from "features/TodolistList"
-import { mockAdapter } from "tests/mockStore"
-import { generateUrl, testNetworkError, testRequestError } from "tests/testsUtills"
+import { mockAdapter } from "common/testsUtils/mockStore"
+import { generateUrl, testNetworkError, testRequestError } from "common/testsUtils"
 import { BaseResponse } from "common/types"
 import { ResultCode } from "common/enums"
 

@@ -1,3 +1,4 @@
-.errorField {
-    color: var(--errorColor)
+.form {
+    display: flex;
+    flex-direction: column;
 }

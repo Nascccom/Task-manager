@@ -1,10 +1,11 @@
 import React, { useEffect } from "react"
 import { useActions, useAppSelector } from "common/hooks"
-import { ErrorSnackbars, LinearProgressComponent, Preloader } from "common/components"
+import { LinearProgressComponent, Preloader } from "common/components"
 import { selectIsInitialized } from "app/selectors"
 import { authAsyncActions } from "features/Auth"
 import { Header } from "features/Header"
 import { Routing } from "features/Routing"
+import { ErrorWrapper } from "features/ErrorWrapper"
 
 type Props = {
     demo?: boolean
@@ -32,7 +33,7 @@ export function App({ demo = false }: Props) {
 
             <Routing demo={demo} />
 
-            <ErrorSnackbars />
+            <ErrorWrapper />
         </div>
     )
 }

@@ -10,7 +10,7 @@ type Props = {
 }
 
 export const Todolist = memo(({ todolist }: Props) => {
-    const { id: todolistId, entityStatus, filter: activeFilter } = todolist
+    const { id: todolistId, entityStatus, filter: activeFilter, title } = todolist
     const { addTask } = useActions(tasksAsyncActions)
 
     const addTaskCallback = useCallback(
@@ -22,7 +22,7 @@ export const Todolist = memo(({ todolist }: Props) => {
 
     return (
         <Paper className={s.todolist}>
-            <TodolistTitle todolist={todolist} />
+            <TodolistTitle todolistId={todolistId} title={title} entityStatus={entityStatus} />
             <EntryField callBack={addTaskCallback} disabled={entityStatus === "loading"} />
             <Tasks activeFilter={activeFilter} todoEntityStatus={entityStatus} todolistId={todolistId} />
 
