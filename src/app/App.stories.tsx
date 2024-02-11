@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { ReduxStoreProviderDecorator } from "stories"
+import { ReduxStoreProviderDecorator } from "stories/index"
 import React from "react"
 import { Header } from "features/Header"
 import LinearProgress from "@mui/material/LinearProgress"

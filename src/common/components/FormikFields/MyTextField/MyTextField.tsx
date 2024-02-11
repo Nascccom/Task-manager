@@ -13,7 +13,7 @@ export const MyTextField = ({ label, name, ...props }: Props) => {
     const [field, meta] = useField(name)
     return (
         <>
-            <TextField label={label} margin='normal' {...field} {...props} />
+            <TextField label={label} margin='normal' {...field} {...props} className={s.errorField} />
             {meta.touched && meta.error ? <div className={s.errorField}>{meta.error}</div> : null}
         </>
     )

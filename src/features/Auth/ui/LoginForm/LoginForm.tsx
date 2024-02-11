@@ -6,29 +6,13 @@ import { Captcha, captchaSelectors } from "features/Captcha"
 import { useActions, useAppSelector } from "common/hooks"
 import React from "react"
 import Button from "@mui/material/Button"
+import s from "./LoginForm.module.css"
+import { validationSchema } from "features/Auth"
 
-type FormikError = Partial<Omit<LoginParams, "captcha">>
 export const LoginFormInitialValues: LoginParams = {
     email: "",
     password: "",
     rememberMe: false,
-}
-
-const validationSchema = (values: LoginParams) => {
-    const errors: FormikError = {}
-
-    if (!values.email) {
-        errors.email = "Email is required"
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = "Invalid email address"
-    }
-
-    if (!values.password) {
-        errors.password = "Password is required"
-    } else if (values.password.length < 4) {
-        errors.password = "Password must be more 3 symbols"
-    }
-    return errors
 }
 
 export const LoginForm = () => {
@@ -49,12 +33,12 @@ export const LoginForm = () => {
                     })
             }}>
             {(props: FormikProps<LoginParams>) => (
-                <Form>
+                <Form className={s.form}>
                     <FormInfo />
 
                     <MyTextField name='email' type='email' label='Email' />
                     <MyTextField name='password' type='password' label='Password' />
-                    <MyCheckbox name='Remember me' />
+                    <MyCheckbox name='rememberMe' label='Remember me' />
 
                     {captchaUrl && <Captcha captchaUrl={captchaUrl} label='Captcha' />}
 

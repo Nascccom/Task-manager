@@ -5,7 +5,7 @@ import { Login } from "features/Auth"
 import Container from "@mui/material/Container"
 
 type Props = {
-    demo: boolean
+    demo?: boolean
 }
 export const Routing = ({ demo }: Props) => {
     return (

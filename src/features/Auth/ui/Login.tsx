@@ -13,9 +13,7 @@ export const Login = memo(() => {
 
     return (
         <Grid container justifyContent={"center"}>
-            <Grid item>
-                <LoginForm />
-            </Grid>
+            <LoginForm />
         </Grid>
     )
 })

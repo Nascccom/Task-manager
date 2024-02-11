@@ -1,7 +1,7 @@
 import React from "react"
 import TextField from "@mui/material/TextField"
 import { useField } from "formik"
-import s from "features/Auth/ui/LoginForm/LoginForm.module.css"
+import s from "common/components/FormikFields/FormikFields.module.css"
 
 type Props = {
     label: string

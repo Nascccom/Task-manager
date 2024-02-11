@@ -6,13 +6,14 @@ import { FormControlLabel } from "@mui/material"
 
 type Props = {
     name: string
+    label: string
 }
 
-export const MyCheckbox = ({ name, ...props }: Props) => {
+export const MyCheckbox = ({ name, label, ...props }: Props) => {
     const [field, meta] = useField({ name, type: "checkbox" })
     return (
         <>
-            <FormControlLabel label={name} {...field} {...props} control={<Checkbox checked={field.checked} />} />
+            <FormControlLabel label={label} {...field} {...props} control={<Checkbox />} />
             {meta.touched && meta.error ? <div className={s.errorField}>{meta.error}</div> : null}
         </>
     )
