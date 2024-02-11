@@ -14,8 +14,10 @@ export const LoginFormInitialValues: LoginParams = {
     password: "",
     rememberMe: false,
 }
-
-export const LoginForm = () => {
+type Props = {
+    demo?: boolean
+}
+export const LoginForm = ({ demo }: Props) => {
     const captchaUrl = useAppSelector(captchaSelectors.selectCaptchaUrl)
     const { login } = useActions(authAsyncActions)
 
@@ -24,13 +26,15 @@ export const LoginForm = () => {
             initialValues={LoginFormInitialValues}
             validate={validationSchema}
             onSubmit={(values, formikHelpers: FormikHelpers<LoginParams>) => {
-                login(values)
-                    .unwrap()
-                    .catch((err: BaseResponse) => {
-                        err.fieldsErrors?.forEach((fieldError) => {
-                            formikHelpers.setFieldError(fieldError.field, fieldError.error)
+                if (!demo) {
+                    login(values)
+                        .unwrap()
+                        .catch((err: BaseResponse) => {
+                            err.fieldsErrors?.forEach((fieldError) => {
+                                formikHelpers.setFieldError(fieldError.field, fieldError.error)
+                            })
                         })
-                    })
+                }
             }}>
             {(props: FormikProps<LoginParams>) => (
                 <Form className={s.form}>
@@ -40,7 +44,7 @@ export const LoginForm = () => {
                     <MyTextField name='password' type='password' label='Password' />
                     <MyCheckbox name='rememberMe' label='Remember me' />
 
-                    {captchaUrl && <Captcha captchaUrl={captchaUrl} label='Captcha' />}
+                    {captchaUrl && <Captcha captchaUrl={captchaUrl} />}
 
                     <Button type={"submit"} variant={"contained"} color={"primary"} disabled={!props.isValid}>
                         Login

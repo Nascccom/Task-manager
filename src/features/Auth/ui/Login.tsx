@@ -4,7 +4,10 @@ import { Navigate } from "react-router-dom"
 import { authSelectors, LoginForm } from "features/Auth"
 import { useAppSelector } from "common/hooks"
 
-export const Login = memo(() => {
+type Props = {
+    demo?: boolean
+}
+export const Login = memo(({ demo }: Props) => {
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
 
     if (isLoggedIn) {
@@ -13,7 +16,7 @@ export const Login = memo(() => {
 
     return (
         <Grid container justifyContent={"center"}>
-            <LoginForm />
+            <LoginForm demo={demo} />
         </Grid>
     )
 })
