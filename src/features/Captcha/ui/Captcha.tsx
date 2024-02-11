@@ -4,16 +4,15 @@ import { useField } from "formik"
 import s from "common/components/FormikFields/FormikFields.module.css"
 
 type Props = {
-    label: string
     captchaUrl: string
 }
-export const Captcha = ({ captchaUrl, label, ...props }: Props) => {
-    const [field, meta] = useField(label)
+export const Captcha = ({ captchaUrl, ...props }: Props) => {
+    const [field, meta] = useField("captcha")
 
     return (
         <>
             <img src={captchaUrl} alt='Captcha' />
-            <TextField type='text' label={label} margin='normal' {...field} {...props} />
+            <TextField type='text' label='Captcha' margin='normal' {...field} {...props} />
             {meta.touched && meta.error ? <div className={s.errorField}>{meta.error}</div> : null}
         </>
     )
